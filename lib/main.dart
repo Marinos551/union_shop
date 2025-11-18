@@ -187,20 +187,23 @@ class HomeScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text(
-                          'Welcome to the Union Shop',
-                          style: TextStyle(
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            height: 1.2,
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'Welcome to the Union Shop',
+                            style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width < 400 ? 24 : 32,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              height: 1.2,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 16),
-                        const Text(
+                        Text(
                           "Official merch, gifts, and essentials for Portsmouth students.",
                           style: TextStyle(
-                            fontSize: 20,
+                            fontSize: MediaQuery.of(context).size.width < 400 ? 16 : 20,
                             color: Colors.white,
                             height: 1.5,
                           ),
