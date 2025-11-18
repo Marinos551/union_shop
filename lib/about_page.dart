@@ -49,6 +49,17 @@ class AboutPage extends StatelessWidget {
               'Email: support@unionshop.com\nPhone: +44 123 456 7890\nLocation: Student Union Building, Campus',
               style: TextStyle(fontSize: 16),
             ),
+            const SizedBox(height: 32),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              color: Colors.grey[50],
+              child: const Text(
+                '© 2025 Union Shop. All rights reserved.',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey),
+              ),
+            ),
           ],
         ),
       ),
