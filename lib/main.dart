@@ -271,8 +271,8 @@ class HomeScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 24,
+                  crossAxisSpacing: MediaQuery.of(context).size.width > 600 ? 16 : 12,
+                  mainAxisSpacing: MediaQuery.of(context).size.width > 600 ? 24 : 20,
                   children: const [
                     ProductCard(
                       title: 'University Hoodie',
