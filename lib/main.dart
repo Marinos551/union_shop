@@ -16,9 +16,7 @@ class UnionShopApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
       ),
-      home: const HomeScreen(),
-      initialRoute: '/',
-      routes: {'/product': (context) => const ProductPage()},
+  home: const HomeScreen(),
     );
   }
 }
@@ -268,7 +266,7 @@ class HomeScreen extends StatelessWidget {
             Container(
               color: Colors.white,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: GridView.count(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -277,24 +275,28 @@ class HomeScreen extends StatelessWidget {
                   mainAxisSpacing: 24,
                   children: const [
                     ProductCard(
-                      title: 'Portsmouth City Hoodie',
-                      price: '£35.00',
-                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityHoodie_1024x1024@2x.jpg?v=1752230282',
+                      title: 'University Hoodie',
+                      price: '£39.99',
+                      imageUrl: 'https://imgs.search.brave.com/17CbSojjUr5UKrQgHGAwDIqo2PSUw8-RRGKSaZq5Di8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jb3J0/ZWl6c3RvcmUuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIz/LzA0L0NvcnRlaXot/QWxjYXRyYXotSG9v/ZGllLUJsYWNrLnBu/Zw',
+                      description: 'Premium cotton blend hoodie with brushed interior, kangaroo pocket and double-layered hood.',
                     ),
                     ProductCard(
-                      title: 'Union Shop Mug',
-                      price: '£8.50',
-                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/UnionShopMug_1024x1024@2x.jpg?v=1752230282',
+                      title: 'Laptop/Ipad bag',
+                      price: '£25.00',
+                      imageUrl: 'https://imgs.search.brave.com/cJeRnmjPSoNqk2W0i_QvXtWqh1ALN3IS7wO8eejPrMw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNjUv/NDYxLzQxNC9zbWFs/bC90aGUtbGFwdG9w/LWJhZy1pcy1tYWRl/LWZyb20tZGFyay1i/cm93bi1sZWF0aGVy/LXBob3RvLmpwZw',
+                      description: 'Compact and padded laptop bag with internal sleeve and organiser pockets.',
                     ),
                     ProductCard(
-                      title: 'Student Notebook',
-                      price: '£12.00',
-                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/StudentNotebook_1024x1024@2x.jpg?v=1752230282',
+                      title: 'University hat',
+                      price: '£9.00',
+                      imageUrl: 'https://imgs.search.brave.com/7H7Liub0s8B_d3axOl56aAH70E_fIM0Lz4dTLM7iYj8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG5h/Lmx5c3RpdC5jb20v/MzAwLzM3NS90ci9w/aG90b3MvcnVlbGFs/YS80NGI3YzRkNC9n/dWNjaS1Ccm93bi1P/cmlnaW5hbC1HZy1X/ZWItQ2FudmFzLUJh/c2ViYWxsLUhhdC5q/cGVn',
+                      description: 'Classic cap with embroidered university logo — adjustable fit.',
                     ),
                     ProductCard(
-                      title: 'University Cap',
-                      price: '£18.00',
-                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/UniversityCap_1024x1024@2x.jpg?v=1752230282',
+                      title: 'University pencil Case',
+                      price: '£13.00',
+                      imageUrl: 'https://imgs.search.brave.com/TrHleLQX3gbz9BISQnYdHTpx2CFaknXNcYKFpnXorkI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/NTU1MjQyMi9waG90/by9wZW5jaWxzLWlu/LWNhc2UtaXNvbGF0/ZWQtb24td2hpdGUt/YmFja2dyb3VuZC5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/MzJtVkU4MWRKMy1p/aXBfR1F0UGtETko3/a0dBNXNwdzJRa0lV/cXljRmd5ST0',
+                      description: 'Durable canvas pencil case with zip closure and inner organisers.',
                     ),
                   ],
                 ),
@@ -350,19 +352,31 @@ class ProductCard extends StatelessWidget {
   final String title;
   final String price;
   final String imageUrl;
+  final String description;
 
   const ProductCard({
     super.key,
     required this.title,
     required this.price,
     required this.imageUrl,
+    required this.description,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/product');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductPage(
+              title: title,
+              price: price,
+              imageUrl: imageUrl,
+              description: description,
+            ),
+          ),
+        );
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -394,6 +408,13 @@ class ProductCard extends StatelessWidget {
               Text(
                 price,
                 style: const TextStyle(fontSize: 13, color: Colors.grey),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                description,
+                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
