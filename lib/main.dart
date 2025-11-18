@@ -146,7 +146,9 @@ class HomeScreen extends StatelessWidget {
                                     minWidth: 32,
                                     minHeight: 32,
                                   ),
-                                  onPressed: placeholderCallbackForButtons,
+                                  onPressed: () {
+                                    Navigator.pushNamed(context, '/about');
+                                  },
                                 ),
                               ],
                             ),
