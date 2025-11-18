@@ -24,6 +24,18 @@ class AboutPage extends StatelessWidget {
               'Your trusted campus store for official university merchandise and essentials.',
               style: TextStyle(fontSize: 16),
             ),
+            const SizedBox(height: 24),
+
+            // Our Story section
+            const Text(
+              'Our Story',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Founded in 2010, Union Shop has been serving students with quality university merchandise and daily essentials.',
+              style: TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
