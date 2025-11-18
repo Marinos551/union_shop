@@ -304,13 +304,36 @@ class HomeScreen extends StatelessWidget {
               width: double.infinity,
               color: Colors.grey[50],
               padding: const EdgeInsets.all(24),
-              child: const Text(
-                'Placeholder Footer',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Contact us: support@unionshop.com | +44 123 456 7890',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Icons.facebook, color: Colors.grey),
+                      SizedBox(width: 16),
+                      Icon(Icons.share, color: Colors.grey),
+                      SizedBox(width: 16),
+                      Icon(Icons.camera_alt, color: Colors.grey),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    '© 2025 Union Shop. All rights reserved.',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
