@@ -10,8 +10,22 @@ class AboutPage extends StatelessWidget {
         title: const Text('About Us'),
         backgroundColor: const Color(0xFF4d2963),
       ),
-      body: const Center(
-        child: Text('About Us Page - Content coming soon'),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'About Union Shop',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Your trusted campus store for official university merchandise and essentials.',
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }
