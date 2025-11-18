@@ -36,6 +36,19 @@ class AboutPage extends StatelessWidget {
               'Founded in 2010, Union Shop has been serving students with quality university merchandise and daily essentials.',
               style: TextStyle(fontSize: 16),
             ),
+            const SizedBox(height: 24),
+
+            // Contact section
+            const SizedBox(height: 24),
+            const Text(
+              'Contact Us',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text(
+              'Email: support@unionshop.com\nPhone: +44 123 456 7890\nLocation: Student Union Building, Campus',
+              style: TextStyle(fontSize: 16),
+            ),
           ],
         ),
       ),
