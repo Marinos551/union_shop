@@ -262,6 +262,43 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
+            // Products Section
+            Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+                child: GridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 24,
+                  children: const [
+                    ProductCard(
+                      title: 'Portsmouth City Hoodie',
+                      price: '£35.00',
+                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/PortsmouthCityHoodie_1024x1024@2x.jpg?v=1752230282',
+                    ),
+                    ProductCard(
+                      title: 'Union Shop Mug',
+                      price: '£8.50',
+                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/UnionShopMug_1024x1024@2x.jpg?v=1752230282',
+                    ),
+                    ProductCard(
+                      title: 'Student Notebook',
+                      price: '£12.00',
+                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/StudentNotebook_1024x1024@2x.jpg?v=1752230282',
+                    ),
+                    ProductCard(
+                      title: 'University Cap',
+                      price: '£18.00',
+                      imageUrl: 'https://shop.upsu.net/cdn/shop/files/UniversityCap_1024x1024@2x.jpg?v=1752230282',
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
             // Footer
             Container(
               width: double.infinity,
