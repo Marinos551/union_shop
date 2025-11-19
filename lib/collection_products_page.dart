@@ -35,6 +35,18 @@ final List<Product> products = [
     imageUrl: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400',
     category: 'Accessories',
   ),
+  Product(
+    title: 'University T-Shirt',
+    price: '£19.99',
+    imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
+    category: 'Clothing',
+  ),
+  Product(
+    title: 'Student Water Bottle',
+    price: '£12.00',
+    imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400',
+    category: 'Accessories',
+  ),
 ];
 
 class CollectionProductsPage extends StatelessWidget {
