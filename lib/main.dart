@@ -22,6 +22,7 @@ class UnionShopApp extends StatelessWidget {
       home: const HomeScreen(),
       routes: {
         '/about': (context) => const AboutPage(),
+        '/collections': (context) => const CollectionsPage(), // ADD THIS LINE
         // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
       },
     );
