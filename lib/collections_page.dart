@@ -57,8 +57,17 @@ class CollectionsPage extends StatelessWidget {
         title: const Text('Collections'),
         backgroundColor: const Color(0xFF4d2963), // Matches your app theme
       ),
-      body: const Center(
-        child: Text('Collections Page'), // Basic placeholder
+      body: GridView.builder(
+        padding: const EdgeInsets.all(16),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, // 2 columns
+          crossAxisSpacing: 16, // Space between columns
+          mainAxisSpacing: 16, // Space between rows
+        ),
+        itemCount: collections.length, // How many items to show
+        itemBuilder: (context, index) {
+          return _buildCollectionCard(collections[index]); // Build each card
+        },
       ),
     );
   }
