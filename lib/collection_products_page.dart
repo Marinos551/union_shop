@@ -86,7 +86,20 @@ class CollectionProductsPage extends StatelessWidget {
           Container(
             color: Colors.grey[50],
             padding: const EdgeInsets.all(16),
-            child: const Text('Filters will go here'),
+            child: Row(
+              children: [
+                const Text('Sort by:'),
+                const SizedBox(width: 8),
+                DropdownButton<String>(
+                  value: 'Popular',
+                  items: const [
+                    DropdownMenuItem(value: 'Popular', child: Text('Popular')),
+                    DropdownMenuItem(value: 'Price: Low to High', child: Text('Price: Low to High')),
+                  ],
+                  onChanged: (value) {}, // no-op for now
+                ),
+              ],
+            ),
           ),
           Expanded(
             child: GridView.builder(
