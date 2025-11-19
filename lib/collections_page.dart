@@ -33,6 +33,23 @@ class CollectionsPage extends StatelessWidget {
     ),
   ];
 
+  Widget _buildCollectionCard(Collection collection) {
+    return Container(
+      margin: const EdgeInsets.all(8),
+      child: Column(
+        children: [
+          Image.network(
+            collection.imageUrl,
+            height: 150,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+          Text(collection.title),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
