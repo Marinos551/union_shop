@@ -54,36 +54,41 @@ class CollectionsPage extends StatelessWidget {
   ];
 
   Widget _buildCollectionCard(Collection collection) {
-    return Card(
-      elevation: 2, // Adds shadow
-      child: Column(
-        children: [
-          Expanded( // Makes image take available space
-            child: Image.network(
-              collection.imageUrl,
-              fit: BoxFit.cover,
-              width: double.infinity,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.image_not_supported), // Show error icon
-                );
-              },
+    return InkWell(
+      onTap: () {
+        // Handle collection tap - will implement in next commit
+      },
+      child: Card(
+        elevation: 2, // Adds shadow
+        child: Column(
+          children: [
+            Expanded( // Makes image take available space
+              child: Image.network(
+                collection.imageUrl,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    child: const Icon(Icons.image_not_supported), // Show error icon
+                  );
+                },
+              ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Column(
-              children: [
-                Text(
-                  collection.title,
-                  style: const TextStyle(fontWeight: FontWeight.bold), // Bold title
-                ),
-                Text('${collection.itemCount} items'), // Show count
-              ],
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  Text(
+                    collection.title,
+                    style: const TextStyle(fontWeight: FontWeight.bold), // Bold title
+                  ),
+                  Text('${collection.itemCount} items'), // Show count
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
