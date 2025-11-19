@@ -40,6 +40,40 @@ final List<Product> products = [
 class CollectionProductsPage extends StatelessWidget {
   const CollectionProductsPage({super.key});
 
+  Widget _buildProductCard(Product product) {
+    return Card(
+      child: Column(
+        children: [
+          Image.network(
+            product.imageUrl,
+            height: 150,
+            width: double.infinity,
+            fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress == null) return child;
+              return const Center(child: CircularProgressIndicator());
+            },
+            errorBuilder: (context, error, stackTrace) {
+              return Container(
+                color: Colors.grey[300],
+                height: 150,
+                child: const Icon(Icons.image_not_supported),
+              );
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(product.title),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Text(product.price),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,8 +81,18 @@ class CollectionProductsPage extends StatelessWidget {
         title: const Text('Collection Products'),
         backgroundColor: const Color(0xFF4d2963),
       ),
-      body: const Center(
-        child: Text('Collection Products Page'),
+      body: GridView.builder(
+        padding: const EdgeInsets.all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          childAspectRatio: 0.75,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+        ),
+        itemCount: products.length,
+        itemBuilder: (context, index) {
+          return _buildProductCard(products[index]);
+        },
       ),
     );
   }
