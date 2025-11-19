@@ -53,35 +53,38 @@ class CollectionProductsPage extends StatelessWidget {
   const CollectionProductsPage({super.key});
 
   Widget _buildProductCard(Product product) {
-    return Card(
-      child: Column(
-        children: [
-          Image.network(
-            product.imageUrl,
-            height: 150,
-            width: double.infinity,
-            fit: BoxFit.cover,
-            loadingBuilder: (context, child, loadingProgress) {
-              if (loadingProgress == null) return child;
-              return const Center(child: CircularProgressIndicator());
-            },
-            errorBuilder: (context, error, stackTrace) {
-              return Container(
-                color: Colors.grey[300],
-                height: 150,
-                child: const Icon(Icons.image_not_supported),
-              );
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: Text(product.title),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8),
-            child: Text(product.price),
-          ),
-        ],
+    return InkWell(
+      onTap: () {},
+      child: Card(
+        child: Column(
+          children: [
+            Image.network(
+              product.imageUrl,
+              height: 150,
+              width: double.infinity,
+              fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return const Center(child: CircularProgressIndicator());
+              },
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  height: 150,
+                  child: const Icon(Icons.image_not_supported),
+                );
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Text(product.title),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(product.price),
+            ),
+          ],
+        ),
       ),
     );
   }
