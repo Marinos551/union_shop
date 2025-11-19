@@ -41,6 +41,18 @@ class FooterWidget extends StatelessWidget {
               Text('About', style: TextStyle(color: Colors.grey)),
             ],
           ),
+          // Added contact section (as requested)
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text('Contact Us', style: TextStyle(color: Colors.grey)),
+              SizedBox(width: 16),
+              Text('Support', style: TextStyle(color: Colors.grey)),
+              SizedBox(width: 16),
+              Text('FAQ', style: TextStyle(color: Colors.grey)),
+            ],
+          ),
         ],
       ),
     );
