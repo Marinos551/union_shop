@@ -29,6 +29,18 @@ class FooterWidget extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          // Added links row
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text('Home', style: TextStyle(color: Colors.grey)),
+              SizedBox(width: 16),
+              Text('Products', style: TextStyle(color: Colors.grey)),
+              SizedBox(width: 16),
+              Text('About', style: TextStyle(color: Colors.grey)),
+            ],
+          ),
         ],
       ),
     );
