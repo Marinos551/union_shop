@@ -13,7 +13,15 @@ class Collection {
 }
 
 class CollectionsPage extends StatelessWidget {
-  const CollectionsPage({super.key});
+   CollectionsPage({super.key});
+
+  final List<Collection> collections = [
+    Collection(
+      title: 'New Arrivals',
+      imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400',
+      itemCount: 12,
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
