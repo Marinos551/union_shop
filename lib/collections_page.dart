@@ -71,6 +71,10 @@ class CollectionsPage extends StatelessWidget {
                 collection.imageUrl,
                 fit: BoxFit.cover,
                 width: double.infinity,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child; // Image loaded
+                  return const Center(child: CircularProgressIndicator()); // Show spinner
+                },
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     color: Colors.grey[300],
