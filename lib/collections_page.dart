@@ -63,6 +63,12 @@ class CollectionsPage extends StatelessWidget {
               collection.imageUrl,
               fit: BoxFit.cover,
               width: double.infinity,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.image_not_supported), // Show error icon
+                );
+              },
             ),
           ),
           Padding(
