@@ -1,5 +1,17 @@
 import 'package:flutter/material.dart';
 
+class Collection {
+  final String title;
+  final String imageUrl;
+  final int itemCount;
+
+  Collection({
+    required this.title,
+    required this.imageUrl,
+    required this.itemCount,
+  });
+}
+
 class CollectionsPage extends StatelessWidget {
   const CollectionsPage({super.key});
 
