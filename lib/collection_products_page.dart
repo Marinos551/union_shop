@@ -98,6 +98,17 @@ class CollectionProductsPage extends StatelessWidget {
                   ],
                   onChanged: (value) {}, // no-op for now
                 ),
+                const Spacer(),
+                const Text('Filter:'),
+                const SizedBox(width: 8),
+                DropdownButton<String>(
+                  value: 'All Categories',
+                  items: const [
+                    DropdownMenuItem(value: 'All Categories', child: Text('All Categories')),
+                    DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
+                  ],
+                  onChanged: (value) {}, // no-op for now
+                ),
               ],
             ),
           ),
