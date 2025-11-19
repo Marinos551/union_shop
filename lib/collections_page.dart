@@ -21,6 +21,16 @@ class CollectionsPage extends StatelessWidget {
       imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400',
       itemCount: 12,
     ),
+    Collection(
+      title: 'Bestsellers',
+      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
+      itemCount: 8,
+    ),
+    Collection(
+      title: 'Sale Items',
+      imageUrl: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400',
+      itemCount: 15,
+    ),
   ];
 
   @override
