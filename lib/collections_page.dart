@@ -47,7 +47,15 @@ class CollectionsPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Text(collection.title),
+            child: Column(
+              children: [
+                Text(
+                  collection.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold), // Bold title
+                ),
+                Text('${collection.itemCount} items'), // Show count
+              ],
+            ),
           ),
         ],
       ),
