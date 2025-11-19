@@ -53,6 +53,18 @@ class FooterWidget extends StatelessWidget {
               Text('FAQ', style: TextStyle(color: Colors.grey)),
             ],
           ),
+          // Social Media
+          const SizedBox(height: 16),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.facebook, color: Colors.grey),
+              SizedBox(width: 16),
+              Icon(Icons.share, color: Colors.grey),
+              SizedBox(width: 16),
+              Icon(Icons.camera_alt, color: Colors.grey),
+            ],
+          ),
         ],
       ),
     );
