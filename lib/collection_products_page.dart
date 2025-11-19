@@ -124,6 +124,17 @@ class CollectionProductsPage extends StatelessWidget {
                   ],
                   onChanged: (value) {}, // no-op for now
                 ),
+                const SizedBox(width: 16),
+                const Text('Price:'),
+                const SizedBox(width: 8),
+                DropdownButton<String>(
+                  value: 'All Prices',
+                  items: const [
+                    DropdownMenuItem(value: 'All Prices', child: Text('All Prices')),
+                    DropdownMenuItem(value: 'Under £20', child: Text('Under £20')),
+                  ],
+                  onChanged: (value) {}, // no-op for now
+                ),
               ],
             ),
           ),
