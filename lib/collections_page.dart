@@ -54,12 +54,16 @@ class CollectionsPage extends StatelessWidget {
   ];
 
   Widget _buildCollectionCard(Collection collection) {
-    return InkWell(
-      onTap: () {
-        // Handle collection tap - will implement in next commit
-      },
-      child: Card(
-        elevation: 2, // Adds shadow
+    return Card(
+      elevation: 2,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8), // Rounded corners
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8), // Match card corners
+        onTap: () {
+          // Handle collection tap - will implement in next commit
+        },
         child: Column(
           children: [
             Expanded( // Makes image take available space
