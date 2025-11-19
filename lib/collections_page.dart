@@ -110,10 +110,11 @@ class CollectionsPage extends StatelessWidget {
       ),
       body: GridView.builder(
         padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, // 2 columns
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // 3 cols on tablet, 2 on phone
           crossAxisSpacing: 16, // Space between columns
           mainAxisSpacing: 16, // Space between rows
+          childAspectRatio: 0.8, // Better card proportions
         ),
         itemCount: collections.length, // How many items to show
         itemBuilder: (context, index) {
