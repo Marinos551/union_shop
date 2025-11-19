@@ -22,7 +22,7 @@ class UnionShopApp extends StatelessWidget {
       home: const HomeScreen(),
       routes: {
         '/about': (context) => const AboutPage(),
-        '/collections': (context) => const CollectionsPage(), // ADD THIS LINE
+        '/collections': (context) =>  CollectionsPage(), // ADD THIS LINE
         // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
       },
     );
@@ -223,7 +223,7 @@ class HomeScreen extends StatelessWidget {
                         const SizedBox(height: 32),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/collections');
+                            Navigator.pushNamed(context, '/collections'); // ✅ This works!
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: const Color(0xFF6A1B9A),
