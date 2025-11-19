@@ -34,17 +34,21 @@ class CollectionsPage extends StatelessWidget {
   ];
 
   Widget _buildCollectionCard(Collection collection) {
-    return Container(
-      margin: const EdgeInsets.all(8),
+    return Card(
+      elevation: 2, // Adds shadow
       child: Column(
         children: [
-          Image.network(
-            collection.imageUrl,
-            height: 150,
-            width: double.infinity,
-            fit: BoxFit.cover,
+          Expanded( // Makes image take available space
+            child: Image.network(
+              collection.imageUrl,
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
           ),
-          Text(collection.title),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Text(collection.title),
+          ),
         ],
       ),
     );
