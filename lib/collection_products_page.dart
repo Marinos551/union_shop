@@ -109,7 +109,9 @@ class CollectionProductsPage extends StatelessWidget {
                   value: 'Popular',
                   items: const [
                     DropdownMenuItem(value: 'Popular', child: Text('Popular')),
+                    DropdownMenuItem(value: 'Newest', child: Text('Newest')),
                     DropdownMenuItem(value: 'Price: Low to High', child: Text('Price: Low to High')),
+                    DropdownMenuItem(value: 'Price: High to Low', child: Text('Price: High to Low')),
                   ],
                   onChanged: (value) {}, // no-op for now
                 ),
