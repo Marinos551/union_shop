@@ -59,46 +59,59 @@ class CollectionsPage extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8), // Rounded corners
       ),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8), // Match card corners
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Opening ${collection.title}')), // Temporary feedback
+      child: Builder(
+        builder: (BuildContext context) {
+          return InkWell(
+            borderRadius: BorderRadius.circular(8), // Match card corners
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Opening ${collection.title}')), // Temporary feedback
+              );
+            },
+            child: Column(
+              children: [
+                Expanded( // Makes image take available space
+                  child: Image.network(
+                    collection.imageUrl,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child; // Image loaded
+                      return const Center(child: CircularProgressIndicator()); // Show spinner
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        child: const Icon(Icons.image_not_supported), // Show error icon
+                      );
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
+                    children: [
+                      Text(
+                        collection.title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16, // Slightly larger title
+                        ),
+                      ),
+                      Text(
+                        '${collection.itemCount} items',
+                        style: TextStyle(
+                          color: Colors.grey[600], // Subtle color for secondary info
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           );
         },
-        child: Column(
-          children: [
-            Expanded( // Makes image take available space
-              child: Image.network(
-                collection.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child; // Image loaded
-                  return const Center(child: CircularProgressIndicator()); // Show spinner
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return Container(
-                    color: Colors.grey[300],
-                    child: const Icon(Icons.image_not_supported), // Show error icon
-                  );
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                children: [
-                  Text(
-                    collection.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold), // Bold title
-                  ),
-                  Text('${collection.itemCount} items'), // Show count
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
