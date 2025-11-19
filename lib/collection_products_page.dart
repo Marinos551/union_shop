@@ -82,12 +82,11 @@ class CollectionProductsPage extends StatelessWidget {
         backgroundColor: const Color(0xFF4d2963),
       ),
       body: GridView.builder(
-        padding: const EdgeInsets.all(8),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        padding: const EdgeInsets.all(16),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          childAspectRatio: 0.75,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
         ),
         itemCount: products.length,
         itemBuilder: (context, index) {
