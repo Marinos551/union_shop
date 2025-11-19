@@ -15,6 +15,16 @@ class Product {
   });
 }
 
+// Added sample products list
+final List<Product> products = [
+  Product(
+    title: 'Classic University Hoodie',
+    price: '£39.99',
+    imageUrl: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
+    category: 'Clothing',
+  ),
+];
+
 class CollectionProductsPage extends StatelessWidget {
   const CollectionProductsPage({super.key});
 
