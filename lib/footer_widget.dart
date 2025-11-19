@@ -19,6 +19,16 @@ class FooterWidget extends StatelessWidget {
               fontSize: 14,
             ),
           ),
+          const SizedBox(height: 16),
+          // Quick Links
+          const Text(
+            'Quick Links',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ],
       ),
     );
