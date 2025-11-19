@@ -41,6 +41,16 @@ class CollectionsPage extends StatelessWidget {
       imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400',
       itemCount: 18,
     ),
+    Collection(
+      title: 'Electronics',
+      imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400',
+      itemCount: 10,
+    ),
+    Collection(
+      title: 'Stationery',
+      imageUrl: 'https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?w=400',
+      itemCount: 22,
+    ),
   ];
 
   Widget _buildCollectionCard(Collection collection) {
