@@ -65,6 +65,15 @@ class FooterWidget extends StatelessWidget {
               Icon(Icons.camera_alt, color: Colors.grey),
             ],
           ),
+          // Added copyright
+          const SizedBox(height: 16),
+          const Text(
+            '© 2025 Union Shop. All rights reserved.',
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 12,
+            ),
+          ),
         ],
       ),
     );
