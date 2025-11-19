@@ -62,7 +62,9 @@ class CollectionsPage extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(8), // Match card corners
         onTap: () {
-          // Handle collection tap - will implement in next commit
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Opening ${collection.title}')), // Temporary feedback
+          );
         },
         child: Column(
           children: [
