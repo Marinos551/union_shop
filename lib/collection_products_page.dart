@@ -81,17 +81,28 @@ class CollectionProductsPage extends StatelessWidget {
         title: const Text('Collection Products'),
         backgroundColor: const Color(0xFF4d2963),
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 16,
-          mainAxisSpacing: 16,
-        ),
-        itemCount: products.length,
-        itemBuilder: (context, index) {
-          return _buildProductCard(products[index]);
-        },
+      body: Column(
+        children: [
+          Container(
+            color: Colors.grey[50],
+            padding: const EdgeInsets.all(16),
+            child: const Text('Filters will go here'),
+          ),
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 16,
+                mainAxisSpacing: 16,
+              ),
+              itemCount: products.length,
+              itemBuilder: (context, index) {
+                return _buildProductCard(products[index]);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
