@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
+import 'package:union_shop/footer_widget.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -20,6 +21,7 @@ class UnionShopApp extends StatelessWidget {
       home: const HomeScreen(),
       routes: {
         '/about': (context) => const AboutPage(),
+        // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
       },
     );
   }
@@ -28,8 +30,9 @@ class UnionShopApp extends StatelessWidget {
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+  // Fix: return to the first route instead of pushing a named '/'
   void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+    Navigator.popUntil(context, (route) => route.isFirst);
   }
 
   void navigateToProduct(BuildContext context) {
@@ -180,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.black.withValues(alpha: 0.7),
+                          color: Colors.black.withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -309,42 +312,10 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Footer
-            Container(
-              width: double.infinity,
-              color: Colors.grey[50],
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Contact us: support@unionshop.com | +44 123 456 7890',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Icons.facebook, color: Colors.grey),
-                      SizedBox(width: 16),
-                      Icon(Icons.share, color: Colors.grey),
-                      SizedBox(width: 16),
-                      Icon(Icons.camera_alt, color: Colors.grey),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    '© 2025 Union Shop. All rights reserved.',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
+            // Footer: moved back into the scroll view
+            SizedBox(
+              height: 260, // adjust for your footer size
+              child: const FooterWidget(),
             ),
             ],
           ),
