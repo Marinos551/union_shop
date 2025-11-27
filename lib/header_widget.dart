@@ -153,7 +153,9 @@ class HeaderWidget extends StatelessWidget {
                           minWidth: 32,
                           minHeight: 32,
                         ),
-                        onPressed: placeholderCallback,
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/auth');
+                        },
                       ),
                       IconButton(
                         icon: const Icon(
