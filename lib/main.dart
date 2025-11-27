@@ -103,11 +103,10 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const SizedBox(width: 24),
-                          // Navigation Links
+                          // Navigation Links (Centered)
                           Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 TextButton(
                                   onPressed: () => navigateToHome(context),
