@@ -226,7 +226,7 @@ class SaleCollectionPage extends StatelessWidget {
               ),
               itemCount: saleProducts.length,
               itemBuilder: (context, index) {
-                return Container(); // Empty container for now
+                return _buildSaleProductCard(saleProducts[index]);
               },
             ),
           ),
