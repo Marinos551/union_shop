@@ -52,7 +52,15 @@ final List<SaleProduct> saleProducts = [
     category: 'Accessories',
     discountPercent: 44,
   ),
-  // NEW PRODUCT WILL BE ADDED HERE
+  // NEW PRODUCT ADDED BELOW
+  SaleProduct(
+    title: 'University Notebook Set',
+    originalPrice: '£12.00',
+    salePrice: '£7.99',
+    imageUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400',
+    category: 'Stationery',
+    discountPercent: 33,
+  ),
 ];
 class SaleCollectionPage extends StatelessWidget {
   const SaleCollectionPage({super.key});
