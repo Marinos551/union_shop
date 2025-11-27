@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
+import 'package:union_shop/footer_widget.dart';
 
 class Collection {
   final String title;
@@ -120,13 +121,15 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // Header
-          const HeaderWidget(),
-          // Collections Grid
-          Expanded(
-            child: GridView.builder(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Header
+            const HeaderWidget(),
+            // Collections Grid
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(16),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // 3 cols on tablet, 2 on phone
@@ -139,8 +142,10 @@ class CollectionsPage extends StatelessWidget {
                 return _buildCollectionCard(collections[index]); // Build each card
               },
             ),
-          ),
-        ],
+            // Footer
+            const FooterWidget(),
+          ],
+        ),
       ),
     );
   }
