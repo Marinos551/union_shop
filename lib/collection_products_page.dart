@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/product_page.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/models/collection_model.dart';
 import 'package:union_shop/data/collections_data.dart';
@@ -53,10 +54,14 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(
+        Navigator.push(
           context,
-          '/product',
-          arguments: product.id,
+          MaterialPageRoute(
+            builder: (context) => ProductPage(),
+            settings: RouteSettings(
+              arguments: {'productId': product.id},
+            ),
+          ),
         );
       },
       child: Card(
