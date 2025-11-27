@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
+import 'package:union_shop/footer_widget.dart';
 
 class SaleProduct {
   final String title;
@@ -174,48 +175,50 @@ class SaleCollectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // Header
-          const HeaderWidget(),
-          // Promotional header
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            color: Colors.red[50],
-            child: Column(
-              children: [
-                const Text(
-                  'SALE',
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Header
+            const HeaderWidget(),
+            // Promotional header
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(16),
+              color: Colors.red[50],
+              child: Column(
+                children: [
+                  const Text(
+                    'SALE',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.red,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'Limited time offers on selected items',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.red[700],
+                  const SizedBox(height: 8),
+                  Text(
+                    'Limited time offers on selected items',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.red[700],
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          // Product count - automatically updates with new products
-          Container(
-            padding: const EdgeInsets.all(16),
-            child: Text(
-              '${saleProducts.length} sale items', // NOW SHOWS ${saleProducts.length} ITEMS
-              style: const TextStyle(fontWeight: FontWeight.bold),
+            // Product count - automatically updates with new products
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Text(
+                '${saleProducts.length} sale items', // NOW SHOWS ${saleProducts.length} ITEMS
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          // Products grid
-          Expanded(
-            child: GridView.builder(
+            // Products grid
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(16),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // responsive columns
@@ -228,8 +231,10 @@ class SaleCollectionPage extends StatelessWidget {
                 return _buildSaleProductCard(saleProducts[index]);
               },
             ),
-          ),
-        ],
+            // Footer
+            const FooterWidget(),
+          ],
+        ),
       ),
     );
   }
