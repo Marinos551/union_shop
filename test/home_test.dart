@@ -5,6 +5,13 @@ import 'package:union_shop/main.dart';
 void main() {
   group('HomeScreen widget tests', () {
     testWidgets('renders header and browse button', (tester) async {
+      // Ignore network image errors in tests (expected behavior)
+      FlutterError.onError = (details) {
+        if (!details.toString().contains('NetworkImageLoadException')) {
+          FlutterError.presentError(details);
+        }
+      };
+      
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
@@ -16,6 +23,13 @@ void main() {
     });
 
     testWidgets('has featured categories and navigates to Sale page', (tester) async {
+      // Ignore network image errors in tests (expected behavior)
+      FlutterError.onError = (details) {
+        if (!details.toString().contains('NetworkImageLoadException')) {
+          FlutterError.presentError(details);
+        }
+      };
+      
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
@@ -32,6 +46,13 @@ void main() {
     });
 
     testWidgets('contains product cards in the products grid', (tester) async {
+      // Ignore network image errors in tests (expected behavior)
+      FlutterError.onError = (details) {
+        if (!details.toString().contains('NetworkImageLoadException')) {
+          FlutterError.presentError(details);
+        }
+      };
+      
       await tester.pumpWidget(const UnionShopApp());
       await tester.pumpAndSettle();
 
