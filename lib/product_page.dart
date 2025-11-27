@@ -1,27 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/models/product_model.dart';
+import 'package:union_shop/data/collections_data.dart';
 
-class ProductPage extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
-  final String description;
+class ProductPage extends StatefulWidget {
+  const ProductPage({super.key});
 
-  const ProductPage({
-    Key? key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    required this.description,
-  }) : super(key: key);
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
 
-  void placeholderCallbackForButtons() {
-    // This is the event handler for buttons that don't work yet
-  }
+class _ProductPageState extends State<ProductPage> {
+  int _quantity = 1;
+  String? _selectedSize;
+  String? _selectedColor;
 
   @override
   Widget build(BuildContext context) {
+    // Get product ID from route arguments
+    final String productId = ModalRoute.of(context)?.settings.arguments as String? ?? 'p1';
+    
+    // Find the product
+    final Product product = allProducts.firstWhere(
+      (p) => p.id == productId,
+      orElse: () => allProducts.first,
+    );
+
+    // Set default selections
+    _selectedSize ??= product.sizes.isNotEmpty ? product.sizes.first : null;
+    _selectedColor ??= product.colors.isNotEmpty ? product.colors.first : null;
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -36,7 +45,7 @@ class ProductPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Product image
+                  // Product image with sale badge
                   Container(
                     height: 300,
                     width: double.infinity,
@@ -44,42 +53,106 @@ class ProductPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       color: Colors.grey[200],
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) {
-                          return Container(
-                            color: Colors.grey[300],
-                            child: const Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.image_not_supported,
-                                    size: 64,
-                                    color: Colors.grey,
+                    child: Stack(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            product.imageUrl,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                color: Colors.grey[300],
+                                child: const Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(
+                                        Icons.image_not_supported,
+                                        size: 64,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text(
+                                        'Image unavailable',
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    'Image unavailable',
-                                    style: TextStyle(color: Colors.grey),
-                                  ),
-                                ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        if (product.isOnSale)
+                          Positioned(
+                            top: 16,
+                            right: 16,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Text(
+                                '-${product.discountPercentage}% OFF',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          );
-                        },
-                      ),
+                          ),
+                        if (!product.inStock)
+                          Positioned(
+                            top: 16,
+                            left: 16,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                              decoration: BoxDecoration(
+                                color: Colors.grey[800],
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: const Text(
+                                'OUT OF STOCK',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
 
                   const SizedBox(height: 24),
 
+                  // Category badge
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      product.category,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey[700],
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 12),
+
                   // Product name
                   Text(
-                    title,
+                    product.name,
                     style: const TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -90,12 +163,193 @@ class ProductPage extends StatelessWidget {
                   const SizedBox(height: 12),
 
                   // Product price
-                  Text(
-                    price,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFF4d2963),
+                  Row(
+                    children: [
+                      if (product.isOnSale) ...[
+                        Text(
+                          '£${product.salePrice!.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          '£${product.price.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.grey[600],
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ] else
+                        Text(
+                          '£${product.price.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4d2963),
+                          ),
+                        ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  // Stock status
+                  Row(
+                    children: [
+                      Icon(
+                        product.inStock ? Icons.check_circle : Icons.cancel,
+                        size: 16,
+                        color: product.inStock ? Colors.green : Colors.red,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        product.inStock 
+                            ? 'In Stock (${product.stockQuantity} available)'
+                            : 'Out of Stock',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: product.inStock ? Colors.green : Colors.red,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Size selector
+                  if (product.sizes.isNotEmpty) ...[
+                    const Text(
+                      'Size',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      children: product.sizes.map((size) {
+                        return ChoiceChip(
+                          label: Text(size),
+                          selected: _selectedSize == size,
+                          onSelected: (selected) {
+                            setState(() {
+                              _selectedSize = size;
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+
+                  // Color selector
+                  if (product.colors.isNotEmpty) ...[
+                    const Text(
+                      'Color',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      children: product.colors.map((color) {
+                        return ChoiceChip(
+                          label: Text(color),
+                          selected: _selectedColor == color,
+                          onSelected: (selected) {
+                            setState(() {
+                              _selectedColor = color;
+                            });
+                          },
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+
+                  // Quantity selector
+                  const Text(
+                    'Quantity',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove_circle_outline),
+                        onPressed: () {
+                          if (_quantity > 1) {
+                            setState(() {
+                              _quantity--;
+                            });
+                          }
+                        },
+                      ),
+                      Text(
+                        '$_quantity',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add_circle_outline),
+                        onPressed: () {
+                          if (_quantity < product.stockQuantity) {
+                            setState(() {
+                              _quantity++;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Add to Cart button
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: product.inStock ? const Color(0xFF4d2963) : Colors.grey,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      onPressed: product.inStock
+                          ? () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Added $_quantity x ${product.name} to cart'),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                          : null,
+                      child: Text(
+                        product.inStock ? 'Add to Cart' : 'Out of Stock',
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
 
@@ -112,7 +366,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    description,
+                    product.description,
                     style: const TextStyle(
                       fontSize: 16,
                       color: Colors.grey,
