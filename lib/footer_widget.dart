@@ -8,22 +8,22 @@ class FooterWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       color: Colors.grey[50],
-      child: SingleChildScrollView(
+      child: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 'Union Shop - Your Campus Store',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               // Quick Links
-              const Text(
+              Text(
                 'Quick Links',
                 style: TextStyle(
                   color: Colors.black,
@@ -32,10 +32,10 @@ class FooterWidget extends StatelessWidget {
                 ),
               ),
               // Added links row
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text('Home', style: TextStyle(color: Colors.grey)),
                   SizedBox(width: 16),
                   Text('Products', style: TextStyle(color: Colors.grey)),
@@ -44,10 +44,10 @@ class FooterWidget extends StatelessWidget {
                 ],
               ),
               // Added contact section (as requested)
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text('Contact Us', style: TextStyle(color: Colors.grey)),
                   SizedBox(width: 16),
                   Text('Support', style: TextStyle(color: Colors.grey)),
@@ -56,10 +56,10 @@ class FooterWidget extends StatelessWidget {
                 ],
               ),
               // Social Media
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Icon(Icons.facebook, color: Colors.grey),
                   SizedBox(width: 16),
                   Icon(Icons.share, color: Colors.grey),
@@ -68,8 +68,8 @@ class FooterWidget extends StatelessWidget {
                 ],
               ),
               // Added copyright
-              const SizedBox(height: 16),
-              const Text(
+              SizedBox(height: 16),
+              Text(
                 '© 2025 Union Shop. All rights reserved.',
                 style: TextStyle(
                   color: Colors.grey,
