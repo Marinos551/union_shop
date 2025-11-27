@@ -1,90 +1,146 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/models/product_model.dart';
+import 'package:union_shop/models/collection_model.dart';
+import 'package:union_shop/data/collections_data.dart';
 
-// Added Product model here (moved from lib/models/product.dart)
-class Product {
-  final String title;
-  final String price;
-  final String imageUrl;
-  final String category;
-
-  Product({
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    required this.category,
-  });
-}
-
-// Added sample products list
-final List<Product> products = [
-  Product(
-    title: 'Classic University Hoodie',
-    price: '£39.99',
-    imageUrl: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
-    category: 'Clothing',
-  ),
-  Product(
-    title: 'Student Backpack',
-    price: '£25.00',
-    imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
-    category: 'Accessories',
-  ),
-  Product(
-    title: 'University Cap',
-    price: '£9.00',
-    imageUrl: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400',
-    category: 'Accessories',
-  ),
-  Product(
-    title: 'University T-Shirt',
-    price: '£19.99',
-    imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
-    category: 'Clothing',
-  ),
-  Product(
-    title: 'Student Water Bottle',
-    price: '£12.00',
-    imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400',
-    category: 'Accessories',
-  ),
-];
-
-class CollectionProductsPage extends StatelessWidget {
+class CollectionProductsPage extends StatefulWidget {
   const CollectionProductsPage({super.key});
 
-  Widget _buildProductCard(Product product) {
+  @override
+  State<CollectionProductsPage> createState() => _CollectionProductsPageState();
+}
+
+class _CollectionProductsPageState extends State<CollectionProductsPage> {
+  String _sortBy = 'Popular';
+  String _filterCategory = 'All Categories';
+  String _filterPrice = 'All Prices';
+
+  List<Product> _getSortedAndFilteredProducts(List<Product> products) {
+    List<Product> filtered = List.from(products);
+
+    // Apply filters
+    if (_filterCategory != 'All Categories') {
+      filtered = filtered.where((p) => p.category == _filterCategory).toList();
+    }
+
+    if (_filterPrice == 'Under £20') {
+      filtered = filtered.where((p) => p.displayPrice < 20).toList();
+    } else if (_filterPrice == '£20 - £50') {
+      filtered = filtered.where((p) => p.displayPrice >= 20 && p.displayPrice <= 50).toList();
+    } else if (_filterPrice == 'Over £50') {
+      filtered = filtered.where((p) => p.displayPrice > 50).toList();
+    }
+
+    // Apply sorting
+    switch (_sortBy) {
+      case 'Price: Low to High':
+        filtered.sort((a, b) => a.displayPrice.compareTo(b.displayPrice));
+        break;
+      case 'Price: High to Low':
+        filtered.sort((a, b) => b.displayPrice.compareTo(a.displayPrice));
+        break;
+      case 'Name: A-Z':
+        filtered.sort((a, b) => a.name.compareTo(b.name));
+        break;
+      // 'Popular' and 'Newest' use default order
+    }
+
+    return filtered;
+  }
+
+  Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/product',
+          arguments: product.id,
+        );
+      },
       child: Card(
+        elevation: 2,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              product.imageUrl,
-              height: 150,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return const Center(child: CircularProgressIndicator());
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  height: 150,
-                  child: const Icon(Icons.image_not_supported),
-                );
-              },
+            // Product Image with Sale Badge
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+                  child: Image.asset(
+                    product.imageUrl,
+                    height: 150,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        height: 150,
+                        child: const Icon(Icons.image_not_supported),
+                      );
+                    },
+                  ),
+                ),
+                if (product.isOnSale)
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '-${product.discountPercentage}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                if (!product.inStock)
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[800],
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text(
+                        'Out of Stock',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    product.title,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    product.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
                     maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
                   Container(
@@ -98,12 +154,39 @@ class CollectionProductsPage extends StatelessWidget {
                       style: const TextStyle(fontSize: 10, color: Colors.grey),
                     ),
                   ),
+                  const SizedBox(height: 8),
+                  if (product.isOnSale)
+                    Row(
+                      children: [
+                        Text(
+                          '£${product.salePrice!.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          '£${product.price.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey[600],
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                      ],
+                    )
+                  else
+                    Text(
+                      '£${product.price.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
                 ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(product.price),
             ),
           ],
         ),
@@ -113,87 +196,174 @@ class CollectionProductsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get collection ID from route arguments
+    final String collectionId = ModalRoute.of(context)?.settings.arguments as String? ?? 'clothing';
+    
+    // Get collection and products
+    final Collection collection = collections.firstWhere(
+      (c) => c.id == collectionId,
+      orElse: () => collections.first,
+    );
+    final List<Product> collectionProducts = getProductsByCollection(collection.id);
+    final List<Product> displayedProducts = _getSortedAndFilteredProducts(collectionProducts);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             // Header
             const HeaderWidget(),
-            // Sort/Filter Controls
+            // Collection Header
             Container(
-              color: Colors.grey[50],
-              padding: const EdgeInsets.all(16),
+              width: double.infinity,
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: Colors.grey[50],
+              ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    'Collection Products',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Text(
+                    collection.name,
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const SizedBox(height: 8),
+                  Text(
+                    collection.description,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            // Sort/Filter Controls
+            Container(
+              padding: const EdgeInsets.all(16),
+              child: Wrap(
+                spacing: 16,
+                runSpacing: 8,
+                children: [
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Sort by:'),
+                      const Text('Sort:'),
                       const SizedBox(width: 8),
                       DropdownButton<String>(
-                        value: 'Popular',
+                        value: _sortBy,
                         items: const [
                           DropdownMenuItem(value: 'Popular', child: Text('Popular')),
                           DropdownMenuItem(value: 'Newest', child: Text('Newest')),
                           DropdownMenuItem(value: 'Price: Low to High', child: Text('Price: Low to High')),
                           DropdownMenuItem(value: 'Price: High to Low', child: Text('Price: High to Low')),
+                          DropdownMenuItem(value: 'Name: A-Z', child: Text('Name: A-Z')),
                         ],
-                        onChanged: (value) {}, // no-op for now
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() => _sortBy = value);
+                          }
+                        },
                       ),
-                      const Spacer(),
-                      const Text('Filter:'),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text('Category:'),
                       const SizedBox(width: 8),
                       DropdownButton<String>(
-                        value: 'All Categories',
+                        value: _filterCategory,
                         items: const [
                           DropdownMenuItem(value: 'All Categories', child: Text('All Categories')),
                           DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
+                          DropdownMenuItem(value: 'Accessories', child: Text('Accessories')),
+                          DropdownMenuItem(value: 'Stationery', child: Text('Stationery')),
+                          DropdownMenuItem(value: 'Electronics', child: Text('Electronics')),
+                          DropdownMenuItem(value: 'Backpacks', child: Text('Backpacks')),
                         ],
-                        onChanged: (value) {}, // no-op for now
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() => _filterCategory = value);
+                          }
+                        },
                       ),
-                      const SizedBox(width: 16),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
                       const Text('Price:'),
                       const SizedBox(width: 8),
                       DropdownButton<String>(
-                        value: 'All Prices',
+                        value: _filterPrice,
                         items: const [
                           DropdownMenuItem(value: 'All Prices', child: Text('All Prices')),
                           DropdownMenuItem(value: 'Under £20', child: Text('Under £20')),
+                          DropdownMenuItem(value: '£20 - £50', child: Text('£20 - £50')),
+                          DropdownMenuItem(value: 'Over £50', child: Text('Over £50')),
                         ],
-                        onChanged: (value) {}, // no-op for now
+                        onChanged: (value) {
+                          if (value != null) {
+                            setState(() => _filterPrice = value);
+                          }
+                        },
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            Container(
+            // Product Count
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Text(
-                '${products.length} products',
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  '${displayedProducts.length} ${displayedProducts.length == 1 ? 'product' : 'products'}',
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
               ),
             ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(16),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: products.length,
-              itemBuilder: (context, index) {
-                return _buildProductCard(products[index]);
-              },
-            ),
+            // Products Grid
+            displayedProducts.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: Column(
+                      children: [
+                        Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
+                        const SizedBox(height: 16),
+                        Text(
+                          'No products found',
+                          style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Try adjusting your filters',
+                          style: TextStyle(color: Colors.grey[500]),
+                        ),
+                      ],
+                    ),
+                  )
+                : GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(16),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.7,
+                    ),
+                    itemCount: displayedProducts.length,
+                    itemBuilder: (context, index) {
+                      return _buildProductCard(displayedProducts[index], context);
+                    },
+                  ),
             // Footer
             const FooterWidget(),
           ],
