@@ -56,7 +56,7 @@ final List<SaleProduct> saleProducts = [
   SaleProduct(
     title: 'University Notebook Set',
     originalPrice: '£15.00',
-    salePrice: '£7.99',
+    salePrice: '£8.99',
     imageUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400',
     category: 'Stationery',
     discountPercent: 33,
