@@ -49,7 +49,6 @@ final List<SaleProduct> saleProducts = [
 class SaleCollectionPage extends StatelessWidget {
   const SaleCollectionPage({super.key});
 
-  // ignore: unused_element
   Widget _buildSaleProductCard(SaleProduct product) {
     return Card(
       child: Column(
@@ -120,6 +119,18 @@ class SaleCollectionPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+                const SizedBox(height: 4),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    product.category,
+                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                  ),
                 ),
               ],
             ),
