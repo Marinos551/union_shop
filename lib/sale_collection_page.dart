@@ -140,6 +140,9 @@ class SaleCollectionPage extends StatelessWidget {
                 const SizedBox(height: 4),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                  ),
                   child: Text(product.category),
                 ),
               ],
