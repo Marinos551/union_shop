@@ -257,3 +257,175 @@ After this fix, all navigation flows will work:
 - Sale page → Product detail page ✅
 
 Please apply this 2-line change to fix the product page navigation issue."
+
+---
+
+## Prompt 4: Create Authentication UI (Login & Signup Forms)
+
+"Please implement the Authentication UI for my Flutter union shop project. This is a BASIC feature (3%) that requires login and signup forms with **non-functioning** buttons (no backend integration needed at this stage).
+
+**Current Status:**
+- `lib/auth_page.dart` already exists but needs forms implementation
+- Route `/auth` may need to be added to main.dart
+
+### Requirements:
+
+**Acceptance Criteria:**
+- ✅ Login form with email and password fields
+- ✅ Signup/register form with name, email, password, and confirm password fields
+- ✅ Form validation UI (visual only - doesn't need to actually validate)
+- ✅ Submit buttons (non-functioning - just show a SnackBar message)
+- ✅ Toggle/link between login and signup forms
+- ✅ "Forgot Password?" link (dummy - can show SnackBar)
+- ✅ Social login buttons for Google and Facebook (non-functioning - visual only)
+- ✅ Consistent styling with app theme (purple: Color(0xFF4d2963))
+
+### Implementation Specifications:
+
+**File:** `lib/auth_page.dart`
+
+**Layout Structure:**
+1. **Top Section:**
+   - App logo or branding
+   - "Welcome to Union Shop" title
+   - Subtitle based on mode (Login/Signup)
+
+2. **Form Section (Toggle between Login/Signup):**
+   
+   **Login Form:**
+   - Email TextField with email icon
+   - Password TextField with lock icon and visibility toggle
+   - "Remember Me" checkbox (optional)
+   - "Forgot Password?" link
+   - "Login" button
+   - Divider with "OR"
+   - Social login buttons (Google, Facebook icons)
+   - "Don't have an account? Sign Up" link
+
+   **Signup Form:**
+   - Full Name TextField with person icon
+   - Email TextField with email icon
+   - Password TextField with lock icon and visibility toggle
+   - Confirm Password TextField with lock icon
+   - Terms & Conditions checkbox (optional)
+   - "Sign Up" button
+   - Divider with "OR"
+   - Social login buttons (Google, Facebook icons)
+   - "Already have an account? Login" link
+
+**State Management:**
+- Use StatefulWidget
+- Boolean to toggle between login/signup mode
+- TextEditingControllers for all form fields
+- Boolean for password visibility toggles
+
+**Button Behaviors (Non-Functioning):**
+- Login button → Show SnackBar: "Login functionality coming soon!"
+- Sign Up button → Show SnackBar: "Signup functionality coming soon!"
+- Forgot Password link → Show SnackBar: "Password reset coming soon!"
+- Social buttons → Show SnackBar: "Social login coming soon!"
+- Toggle link → Switch between login/signup forms
+
+**Styling Guidelines:**
+- Use consistent padding (16-24px)
+- Purple primary color for buttons: Color(0xFF4d2963)
+- White background with subtle shadows for form container
+- Rounded corners for text fields and buttons (8px)
+- Icons in text fields (email, lock, person)
+- Proper spacing between form elements
+- Mobile-first responsive design
+
+**Form Validation (Visual Only):**
+- Add decorations with hints
+- Error text properties (can remain null for now)
+- Input borders that show purple when focused
+- Optional: Add visual indicators without actual validation
+
+**Navigation:**
+- Add route in main.dart: `'/auth': (context) => const AuthPage()`
+- Make account icon in navbar navigate to auth page
+- After "login/signup" (non-functional), can show SnackBar
+
+### Example Structure:
+
+```dart
+class AuthPage extends StatefulWidget {
+  const AuthPage({super.key});
+
+  @override
+  State<AuthPage> createState() => _AuthPageState();
+}
+
+class _AuthPageState extends State<AuthPage> {
+  bool _isLoginMode = true; // Toggle between login/signup
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+  
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  void _toggleMode() {
+    setState(() {
+      _isLoginMode = !_isLoginMode;
+    });
+  }
+
+  void _handleSubmit() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(_isLoginMode 
+          ? 'Login functionality coming soon!' 
+          : 'Signup functionality coming soon!'),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            children: [
+              // Logo & Title
+              // Form fields based on _isLoginMode
+              // Toggle link
+              // Social buttons
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+```
+
+### Tasks to Complete:
+
+1. ✅ Update `lib/auth_page.dart` with StatefulWidget structure
+2. ✅ Add mode toggle boolean (_isLoginMode)
+3. ✅ Create TextEditingControllers for all fields
+4. ✅ Build login form UI (email, password fields)
+5. ✅ Build signup form UI (name, email, password, confirm password)
+6. ✅ Add password visibility toggles
+7. ✅ Add "Forgot Password?" link with SnackBar
+8. ✅ Add toggle link between login/signup
+9. ✅ Add Login/Signup buttons with SnackBar messages
+10. ✅ Add social login buttons (Google, Facebook - visual only)
+11. ✅ Style forms with consistent branding
+12. ✅ Add route to main.dart for `/auth`
+13. ✅ Link account icon in navbar to auth page
+14. ✅ Test form layout on mobile view
+15. ✅ Test toggling between login and signup modes
+
+### Assets Needed:
+- No images required (use Icons.email, Icons.lock, Icons.person)
+- Optional: Google/Facebook logo icons (can use text or Icon widgets)
+
+### Expected Result:
+A polished authentication page with login and signup forms that toggle smoothly, styled consistently with the app theme. All buttons show appropriate SnackBar messages indicating the feature is coming soon. No actual authentication logic needed at this stage.
+
+Please implement this authentication UI following the specifications above."
