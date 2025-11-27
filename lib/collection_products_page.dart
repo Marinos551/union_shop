@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
+import 'package:union_shop/footer_widget.dart';
 
 // Added Product model here (moved from lib/models/product.dart)
 class Product {
@@ -113,72 +114,74 @@ class CollectionProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          // Header
-          const HeaderWidget(),
-          // Sort/Filter Controls
-          Container(
-            color: Colors.grey[50],
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Collection Products',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    const Text('Sort by:'),
-                    const SizedBox(width: 8),
-                    DropdownButton<String>(
-                      value: 'Popular',
-                      items: const [
-                        DropdownMenuItem(value: 'Popular', child: Text('Popular')),
-                        DropdownMenuItem(value: 'Newest', child: Text('Newest')),
-                        DropdownMenuItem(value: 'Price: Low to High', child: Text('Price: Low to High')),
-                        DropdownMenuItem(value: 'Price: High to Low', child: Text('Price: High to Low')),
-                      ],
-                      onChanged: (value) {}, // no-op for now
-                    ),
-                    const Spacer(),
-                    const Text('Filter:'),
-                    const SizedBox(width: 8),
-                    DropdownButton<String>(
-                      value: 'All Categories',
-                      items: const [
-                        DropdownMenuItem(value: 'All Categories', child: Text('All Categories')),
-                        DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
-                      ],
-                      onChanged: (value) {}, // no-op for now
-                    ),
-                    const SizedBox(width: 16),
-                    const Text('Price:'),
-                    const SizedBox(width: 8),
-                    DropdownButton<String>(
-                      value: 'All Prices',
-                      items: const [
-                        DropdownMenuItem(value: 'All Prices', child: Text('All Prices')),
-                        DropdownMenuItem(value: 'Under £20', child: Text('Under £20')),
-                      ],
-                      onChanged: (value) {}, // no-op for now
-                    ),
-                  ],
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            // Header
+            const HeaderWidget(),
+            // Sort/Filter Controls
+            Container(
+              color: Colors.grey[50],
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Collection Products',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Text('Sort by:'),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: 'Popular',
+                        items: const [
+                          DropdownMenuItem(value: 'Popular', child: Text('Popular')),
+                          DropdownMenuItem(value: 'Newest', child: Text('Newest')),
+                          DropdownMenuItem(value: 'Price: Low to High', child: Text('Price: Low to High')),
+                          DropdownMenuItem(value: 'Price: High to Low', child: Text('Price: High to Low')),
+                        ],
+                        onChanged: (value) {}, // no-op for now
+                      ),
+                      const Spacer(),
+                      const Text('Filter:'),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: 'All Categories',
+                        items: const [
+                          DropdownMenuItem(value: 'All Categories', child: Text('All Categories')),
+                          DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
+                        ],
+                        onChanged: (value) {}, // no-op for now
+                      ),
+                      const SizedBox(width: 16),
+                      const Text('Price:'),
+                      const SizedBox(width: 8),
+                      DropdownButton<String>(
+                        value: 'All Prices',
+                        items: const [
+                          DropdownMenuItem(value: 'All Prices', child: Text('All Prices')),
+                          DropdownMenuItem(value: 'Under £20', child: Text('Under £20')),
+                        ],
+                        onChanged: (value) {}, // no-op for now
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Text(
-              '${products.length} products',
-              style: const TextStyle(fontWeight: FontWeight.bold),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Text(
+                '${products.length} products',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Expanded(
-            child: GridView.builder(
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.all(16),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
@@ -191,8 +194,10 @@ class CollectionProductsPage extends StatelessWidget {
                 return _buildProductCard(products[index]);
               },
             ),
-          ),
-        ],
+            // Footer
+            const FooterWidget(),
+          ],
+        ),
       ),
     );
   }
