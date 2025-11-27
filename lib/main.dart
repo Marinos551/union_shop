@@ -3,7 +3,7 @@ import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/collections_page.dart';
-import 'package:union_shop/sale_collection_page.dart'; // SALE COLLECTION PAGE IMPORT
+import 'package:union_shop/sale_collection_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -81,6 +81,7 @@ class HomeScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
+                          // Logo
                           GestureDetector(
                             onTap: () {
                               navigateToHome(context);
@@ -102,68 +103,116 @@ class HomeScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          const Spacer(),
-                          ConstrainedBox(
-                            constraints: const BoxConstraints(maxWidth: 600),
+                          const SizedBox(width: 24),
+                          // Navigation Links
+                          Expanded(
                             child: Row(
-                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.search,
-                                    size: 18,
-                                    color: Colors.grey,
+                                TextButton(
+                                  onPressed: () => navigateToHome(context),
+                                  child: const Text(
+                                    'Home',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.person_outline,
-                                    size: 18,
-                                    color: Colors.grey,
+                                TextButton(
+                                  onPressed: () => Navigator.pushNamed(context, '/collections'),
+                                  child: const Text(
+                                    'Collections',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.shopping_bag_outlined,
-                                    size: 18,
-                                    color: Colors.grey,
+                                TextButton(
+                                  onPressed: () => navigateToSale(context),
+                                  child: const Text(
+                                    'Sale',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: placeholderCallbackForButtons,
                                 ),
-                                IconButton(
-                                  icon: const Icon(
-                                    Icons.menu,
-                                    size: 18,
-                                    color: Colors.grey,
+                                TextButton(
+                                  onPressed: () => Navigator.pushNamed(context, '/about'),
+                                  child: const Text(
+                                    'About',
+                                    style: TextStyle(
+                                      color: Colors.black87,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                  padding: const EdgeInsets.all(8),
-                                  constraints: const BoxConstraints(
-                                    minWidth: 32,
-                                    minHeight: 32,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pushNamed(context, '/about');
-                                  },
                                 ),
                               ],
                             ),
+                          ),
+                          // Icon Buttons
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.search,
+                                  size: 18,
+                                  color: Colors.grey,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.person_outline,
+                                  size: 18,
+                                  color: Colors.grey,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.shopping_bag_outlined,
+                                  size: 18,
+                                  color: Colors.grey,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.menu,
+                                  size: 18,
+                                  color: Colors.grey,
+                                ),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(
+                                  minWidth: 32,
+                                  minHeight: 32,
+                                ),
+                                onPressed: placeholderCallbackForButtons,
+                              ),
+                            ],
                           ),
                         ],
                       ),
