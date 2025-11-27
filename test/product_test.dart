@@ -5,7 +5,15 @@ import 'package:union_shop/product_page.dart';
 void main() {
   group('Product Page Tests', () {
     Widget createTestWidget() {
-      return const MaterialApp(home: ProductPage());
+      return MaterialApp(
+        home: ProductPage(
+          title: 'Placeholder Product Name',
+          price: '£15.00',
+          imageUrl: '', // empty to trigger errorBuilder
+          description:
+              'Students should add size options, colour options, quantity selector, add to cart button, and buy now button here.',
+        ),
+      );
     }
 
     testWidgets('should display product page with basic elements', (
@@ -57,6 +65,31 @@ void main() {
         find.text('Students should customise this footer section'),
         findsOneWidget,
       );
+    });
+
+    testWidgets('displays product details when given required params', (tester) async {
+      Widget createWithArgs() {
+        return MaterialApp(
+          home: ProductPage(
+            title: 'Test Product',
+            price: '£9.99',
+            imageUrl: '', // empty to trigger errorBuilder
+            description: 'This is a test description',
+          ),
+        );
+      }
+
+      await tester.pumpWidget(createWithArgs());
+      await tester.pumpAndSettle();
+
+      // Verify the provided fields are shown
+      expect(find.text('Test Product'), findsOneWidget);
+      expect(find.text('£9.99'), findsOneWidget);
+      expect(find.text('This is a test description'), findsOneWidget);
+
+      // The imageUrl is empty so the network image should fail and the
+      // errorBuilder should show the 'Image unavailable' text.
+      expect(find.text('Image unavailable'), findsOneWidget);
     });
   });
 }
