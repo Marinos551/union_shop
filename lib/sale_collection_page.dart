@@ -220,6 +220,7 @@ class SaleCollectionPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
+                crossAxisSpacing: 16, // space between columns
               ),
               itemCount: saleProducts.length,
               itemBuilder: (context, index) {
