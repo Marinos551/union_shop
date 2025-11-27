@@ -232,6 +232,40 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                 ),
+              const SizedBox(height: 24),
+              // Toggle between login and signup
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    _isLoginMode
+                        ? "Don't have an account? "
+                        : "Already have an account? ",
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14,
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _isLoginMode = !_isLoginMode;
+                      });
+                    },
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                    ),
+                    child: Text(
+                      _isLoginMode ? 'Sign Up' : 'Login',
+                      style: const TextStyle(
+                        color: Color(0xFF4d2963),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
