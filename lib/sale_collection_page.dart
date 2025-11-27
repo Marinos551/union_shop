@@ -144,7 +144,10 @@ class SaleCollectionPage extends StatelessWidget {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(4), // ADD BORDER RADIUS
                   ),
-                  child: Text(product.category),
+                  child: Text(
+                    product.category,
+                    style: const TextStyle(fontSize: 10), // ADD FONT SIZE
+                  ),
                 ),
               ],
             ),
