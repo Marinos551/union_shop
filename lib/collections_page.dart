@@ -1,59 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
-
-class Collection {
-  final String title;
-  final String imageUrl;
-  final int itemCount;
-
-  Collection({
-    required this.title,
-    required this.imageUrl,
-    required this.itemCount,
-  });
-}
+import 'package:union_shop/models/collection_model.dart';
+import 'package:union_shop/data/collections_data.dart';
 
 class CollectionsPage extends StatelessWidget {
-   CollectionsPage({super.key});
-
-  final List<Collection> collections = [
-    Collection(
-      title: 'New Arrivals',
-      imageUrl: 'assets/images/newarrivals.webp',
-      itemCount: 12,
-    ),
-    Collection(
-      title: 'Bestsellers',
-      imageUrl: 'assets/images/bestsellers.webp',
-      itemCount: 8,
-    ),
-    Collection(
-      title: 'Sale Items',
-      imageUrl: 'assets/images/sale.webp',
-      itemCount: 15,
-    ),
-    Collection(
-      title: 'Clothing',
-      imageUrl: 'assets/images/clothing.webp',
-      itemCount: 24,
-    ),
-    Collection(
-      title: 'Accessories',
-      imageUrl: 'assets/images/accesories.webp',
-      itemCount: 18,
-    ),
-    Collection(
-      title: 'Electronics',
-      imageUrl: 'assets/images/electonics.webp',
-      itemCount: 10,
-    ),
-    Collection(
-      title: 'Stationery',
-      imageUrl: 'assets/images/stationery.webp',
-      itemCount: 22,
-    ),
-  ];
+  const CollectionsPage({super.key});
 
   Widget _buildCollectionCard(Collection collection) {
     return Card(
@@ -66,21 +18,19 @@ class CollectionsPage extends StatelessWidget {
           return InkWell(
             borderRadius: BorderRadius.circular(8), // Match card corners
             onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Opening ${collection.title}')), // Temporary feedback
+              Navigator.pushNamed(
+                context,
+                '/collection-products',
+                arguments: collection.id, // Pass collection ID to next page
               );
             },
             child: Column(
               children: [
                 Expanded( // Makes image take available space
-                  child: Image.network(
+                  child: Image.asset(
                     collection.imageUrl,
                     fit: BoxFit.cover,
                     width: double.infinity,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child; // Image loaded
-                      return const Center(child: CircularProgressIndicator()); // Show spinner
-                    },
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                         color: Colors.grey[300],
@@ -94,14 +44,14 @@ class CollectionsPage extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        collection.title,
+                        collection.name,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16, // Slightly larger title
                         ),
                       ),
                       Text(
-                        '${collection.itemCount} items',
+                        '${collection.productCount} items',
                         style: TextStyle(
                           color: Colors.grey[600], // Subtle color for secondary info
                           fontSize: 14,
@@ -126,6 +76,29 @@ class CollectionsPage extends StatelessWidget {
           children: [
             // Header
             const HeaderWidget(),
+            // Page Title
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Column(
+                children: [
+                  const Text(
+                    'Collections',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Explore our curated collections',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
+              ),
+            ),
             // Collections Grid
             GridView.builder(
               shrinkWrap: true,
