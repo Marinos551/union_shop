@@ -221,6 +221,7 @@ class SaleCollectionPage extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 16, // space between columns
+                mainAxisSpacing: 16, // space between rows
               ),
               itemCount: saleProducts.length,
               itemBuilder: (context, index) {
