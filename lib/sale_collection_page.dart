@@ -42,6 +42,77 @@ final List<SaleProduct> saleProducts = [
 
 class SaleCollectionPage extends StatelessWidget {
   const SaleCollectionPage({super.key});
+  Widget _buildSaleProductCard(SaleProduct product) {
+    return Card(
+      child: Column(
+        children: [
+          Stack(
+            children: [
+              Image.network(
+                product.imageUrl,
+                height: 150,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              Positioned(
+                top: 8,
+                left: 8,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    '${product.discountPercent}% OFF',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                  maxLines: 2,
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Text(
+                      product.salePrice,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      product.originalPrice,
+                      style: const TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: Colors.grey,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +128,9 @@ class SaleCollectionPage extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             color: Colors.red[50],
-            child: const Column(
+            child: Column(
               children: [
-                Text(
+                const Text(
                   'SALE',
                   style: TextStyle(
                     fontSize: 32,
@@ -67,7 +138,7 @@ class SaleCollectionPage extends StatelessWidget {
                     color: Colors.red,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   'Limited time offers on selected items',
                   style: TextStyle(
@@ -79,10 +150,31 @@ class SaleCollectionPage extends StatelessWidget {
               ],
             ),
           ),
-          // Rest of the content will go here
+          // Product count
+          Container(
+            padding: const EdgeInsets.all(16),
+            child: Text(
+              '${saleProducts.length} sale items',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+          // Products grid
           Expanded(
-            child: Center(
-              child: Text('${saleProducts.length} sale items found'),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.65,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                ),
+                itemCount: saleProducts.length,
+                itemBuilder: (context, index) {
+                  final product = saleProducts[index];
+                  return _buildSaleProductCard(product);
+                },
+              ),
             ),
           ),
         ],
