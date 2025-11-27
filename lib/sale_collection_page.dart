@@ -146,7 +146,7 @@ class SaleCollectionPage extends StatelessWidget {
                   ),
                   child: Text(
                     product.category,
-                    style: const TextStyle(fontSize: 10), // ADD FONT SIZE
+                    style: const TextStyle(fontSize: 10, color: Colors.grey), // ADD FONT SIZE + COLOR
                   ),
                 ),
               ],
