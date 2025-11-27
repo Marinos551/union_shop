@@ -274,10 +274,15 @@ class HomeScreen extends StatelessWidget {
                     ],
                   ),
                   Column(
-                    children: const [
-                      Icon(Icons.local_offer_outlined, size: 32, color: Colors.deepPurple),
-                      SizedBox(height: 8),
-                      Text("Sale Items", style: TextStyle(fontSize: 14)),
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          // Navigation will be added in next commit
+                        },
+                        child: const Icon(Icons.local_offer_outlined, size: 32, color: Colors.deepPurple),
+                      ),
+                      const SizedBox(height: 8),
+                      const Text("Sale Items", style: TextStyle(fontSize: 14)),
                     ],
                   ),
                 ],
