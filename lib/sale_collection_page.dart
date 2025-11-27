@@ -39,3 +39,20 @@ final List<SaleProduct> saleProducts = [
     discountPercent: 43,
   ),
 ];
+
+class SaleCollectionPage extends StatelessWidget {
+  const SaleCollectionPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sale Items'),
+        backgroundColor: const Color(0xFF4d2963),
+      ),
+      body: const Center(
+        child: Text('Sale Collection Page - Under Construction'),
+      ),
+    );
+  }
+}
