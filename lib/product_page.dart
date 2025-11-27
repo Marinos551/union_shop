@@ -19,7 +19,8 @@ class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     // Get product ID from route arguments
-    final String productId = ModalRoute.of(context)?.settings.arguments as String? ?? 'p1';
+    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    final String productId = args?['productId'] as String? ?? 'p1';
     
     // Find the product
     final Product product = allProducts.firstWhere(
