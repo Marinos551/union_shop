@@ -29,7 +29,7 @@ class UnionShopApp extends StatelessWidget {
       routes: {
         '/about': (context) => const AboutPage(),
         '/auth': (context) => const AuthPage(),
-        '/collections': (context) => CollectionsPage(),
+        '/collections': (context) => const CollectionsPage(),
         '/collection-products': (context) => const CollectionProductsPage(),
         '/sale': (context) => const SaleCollectionPage(), // SALE ROUTE ADDED
         // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
@@ -245,7 +245,7 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductPage(),
+            builder: (context) => const ProductPage(),
             settings: RouteSettings(
               arguments: {'productId': product.id},
             ),
@@ -300,6 +300,7 @@ class ProductCard extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
+                        // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.7),
                         borderRadius: BorderRadius.circular(4),
                       ),
