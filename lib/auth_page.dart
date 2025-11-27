@@ -23,6 +23,17 @@ class _AuthPageState extends State<AuthPage> {
     super.dispose();
   }
 
+  void _handleSubmit() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(_isLoginMode
+            ? 'Login functionality coming soon!'
+            : 'Signup functionality coming soon!'),
+        backgroundColor: const Color(0xFF4d2963),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,8 +126,29 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ),
               const SizedBox(height: 24),
-              // Form will go here
-              const Text('Form fields coming next...'),
+              // Login/Signup button
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: _handleSubmit,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF4d2963),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                  child: Text(
+                    _isLoginMode ? 'Login' : 'Sign Up',
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
