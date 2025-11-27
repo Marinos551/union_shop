@@ -3,59 +3,40 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:union_shop/main.dart';
 
 void main() {
-  group('Home Page Tests', () {
-    testWidgets('should display home page with basic elements', (tester) async {
+  group('HomeScreen widget tests', () {
+    testWidgets('renders header and browse button', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
-      // Check that basic UI elements are present
-      expect(
-        find.text('PLACEHOLDER HEADER TEXT - STUDENTS TO UPDATE!'),
-        findsOneWidget,
-      );
-      expect(find.text('Placeholder Hero Title'), findsOneWidget);
-      expect(find.text('PLACEHOLDER PRODUCTS SECTION'), findsOneWidget);
+      // Header top banner contains 'Union Shop'
+      expect(find.text('Union Shop'), findsOneWidget);
+
+      // Browse products button is present
       expect(find.text('BROWSE PRODUCTS'), findsOneWidget);
-      expect(find.text('VIEW ALL PRODUCTS'), findsOneWidget);
     });
 
-    testWidgets('should display product cards', (tester) async {
+    testWidgets('has featured categories and navigates to Sale page', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
-      // Check that product cards are displayed
-      expect(find.text('Placeholder Product 1'), findsOneWidget);
-      expect(find.text('Placeholder Product 2'), findsOneWidget);
-      expect(find.text('Placeholder Product 3'), findsOneWidget);
-      expect(find.text('Placeholder Product 4'), findsOneWidget);
+      // The featured category icon for Sale should be present
+      final saleIcon = find.byIcon(Icons.local_offer_outlined);
+      expect(saleIcon, findsOneWidget);
 
-      // Check prices are displayed
-      expect(find.text('£10.00'), findsOneWidget);
-      expect(find.text('£15.00'), findsOneWidget);
-      expect(find.text('£20.00'), findsOneWidget);
-      expect(find.text('£25.00'), findsOneWidget);
+      // Tap the sale icon and verify navigation to SaleCollectionPage
+      await tester.tap(saleIcon);
+      await tester.pumpAndSettle();
+
+      // After navigation, the AppBar title of the sale page should be visible
+      expect(find.text('Sale Items'), findsOneWidget);
     });
 
-    testWidgets('should display header icons', (tester) async {
+    testWidgets('contains product cards in the products grid', (tester) async {
       await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
+      await tester.pumpAndSettle();
 
-      // Check that header icons are present
-      expect(find.byIcon(Icons.search), findsOneWidget);
-      expect(find.byIcon(Icons.shopping_bag_outlined), findsOneWidget);
-      expect(find.byIcon(Icons.menu), findsOneWidget);
-    });
-
-    testWidgets('should display footer', (tester) async {
-      await tester.pumpWidget(const UnionShopApp());
-      await tester.pump();
-
-      // Check that footer is present
-      expect(find.text('Placeholder Footer'), findsOneWidget);
-      expect(
-        find.text('Students should customise this footer section'),
-        findsOneWidget,
-      );
+      // ProductCard widgets are used in the HomeScreen product grid
+      expect(find.byType(ProductCard), findsWidgets);
     });
   });
 }
