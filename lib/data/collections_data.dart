@@ -374,7 +374,7 @@ List<Product> searchProducts(String query) {
 
 // Collections List (7 collections)
 final List<Collection> collections = [
-  Collection(
+  const Collection(
     id: 'clothing',
     name: 'Clothing',
     description: 'Shop all your union apparel essentials from hoodies to t-shirts',
@@ -382,7 +382,7 @@ final List<Collection> collections = [
     productCount: 5,
     tags: ['apparel', 'fashion', 'essentials'],
   ),
-  Collection(
+  const Collection(
     id: 'accessories',
     name: 'Accessories',
     description: 'Complete your look with union-branded accessories',
@@ -390,7 +390,7 @@ final List<Collection> collections = [
     productCount: 4,
     tags: ['accessories', 'style', 'extras'],
   ),
-  Collection(
+  const Collection(
     id: 'stationery',
     name: 'Stationery',
     description: 'Essential stationery supplies for students',
@@ -398,7 +398,7 @@ final List<Collection> collections = [
     productCount: 4,
     tags: ['study', 'supplies', 'student'],
   ),
-  Collection(
+  const Collection(
     id: 'electronics',
     name: 'Electronics',
     description: 'Tech accessories and gadgets for modern students',
@@ -406,7 +406,7 @@ final List<Collection> collections = [
     productCount: 3,
     tags: ['tech', 'gadgets', 'electronics'],
   ),
-  Collection(
+  const Collection(
     id: 'backpacks',
     name: 'Backpacks',
     description: 'Durable bags and backpacks for carrying your essentials',
@@ -414,7 +414,7 @@ final List<Collection> collections = [
     productCount: 2,
     tags: ['bags', 'storage', 'travel'],
   ),
-  Collection(
+  const Collection(
     id: 'bestsellers',
     name: 'Best Sellers',
     description: 'Our most popular products loved by students',
@@ -422,7 +422,7 @@ final List<Collection> collections = [
     productCount: 6,
     tags: ['popular', 'trending', 'favorites'],
   ),
-  Collection(
+  const Collection(
     id: 'newarrivals',
     name: 'New Arrivals',
     description: 'Check out the latest additions to our union shop',
