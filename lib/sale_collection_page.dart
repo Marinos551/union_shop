@@ -50,8 +50,42 @@ class SaleCollectionPage extends StatelessWidget {
         title: const Text('Sale Items'),
         backgroundColor: const Color(0xFF4d2963),
       ),
-      body: const Center(
-        child: Text('Sale Collection Page - Under Construction'),
+      body: Column(
+        children: [
+          // Promotional header
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
+            color: Colors.red[50],
+            child: const Column(
+              children: [
+                Text(
+                  'SALE',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Limited time offers on selected items',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.red[700],
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+          // Rest of the content will go here
+          Expanded(
+            child: Center(
+              child: Text('${saleProducts.length} sale items found'),
+            ),
+          ),
+        ],
       ),
     );
   }
