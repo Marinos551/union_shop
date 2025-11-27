@@ -216,18 +216,11 @@ class SaleCollectionPage extends StatelessWidget {
           ),
           // Products grid
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.65,
-                crossAxisSpacing: 12,
-                mainAxisSpacing: 12,
+            child: Container(
+              color: Colors.grey[100],
+              child: const Center(
+                child: Text('GridView will be implemented here'),
               ),
-              itemCount: saleProducts.length,
-              itemBuilder: (context, index) {
-                return _buildSaleProductCard(saleProducts[index]);
-              },
             ),
           ),
         ],
