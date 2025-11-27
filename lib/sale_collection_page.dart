@@ -59,7 +59,7 @@ final List<SaleProduct> saleProducts = [
     salePrice: '£8.99',
     imageUrl: 'https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?w=400',
     category: 'Stationery',
-    discountPercent: 33,
+    discountPercent: 40,
   ),
 ];
 class SaleCollectionPage extends StatelessWidget {
