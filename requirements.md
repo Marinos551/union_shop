@@ -324,12 +324,12 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Navigate to individual collection pages
 
 **Subtasks:**
-- [ ] 1. Create `lib/models/collection.dart` with Collection class
-- [ ] 2. Create `lib/services/collection_service.dart`
-- [ ] 3. Implement getCollections() method in service
+- [x] 1. Create `lib/models/collection.dart` with Collection class
+- [x] 2. Create `lib/services/collection_service.dart` (using collections_data.dart)
+- [x] 3. Implement getCollections() method in service
 - [ ] 4. Set up state management (Provider/Riverpod/Bloc)
-- [ ] 5. Update collections_page.dart to use service instead of hardcoded data
-- [ ] 6. Implement sorting dropdown (A-Z, Z-A, Newest, Most Popular)
+- [x] 5. Update collections_page.dart to use service instead of hardcoded data
+- [x] 6. Implement sorting dropdown (A-Z, Z-A, Newest, Most Popular)
 - [ ] 7. Wire up sorting functionality to re-order collections
 - [ ] 8. Implement filter chips or options (All, Featured, New)
 - [ ] 9. Wire up filtering to show/hide collections
@@ -360,23 +360,23 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Query products by collection ID
 
 **Subtasks:**
-- [ ] 1. Create `lib/models/product.dart` with Product class
-- [ ] 2. Create `lib/services/product_service.dart`
-- [ ] 3. Implement getProductsByCollection(collectionId) method
-- [ ] 4. Update collection_products_page.dart to use service
-- [ ] 5. Implement sorting dropdown (Price: Low-High, High-Low, Newest, Popular)
-- [ ] 6. Wire up sorting to re-order product list
-- [ ] 7. Implement filter panel/sheet (Price Range, Size, Color)
-- [ ] 8. Create price range slider widget
-- [ ] 9. Create size filter checkboxes (S, M, L, XL)
-- [ ] 10. Create color filter chips/swatches
-- [ ] 11. Wire up all filters to filter product list
-- [ ] 12. Display active filter count and applied filters
+- [x] 1. Create `lib/models/product.dart` with Product class
+- [x] 2. Create `lib/services/product_service.dart` (using collections_data.dart)
+- [x] 3. Implement getProductsByCollection(collectionId) method
+- [x] 4. Update collection_products_page.dart to use service
+- [x] 5. Implement sorting dropdown (Price: Low-High, High-Low, Newest, Popular)
+- [x] 6. Wire up sorting to re-order product list
+- [x] 7. Implement filter panel/sheet (Price Range, Size, Color)
+- [x] 8. Create price range slider widget
+- [x] 9. Create size filter checkboxes (S, M, L, XL)
+- [x] 10. Create color filter chips/swatches
+- [x] 11. Wire up all filters to filter product list
+- [x] 12. Display active filter count and applied filters
 - [ ] 13. Add "Clear All Filters" button
 - [ ] 14. Implement pagination (12 products per page) OR infinite scroll
-- [ ] 15. Display product count ("Showing X of Y products")
+- [x] 15. Display product count ("Showing X of Y products")
 - [ ] 16. Add loading states and error handling
-- [ ] 17. Test all combinations of sort and filter
+- [x] 17. Test all combinations of sort and filter
 
 ---#### 12. Functional Product Pages (6%)
 **Description:** Product pages populated from data models with functioning dropdowns and counters.
@@ -398,21 +398,21 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - UI Components: Functional dropdowns, counter widget, image carousel
 
 **Subtasks:**
-- [ ] 1. Update product_page.dart to use ProductService
-- [ ] 2. Implement getProductById(id) method in ProductService
-- [ ] 3. Create functional image carousel (swipe/tap to change images)
+- [x] 1. Update product_page.dart to use ProductService
+- [x] 2. Implement getProductById(id) method in ProductService
+- [x] 3. Create functional image carousel (swipe/tap to change images)
 - [ ] 4. Add image indicator dots for carousel
-- [ ] 5. Implement size dropdown with state management
-- [ ] 6. Implement color selector with state management
-- [ ] 7. Create quantity counter widget (-, count, +)
-- [ ] 8. Wire up increment button (+ quantity)
-- [ ] 9. Wire up decrement button (- quantity, min 1)
-- [ ] 10. Display selected variant information (e.g., "Size: M, Color: Blue")
+- [x] 5. Implement size dropdown with state management
+- [x] 6. Implement color selector with state management
+- [x] 7. Create quantity counter widget (-, count, +)
+- [x] 8. Wire up increment button (+ quantity)
+- [x] 9. Wire up decrement button (- quantity, min 1)
+- [x] 10. Display selected variant information (e.g., "Size: M, Color: Blue")
 - [ ] 11. Update price if different variants have different prices (optional)
-- [ ] 12. Ensure "Add to Cart" button is present (non-functional for now)
+- [x] 12. Ensure "Add to Cart" button is present (non-functional for now)
 - [ ] 13. Add loading state while fetching product
 - [ ] 14. Add error handling for product not found
-- [ ] 15. Test all interactive elements function correctly
+- [x] 15. Test all interactive elements function correctly
 
 ---
 
