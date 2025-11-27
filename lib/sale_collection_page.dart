@@ -206,11 +206,11 @@ class SaleCollectionPage extends StatelessWidget {
               ],
             ),
           ),
-          // Product count
+          // Product count - automatically updates with new products
           Container(
             padding: const EdgeInsets.all(16),
             child: Text(
-              '${saleProducts.length} sale items',
+              '${saleProducts.length} sale items', // NOW SHOWS ${saleProducts.length} ITEMS
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
