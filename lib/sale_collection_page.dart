@@ -53,7 +53,6 @@ final List<SaleProduct> saleProducts = [
     discountPercent: 44,
   ),
 ];
-
 class SaleCollectionPage extends StatelessWidget {
   const SaleCollectionPage({super.key});
 
@@ -192,7 +191,22 @@ class SaleCollectionPage extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          // Products grid will go here
+          // Products grid
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.65,
+                crossAxisSpacing: 12,
+                mainAxisSpacing: 12,
+              ),
+              itemCount: saleProducts.length,
+              itemBuilder: (context, index) {
+                return _buildSaleProductCard(saleProducts[index]);
+              },
+            ),
+          ),
         ],
       ),
     );
