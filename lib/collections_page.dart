@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/header_widget.dart';
 
 class Collection {
   final String title;
@@ -119,22 +120,27 @@ class CollectionsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Collections'),
-        backgroundColor: const Color(0xFF4d2963), // Matches your app theme
-      ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // 3 cols on tablet, 2 on phone
-          crossAxisSpacing: 16, // Space between columns
-          mainAxisSpacing: 16, // Space between rows
-          childAspectRatio: 0.8, // Better card proportions
-        ),
-        itemCount: collections.length, // How many items to show
-        itemBuilder: (context, index) {
-          return _buildCollectionCard(collections[index]); // Build each card
-        },
+      body: Column(
+        children: [
+          // Header
+          const HeaderWidget(),
+          // Collections Grid
+          Expanded(
+            child: GridView.builder(
+              padding: const EdgeInsets.all(16),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // 3 cols on tablet, 2 on phone
+                crossAxisSpacing: 16, // Space between columns
+                mainAxisSpacing: 16, // Space between rows
+                childAspectRatio: 0.8, // Better card proportions
+              ),
+              itemCount: collections.length, // How many items to show
+              itemBuilder: (context, index) {
+                return _buildCollectionCard(collections[index]); // Build each card
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
