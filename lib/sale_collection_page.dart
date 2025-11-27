@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/product_page.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/data/collections_data.dart';
 
@@ -13,10 +14,14 @@ class SaleCollectionPage extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          Navigator.pushNamed(
+          Navigator.push(
             context,
-            '/product',
-            arguments: product.id,
+            MaterialPageRoute(
+              builder: (context) => ProductPage(),
+              settings: RouteSettings(
+                arguments: {'productId': product.id},
+              ),
+            ),
           );
         },
         child: Column(
