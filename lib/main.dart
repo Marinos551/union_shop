@@ -5,6 +5,8 @@ import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/collections_page.dart';
 import 'package:union_shop/sale_collection_page.dart';
+import 'package:union_shop/data/collections_data.dart';
+import 'package:union_shop/models/product_model.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -172,41 +174,39 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Products Section
+            // Products Section - Featured Best Sellers
             Container(
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                  crossAxisSpacing: MediaQuery.of(context).size.width > 600 ? 16 : 12,
-                  mainAxisSpacing: MediaQuery.of(context).size.width > 600 ? 24 : 20,
-                  children: const [
-                    ProductCard(
-                      title: 'University Hoodie',
-                      price: '£39.99',
-                      imageUrl: 'assets/images/Corteiz.webp',
-                      description: 'Premium cotton blend hoodie with brushed interior, kangaroo pocket and double-layered hood.',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+                      child: Text(
+                        'FEATURED PRODUCTS',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFF4d2963),
+                        ),
+                      ),
                     ),
-                    ProductCard(
-                      title: 'Laptop/Ipad bag',
-                      price: '£25.00',
-                      imageUrl: 'assets/images/laptopbag.webp',
-                      description: 'Compact and padded laptop bag with internal sleeve and organiser pockets.',
-                    ),
-                    ProductCard(
-                      title: 'University hat',
-                      price: '£9.00',
-                      imageUrl: 'assets/images/Hat.webp',
-                      description: 'Classic cap with embroidered university logo — adjustable fit.',
-                    ),
-                    ProductCard(
-                      title: 'University pencil Case',
-                      price: '£13.00',
-                      imageUrl: 'assets/images/pencilcase.webp',
-                      description: 'Durable canvas pencil case with zip closure and inner organisers.',
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                        crossAxisSpacing: MediaQuery.of(context).size.width > 600 ? 16 : 12,
+                        mainAxisSpacing: MediaQuery.of(context).size.width > 600 ? 24 : 20,
+                        childAspectRatio: 0.75,
+                      ),
+                      itemCount: getProductsByCollection('bestsellers').take(4).length,
+                      itemBuilder: (context, index) {
+                        final product = getProductsByCollection('bestsellers').elementAt(index);
+                        return ProductCard(product: product);
+                      },
                     ),
                   ],
                 ),
@@ -227,17 +227,11 @@ class HomeScreen extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  final String title;
-  final String price;
-  final String imageUrl;
-  final String description;
+  final Product product;
 
   const ProductCard({
     super.key,
-    required this.title,
-    required this.price,
-    required this.imageUrl,
-    required this.description,
+    required this.product,
   });
 
   @override
@@ -247,11 +241,9 @@ class ProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductPage(
-              title: title,
-              price: price,
-              imageUrl: imageUrl,
-              description: description,
+            builder: (context) => ProductPage(),
+            settings: RouteSettings(
+              arguments: {'productId': product.id},
             ),
           ),
         );
@@ -260,49 +252,114 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: imageUrl.startsWith('http')
-                ? Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[300],
-                        child: const Center(
-                          child: Icon(Icons.image_not_supported, color: Colors.grey),
+            child: Stack(
+              children: [
+                Image.asset(
+                  product.imageUrl,
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(Icons.image_not_supported, color: Colors.grey),
+                      ),
+                    );
+                  },
+                ),
+                // Sale Badge
+                if (product.isOnSale)
+                  Positioned(
+                    top: 8,
+                    right: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: Text(
+                        '-${product.discountPercentage}%',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
                         ),
-                      );
-                    },
-                  )
-                : Image.asset(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[300],
-                        child: const Center(
-                          child: Icon(Icons.image_not_supported, color: Colors.grey),
-                        ),
-                      );
-                    },
+                      ),
+                    ),
                   ),
+                // Stock Badge
+                if (!product.inStock)
+                  Positioned(
+                    top: 8,
+                    left: 8,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.7),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: const Text(
+                        'OUT OF STOCK',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 4),
+              const SizedBox(height: 8),
               Text(
-                title,
-                style: const TextStyle(fontSize: 14, color: Colors.black),
+                product.name,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                ),
                 maxLines: 2,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
+              if (product.isOnSale)
+                Row(
+                  children: [
+                    Text(
+                      '£${product.salePrice!.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '£${product.price.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                  ],
+                )
+              else
+                Text(
+                  '£${product.price.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                  ),
+                ),
+              const SizedBox(height: 4),
               Text(
-                price,
-                style: const TextStyle(fontSize: 13, color: Colors.grey),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                description,
+                product.description,
                 style: const TextStyle(fontSize: 12, color: Colors.grey),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
