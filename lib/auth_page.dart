@@ -11,15 +11,20 @@ class _AuthPageState extends State<AuthPage> {
   // State variables
   bool _isLoginMode = true;
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   
   // Text controllers
+  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -74,6 +79,28 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ),
               const SizedBox(height: 40),
+              // Name field (only for signup)
+              if (!_isLoginMode) ...[
+                TextField(
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    labelText: 'Full Name',
+                    hintText: 'Enter your full name',
+                    prefixIcon: const Icon(Icons.person),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF4d2963),
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+              ],
               // Email field
               TextField(
                 controller: _emailController,
@@ -125,6 +152,40 @@ class _AuthPageState extends State<AuthPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
+              // Confirm Password field (only for signup)
+              if (!_isLoginMode)
+                TextField(
+                  controller: _confirmPasswordController,
+                  obscureText: _obscureConfirmPassword,
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    hintText: 'Re-enter your password',
+                    prefixIcon: const Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
+                        });
+                      },
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(
+                        color: Color(0xFF4d2963),
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
               const SizedBox(height: 24),
               // Login/Signup button
               SizedBox(
