@@ -57,7 +57,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductPage(),
+            builder: (context) => const ProductPage(),
             settings: RouteSettings(
               arguments: {'productId': product.id},
             ),
