@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/header_widget.dart';
 
 class SaleProduct {
   final String title;
@@ -173,12 +174,10 @@ class SaleCollectionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Sale Items'),
-        backgroundColor: const Color(0xFF4d2963),
-      ),
       body: Column(
         children: [
+          // Header
+          const HeaderWidget(),
           // Promotional header
           Container(
             width: double.infinity,
