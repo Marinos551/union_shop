@@ -24,8 +24,7 @@ final List<SaleProduct> saleProducts = [
     title: 'Classic University Hoodie',
     originalPrice: '£45.00',
     salePrice: '£29.99',
-    imageUrl:
-        'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
+    imageUrl: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
     category: 'Clothing',
     discountPercent: 33,
   ),
@@ -33,8 +32,7 @@ final List<SaleProduct> saleProducts = [
     title: 'Student Backpack',
     originalPrice: '£35.00',
     salePrice: '£19.99',
-    imageUrl:
-        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
+    imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
     category: 'Accessories',
     discountPercent: 43,
   ),
@@ -42,8 +40,7 @@ final List<SaleProduct> saleProducts = [
     title: 'University T-Shirt',
     originalPrice: '£24.99',
     salePrice: '£14.99',
-    imageUrl:
-        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
+    imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
     category: 'Clothing',
     discountPercent: 40,
   ),
@@ -51,6 +48,8 @@ final List<SaleProduct> saleProducts = [
 
 class SaleCollectionPage extends StatelessWidget {
   const SaleCollectionPage({super.key});
+
+  // ignore: unused_element
   Widget _buildSaleProductCard(SaleProduct product) {
     return Card(
       child: Column(
@@ -62,6 +61,13 @@ class SaleCollectionPage extends StatelessWidget {
                 height: 150,
                 width: double.infinity,
                 fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[300],
+                    height: 150,
+                    child: const Icon(Icons.image_not_supported),
+                  );
+                },
               ),
               Positioned(
                 top: 8,
@@ -139,7 +145,7 @@ class SaleCollectionPage extends StatelessWidget {
             color: Colors.red[50],
             child: Column(
               children: [
-                const Text(
+                Text(
                   'SALE',
                   style: TextStyle(
                     fontSize: 32,
@@ -147,7 +153,7 @@ class SaleCollectionPage extends StatelessWidget {
                     color: Colors.red,
                   ),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 Text(
                   'Limited time offers on selected items',
                   style: TextStyle(
@@ -167,25 +173,7 @@ class SaleCollectionPage extends StatelessWidget {
               style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
-          // Products grid
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 0.65,
-                  crossAxisSpacing: 12,
-                  mainAxisSpacing: 12,
-                ),
-                itemCount: saleProducts.length,
-                itemBuilder: (context, index) {
-                  final product = saleProducts[index];
-                  return _buildSaleProductCard(product);
-                },
-              ),
-            ),
-          ),
+          // Products grid will go here
         ],
       ),
     );
