@@ -25,7 +25,7 @@ final List<SaleProduct> saleProducts = [
     originalPrice: '£45.00',
     salePrice: '£29.99',
     imageUrl: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
-    category: 'Clothing', // CATEGORY EXISTS
+    category: 'Clothing',
     discountPercent: 33,
   ),
   SaleProduct(
@@ -33,7 +33,7 @@ final List<SaleProduct> saleProducts = [
     originalPrice: '£35.00',
     salePrice: '£19.99',
     imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
-    category: 'Accessories', // CATEGORY EXISTS
+    category: 'Accessories',
     discountPercent: 43,
   ),
   SaleProduct(
@@ -41,7 +41,7 @@ final List<SaleProduct> saleProducts = [
     originalPrice: '£24.99',
     salePrice: '£14.99',
     imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
-    category: 'Clothing', // CATEGORY EXISTS
+    category: 'Clothing',
     discountPercent: 40,
   ),
   SaleProduct(
@@ -49,9 +49,10 @@ final List<SaleProduct> saleProducts = [
     originalPrice: '£18.00',
     salePrice: '£9.99',
     imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400',
-    category: 'Accessories', // CATEGORY EXISTS
+    category: 'Accessories',
     discountPercent: 44,
   ),
+  // NEW PRODUCT WILL BE ADDED HERE
 ];
 class SaleCollectionPage extends StatelessWidget {
   const SaleCollectionPage({super.key});
