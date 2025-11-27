@@ -219,7 +219,7 @@ class SaleCollectionPage extends StatelessWidget {
             child: GridView.builder(
               padding: const EdgeInsets.all(16),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2, // responsive columns
                 crossAxisSpacing: 16, // space between columns
                 mainAxisSpacing: 16, // space between rows
                 childAspectRatio: 0.7, // card proportions
