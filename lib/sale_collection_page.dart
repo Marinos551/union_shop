@@ -57,7 +57,7 @@ final List<SaleProduct> saleProducts = [
     title: 'University Notebook Set',
     originalPrice: '£15.00',
     salePrice: '£8.99',
-    imageUrl: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=400',
+    imageUrl: 'https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?w=400',
     category: 'Stationery',
     discountPercent: 33,
   ),
