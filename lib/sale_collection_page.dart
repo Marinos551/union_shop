@@ -222,6 +222,7 @@ class SaleCollectionPage extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16, // space between columns
                 mainAxisSpacing: 16, // space between rows
+                childAspectRatio: 0.7, // card proportions
               ),
               itemCount: saleProducts.length,
               itemBuilder: (context, index) {
