@@ -282,7 +282,7 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          // Navigation will be added in next commit
+                          navigateToSale(context);
                         },
                         child: const Icon(Icons.local_offer_outlined, size: 32, color: Colors.deepPurple),
                       ),
