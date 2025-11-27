@@ -38,6 +38,15 @@ final List<SaleProduct> saleProducts = [
     category: 'Accessories',
     discountPercent: 43,
   ),
+  SaleProduct(
+    title: 'University T-Shirt',
+    originalPrice: '£24.99',
+    salePrice: '£14.99',
+    imageUrl:
+        'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
+    category: 'Clothing',
+    discountPercent: 40,
+  ),
 ];
 
 class SaleCollectionPage extends StatelessWidget {
