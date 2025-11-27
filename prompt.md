@@ -209,3 +209,51 @@ After creating the data structure:
 **Key Point:** The collection_products_page.dart should work like https://shop.upsu.net/collections/autumn-favourites - showing ONLY the products that belong to the selected collection.
 
 Please create these models and data, then help me integrate them across all relevant pages to replace the current hardcoded placeholder data."
+
+---
+
+## Prompt 3: Fix Product Page Navigation After Collections Implementation
+
+"The product page is not working after implementing the collections feature. There's a type mismatch in how route arguments are being passed between pages.
+
+**Current Problem:**
+The product page (`lib/product_page.dart`) is failing to load when navigating from any page (homepage, collections, sale page). The issue is on **line 21** where the route arguments are being received incorrectly.
+
+**Root Cause:**
+- All navigation calls pass arguments as a **Map**: `{'productId': product.id}`
+- Product page tries to receive arguments as a **String** directly
+- This causes a type casting error
+
+**The Fix Needed:**
+
+In `lib/product_page.dart` at line 21, change from:
+```dart
+// CURRENT (BROKEN):
+final String productId = ModalRoute.of(context)?.settings.arguments as String? ?? 'p1';
+```
+
+To:
+```dart
+// FIXED:
+final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+final String productId = args?['productId'] as String? ?? 'p1';
+```
+
+**Why This Fix:**
+- Properly extracts the `productId` from the Map being passed
+- Maintains null safety with fallback to 'p1'
+- Works with all three navigation sources (main.dart, collection_products_page.dart, sale_collection_page.dart)
+- More scalable - allows passing additional parameters in future (e.g., `fromCart`, `referrer`)
+
+**Files Already Correct (No Changes Needed):**
+- ✅ `lib/main.dart` (line 247) - Passes `{'productId': product.id}`
+- ✅ `lib/collection_products_page.dart` (line 61) - Passes `{'productId': product.id}`
+- ✅ `lib/sale_collection_page.dart` (line 21) - Passes `{'productId': product.id}`
+
+**Expected Result:**
+After this fix, all navigation flows will work:
+- Homepage featured products → Product detail page ✅
+- Collections → Collection products → Product detail page ✅
+- Sale page → Product detail page ✅
+
+Please apply this 2-line change to fix the product page navigation issue."
