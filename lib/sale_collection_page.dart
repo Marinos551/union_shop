@@ -142,13 +142,17 @@ class SaleCollectionPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(4), // ADD BORDER RADIUS
+                    borderRadius: BorderRadius.circular(4),
                   ),
                   child: Text(
                     product.category,
-                    style: const TextStyle(fontSize: 10, color: Colors.grey), // ADD FONT SIZE + COLOR
+                    style: const TextStyle(
+                      fontSize: 10,
+                      color: Colors.grey, // ADD TEXT COLOR
+                    ),
                   ),
                 ),
+                // CATEGORY BADGE ADDED TO PRODUCT CARDS
               ],
             ),
           ),
