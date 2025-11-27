@@ -44,6 +44,14 @@ final List<SaleProduct> saleProducts = [
     category: 'Clothing',
     discountPercent: 40,
   ),
+  SaleProduct(
+    title: 'Student Water Bottle',
+    originalPrice: '£18.00',
+    salePrice: '£9.99',
+    imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400',
+    category: 'Accessories',
+    discountPercent: 44,
+  ),
 ];
 
 class SaleCollectionPage extends StatelessWidget {
@@ -156,7 +164,7 @@ class SaleCollectionPage extends StatelessWidget {
             color: Colors.red[50],
             child: Column(
               children: [
-                Text(
+                const Text(
                   'SALE',
                   style: TextStyle(
                     fontSize: 32,
@@ -164,7 +172,7 @@ class SaleCollectionPage extends StatelessWidget {
                     color: Colors.red,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   'Limited time offers on selected items',
                   style: TextStyle(
