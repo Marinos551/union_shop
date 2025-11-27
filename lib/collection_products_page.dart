@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/header_widget.dart';
 
 // Added Product model here (moved from lib/models/product.dart)
 class Product {
@@ -112,12 +113,11 @@ class CollectionProductsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Collection Products'),
-        backgroundColor: const Color(0xFF4d2963),
-      ),
       body: Column(
         children: [
+          // Header
+          const HeaderWidget(),
+          // Sort/Filter Controls
           Container(
             color: Colors.grey[50],
             padding: const EdgeInsets.all(16),
