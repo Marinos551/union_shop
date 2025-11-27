@@ -149,6 +149,28 @@ class _AuthPageState extends State<AuthPage> {
                 ),
               ),
               const SizedBox(height: 16),
+              // Forgot Password link (only show in login mode)
+              if (_isLoginMode)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Password reset coming soon!'),
+                          backgroundColor: Color(0xFF4d2963),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                        color: Color(0xFF4d2963),
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
