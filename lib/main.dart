@@ -337,9 +337,9 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Footer: moved back into the scroll view
-            SizedBox(
+            const SizedBox(
               height: 260, // adjust for your footer size
-              child: const FooterWidget(),
+              child: FooterWidget(),
             ),
             ],
           ),
