@@ -44,7 +44,6 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - [x] 8. Gather/generate 6-10 product images for homepage
 - [x] 9. Implement basic mobile-first layout with Column/ListView
 - [x] 10. Add navigation hooks to collections and product pages
-- [ ] 11. Test homepage layout on different mobile screen sizes
 
 ---
 
