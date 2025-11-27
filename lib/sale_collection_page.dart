@@ -17,3 +17,25 @@ class SaleProduct {
     required this.discountPercent,
   });
 }
+
+// Sample sale products data
+final List<SaleProduct> saleProducts = [
+  SaleProduct(
+    title: 'Classic University Hoodie',
+    originalPrice: '£45.00',
+    salePrice: '£29.99',
+    imageUrl:
+        'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
+    category: 'Clothing',
+    discountPercent: 33,
+  ),
+  SaleProduct(
+    title: 'Student Backpack',
+    originalPrice: '£35.00',
+    salePrice: '£19.99',
+    imageUrl:
+        'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
+    category: 'Accessories',
+    discountPercent: 43,
+  ),
+];
