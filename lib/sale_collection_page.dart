@@ -24,7 +24,7 @@ final List<SaleProduct> saleProducts = [
     title: 'Classic University Hoodie',
     originalPrice: '£45.00',
     salePrice: '£29.99',
-    imageUrl: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400',
+    imageUrl: 'assets/images/ClassicHoodie.webp',
     category: 'Clothing',
     discountPercent: 33,
   ),
@@ -32,7 +32,7 @@ final List<SaleProduct> saleProducts = [
     title: 'Student Backpack',
     originalPrice: '£35.00',
     salePrice: '£19.99',
-    imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400',
+    imageUrl: 'assets/images/backpack.webp',
     category: 'Accessories',
     discountPercent: 43,
   ),
@@ -40,7 +40,7 @@ final List<SaleProduct> saleProducts = [
     title: 'University T-Shirt',
     originalPrice: '£24.99',
     salePrice: '£14.99',
-    imageUrl: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400',
+    imageUrl: 'assets/images/unitshirt.webp',
     category: 'Clothing',
     discountPercent: 40,
   ),
@@ -48,7 +48,7 @@ final List<SaleProduct> saleProducts = [
     title: 'Student Water Bottle',
     originalPrice: '£18.00',
     salePrice: '£9.99',
-    imageUrl: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=400',
+    imageUrl: 'assets/images/bottle.webp',
     category: 'Accessories',
     discountPercent: 44,
   ),
@@ -57,7 +57,7 @@ final List<SaleProduct> saleProducts = [
     title: 'University Notebook Set',
     originalPrice: '£15.00',
     salePrice: '£8.99',
-    imageUrl: 'https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?w=400',
+    imageUrl: 'assets/images/notebook.webp',
     category: 'Stationery',
     discountPercent: 40,
   ),
@@ -79,7 +79,7 @@ class SaleCollectionPage extends StatelessWidget {
                 SizedBox(
                   height: 150,
                   width: double.infinity,
-                  child: Image.network(
+                  child: Image.asset(
                     product.imageUrl,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {

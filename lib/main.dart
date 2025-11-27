@@ -309,25 +309,25 @@ class HomeScreen extends StatelessWidget {
                     ProductCard(
                       title: 'University Hoodie',
                       price: '£39.99',
-                      imageUrl: 'https://imgs.search.brave.com/17CbSojjUr5UKrQgHGAwDIqo2PSUw8-RRGKSaZq5Di8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jb3J0/ZWl6c3RvcmUuY29t/L3dwLWNvbnRlbnQv/dXBsb2Fkcy8yMDIz/LzA0L0NvcnRlaXot/QWxjYXRyYXotSG9v/ZGllLUJsYWNrLnBu/Zw',
+                      imageUrl: 'assets/images/Corteiz.webp',
                       description: 'Premium cotton blend hoodie with brushed interior, kangaroo pocket and double-layered hood.',
                     ),
                     ProductCard(
                       title: 'Laptop/Ipad bag',
                       price: '£25.00',
-                      imageUrl: 'https://imgs.search.brave.com/cJeRnmjPSoNqk2W0i_QvXtWqh1ALN3IS7wO8eejPrMw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdGF0/aWMudmVjdGVlenku/Y29tL3N5c3RlbS9y/ZXNvdXJjZXMvdGh1/bWJuYWlscy8wNjUv/NDYxLzQxNC9zbWFs/bC90aGUtbGFwdG9w/LWJhZy1pcy1tYWRl/LWZyb20tZGFyay1i/cm93bi1sZWF0aGVy/LXBob3RvLmpwZw',
+                      imageUrl: 'assets/images/laptopbag.webp',
                       description: 'Compact and padded laptop bag with internal sleeve and organiser pockets.',
                     ),
                     ProductCard(
                       title: 'University hat',
                       price: '£9.00',
-                      imageUrl: 'https://imgs.search.brave.com/7H7Liub0s8B_d3axOl56aAH70E_fIM0Lz4dTLM7iYj8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG5h/Lmx5c3RpdC5jb20v/MzAwLzM3NS90ci9w/aG90b3MvcnVlbGFs/YS80NGI3YzRkNC9n/dWNjaS1Ccm93bi1P/cmlnaW5hbC1HZy1X/ZWItQ2FudmFzLUJh/c2ViYWxsLUhhdC5q/cGVn',
+                      imageUrl: 'assets/images/Hat.webp',
                       description: 'Classic cap with embroidered university logo — adjustable fit.',
                     ),
                     ProductCard(
                       title: 'University pencil Case',
                       price: '£13.00',
-                      imageUrl: 'https://imgs.search.brave.com/TrHleLQX3gbz9BISQnYdHTpx2CFaknXNcYKFpnXorkI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMTMz/NTU1MjQyMi9waG90/by9wZW5jaWxzLWlu/LWNhc2UtaXNvbGF0/ZWQtb24td2hpdGUt/YmFja2dyb3VuZC5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/MzJtVkU4MWRKMy1p/aXBfR1F0UGtETko3/a0dBNXNwdzJRa0lV/cXljRmd5ST0',
+                      imageUrl: 'assets/images/pencilcase.webp',
                       description: 'Durable canvas pencil case with zip closure and inner organisers.',
                     ),
                   ],
@@ -382,18 +382,31 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Image.network(
-              imageUrl,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Icon(Icons.image_not_supported, color: Colors.grey),
+            child: imageUrl.startsWith('http')
+                ? Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, color: Colors.grey),
+                        ),
+                      );
+                    },
+                  )
+                : Image.asset(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.grey[300],
+                        child: const Center(
+                          child: Icon(Icons.image_not_supported, color: Colors.grey),
+                        ),
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

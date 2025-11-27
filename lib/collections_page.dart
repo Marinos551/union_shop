@@ -18,37 +18,37 @@ class CollectionsPage extends StatelessWidget {
   final List<Collection> collections = [
     Collection(
       title: 'New Arrivals',
-      imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400',
+      imageUrl: 'assets/images/newarrivals.webp',
       itemCount: 12,
     ),
     Collection(
       title: 'Bestsellers',
-      imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400',
+      imageUrl: 'assets/images/bestsellers.webp',
       itemCount: 8,
     ),
     Collection(
       title: 'Sale Items',
-      imageUrl: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=400',
+      imageUrl: 'assets/images/sale.webp',
       itemCount: 15,
     ),
     Collection(
       title: 'Clothing',
-      imageUrl: 'https://images.unsplash.com/photo-1485231183945-fffde7cb34e9?w=400',
+      imageUrl: 'assets/images/clothing.webp',
       itemCount: 24,
     ),
     Collection(
       title: 'Accessories',
-      imageUrl: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400',
+      imageUrl: 'assets/images/accesories.webp',
       itemCount: 18,
     ),
     Collection(
       title: 'Electronics',
-      imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?w=400',
+      imageUrl: 'assets/images/electonics.webp',
       itemCount: 10,
     ),
     Collection(
       title: 'Stationery',
-      imageUrl: 'https://images.unsplash.com/photo-1586232702178-f044c5f4d4b7?w=400',
+      imageUrl: 'assets/images/stationery.webp',
       itemCount: 22,
     ),
   ];
