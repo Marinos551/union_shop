@@ -5,7 +5,7 @@ import 'package:union_shop/product_page.dart';
 void main() {
   group('Product Page Tests', () {
     Widget createTestWidget() {
-      return MaterialApp(
+      return const MaterialApp(
         home: ProductPage(
           title: 'Placeholder Product Name',
           price: '£15.00',
@@ -65,7 +65,7 @@ void main() {
 
     testWidgets('displays product details when given required params', (tester) async {
       Widget createWithArgs() {
-        return MaterialApp(
+        return const MaterialApp(
           home: ProductPage(
             title: 'Test Product',
             price: '£9.99',
