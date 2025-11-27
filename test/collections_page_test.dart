@@ -5,7 +5,7 @@ import 'package:union_shop/collections_page.dart';
 void main() {
   group('CollectionsPage Tests', () {
     Widget createTestWidget() {
-      return MaterialApp(
+      return const MaterialApp(
         home: CollectionsPage(),
       );
     }
