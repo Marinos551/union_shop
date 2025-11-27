@@ -33,6 +33,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Route: `/` or `/home`
 - Assets: Featured product images, banners
 
+**Subtasks:**
+1. Create `home_page.dart` file in `lib/` directory
+2. Design app logo/branding header widget
+3. Create featured section widget (e.g., banners carousel)
+4. Build collection preview cards widget
+5. Add "New Arrivals" section with hardcoded products
+6. Add "Bestsellers" section with hardcoded products
+7. Add "Sale" section preview
+8. Gather/generate 6-10 product images for homepage
+9. Implement basic mobile-first layout with Column/ListView
+10. Add navigation hooks to collections and product pages
+11. Test homepage layout on different mobile screen sizes
+
 ---
 
 #### 2. About Us Page (5%)
@@ -50,6 +63,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Route: `/about`
 - Navigation: Accessible from navbar or footer
 
+**Subtasks:**
+1. Verify `about_page.dart` already exists (or create if needed)
+2. Write company description and mission statement
+3. Add shop story/background section
+4. Create team members section (3-5 dummy profiles)
+5. Add contact information section (email, phone, address)
+6. Include location/map placeholder
+7. Add shop values or principles section
+8. Gather/generate images for about page (team, shop, etc.)
+9. Implement scrollable layout with sections
+10. Link about page from footer and/or navbar
+11. Test readability and layout on mobile
+
 ---
 
 #### 3. Footer Widget (4%)
@@ -66,6 +92,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Widget: `FooterWidget`
 - Reusable component
 - Dummy data for links and contact info
+
+**Subtasks:**
+1. Verify `footer_widget.dart` already exists (or create if needed)
+2. Create "Quick Links" section (Home, Collections, Sale, About)
+3. Create "Customer Service" section (Contact, FAQ, Shipping, Returns)
+4. Create "Contact Us" section (email, phone, address)
+5. Create "Social Media" section with dummy icons/links
+6. Add copyright text and year
+7. Implement multi-column layout for desktop
+8. Make footer responsive (stack columns on mobile)
+9. Add footer to at least homepage and about page
+10. Style footer with consistent branding colors
+11. Test footer layout on mobile and desktop views
 
 ---
 
@@ -85,6 +124,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Data: List of collection objects with name, image, description
 - Collections examples: Clothing, Stationery, Electronics, Accessories, etc.
 
+**Subtasks:**
+1. Verify `collections_page.dart` already exists (or create if needed)
+2. Define at least 6 collections (Clothing, Stationery, Electronics, Accessories, Sale, etc.)
+3. Gather/generate images for each collection
+4. Create collection card widget with image and title
+5. Implement grid layout (2 columns mobile, 3-4 desktop)
+6. Add hardcoded list of collections with data
+7. Make collection cards tappable (navigate to collection page)
+8. Add page title/header
+9. Implement basic styling and spacing
+10. Add route to navigation/routing config
+11. Test grid layout on various screen sizes
+
 ---
 
 #### 5. Dummy Collection Page (5%)
@@ -103,6 +155,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Route: `/collections/:collectionId` or `/collection/:name`
 - Data: List of product objects
 - UI Elements: Dropdowns, filter buttons (static)
+
+**Subtasks:**
+1. Verify `collection_products_page.dart` already exists (or create if needed)
+2. Create product card widget (image, name, price)
+3. Add hardcoded list of 10-15 products for testing
+4. Implement product grid layout (2 columns mobile, 3-4 desktop)
+5. Create static "Sort by" dropdown (Price, Name, Newest)
+6. Create static filter chips (Size, Color, Price Range)
+7. Add collection title/header at top
+8. Add product count display
+9. Make product cards tappable (navigate to product page)
+10. Accept collection ID/name as route parameter
+11. Test layout and navigation
 
 ---
 
@@ -124,6 +189,20 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Data: Product object with images, name, price, description, variants
 - UI Elements: Image carousel, dropdowns, buttons (static)
 
+**Subtasks:**
+1. Verify `product_page.dart` already exists (or create if needed)
+2. Create image gallery/carousel widget (3-5 images per product)
+3. Add product title and price display
+4. Create product description section
+5. Add static size dropdown (S, M, L, XL)
+6. Add static color dropdown or color selector chips
+7. Create quantity selector UI (- button, number, + button - static)
+8. Add "Add to Cart" button (non-functioning for now)
+9. Create product specifications section (Material, Care, etc.)
+10. Add "Related Products" section (optional)
+11. Accept product ID as route parameter
+12. Test layout and scrolling
+
 ---
 
 #### 7. Sale Collection Page (4%)
@@ -143,6 +222,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Data: Product objects with original and sale prices
 - UI Elements: Discount badges, promotional banners
 
+**Subtasks:**
+1. Verify `sale_collection_page.dart` already exists (or create if needed)
+2. Create promotional banner widget ("Sale! Up to 50% Off")
+3. Create sale product card with discount badge
+4. Add hardcoded list of 8-12 sale products
+5. Display original price with strikethrough styling
+6. Display sale price prominently
+7. Calculate and show discount percentage on badges
+8. Implement product grid layout
+9. Add sale timer/countdown widget (optional, can be static)
+10. Make product cards tappable (navigate to product page)
+11. Test visual indicators for discounts
+
 ---
 
 #### 8. Authentication UI (3%)
@@ -161,6 +253,19 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Route: `/auth`, `/login`, `/signup`
 - UI Elements: Text fields, buttons, links
 - No backend integration required at this stage
+
+**Subtasks:**
+1. Verify `auth_page.dart` already exists (or create if needed)
+2. Create login form with email and password TextFields
+3. Create signup form with name, email, password, confirm password fields
+4. Add "Login" and "Sign Up" buttons (non-functioning)
+5. Add "Forgot Password?" link (dummy)
+6. Add toggle/link between login and signup forms
+7. Add social login buttons (Google, Facebook - non-functioning)
+8. Style form fields and buttons consistently
+9. Add "Remember Me" checkbox on login (optional)
+10. Add Terms & Conditions checkbox on signup (optional)
+11. Test form layout on mobile and desktop
 
 ---
 
@@ -182,6 +287,20 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Responsive: Use MediaQuery or LayoutBuilder
 - Mobile: Drawer or side menu
 - Desktop: Horizontal navigation bar
+
+**Subtasks:**
+1. Create custom navbar widget or customize AppBar
+2. Add shop logo/branding on the left
+3. Add navigation links (Home, Collections, Sale, About) - center/left
+4. Add search icon button - right side
+5. Add cart icon with badge counter - right side
+6. Add account/profile icon - right side
+7. Implement hamburger menu icon for mobile (<600px)
+8. Create Drawer widget with navigation links for mobile
+9. Use MediaQuery to switch between mobile/desktop layouts
+10. Make navbar persistent across all pages
+11. Test responsive behavior at different breakpoints
+12. Ensure navbar is fixed at top (optional)
 
 ---
 
@@ -205,6 +324,20 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Features: Sort, filter, paginate
 - Navigate to individual collection pages
 
+**Subtasks:**
+1. Create `lib/models/collection.dart` with Collection class
+2. Create `lib/services/collection_service.dart`
+3. Implement getCollections() method in service
+4. Set up state management (Provider/Riverpod/Bloc)
+5. Update collections_page.dart to use service instead of hardcoded data
+6. Implement sorting dropdown (A-Z, Z-A, Newest, Most Popular)
+7. Wire up sorting functionality to re-order collections
+8. Implement filter chips or options (All, Featured, New)
+9. Wire up filtering to show/hide collections
+10. Implement pagination (load 6 at a time) OR infinite scroll
+11. Add loading indicator while fetching data
+12. Add error handling for data loading failures
+13. Test all sorting and filtering combinations
 
 ---
 
@@ -227,8 +360,26 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Features: Sort, filter, paginate
 - Query products by collection ID
 
+**Subtasks:**
+1. Create `lib/models/product.dart` with Product class
+2. Create `lib/services/product_service.dart`
+3. Implement getProductsByCollection(collectionId) method
+4. Update collection_products_page.dart to use service
+5. Implement sorting dropdown (Price: Low-High, High-Low, Newest, Popular)
+6. Wire up sorting to re-order product list
+7. Implement filter panel/sheet (Price Range, Size, Color)
+8. Create price range slider widget
+9. Create size filter checkboxes (S, M, L, XL)
+10. Create color filter chips/swatches
+11. Wire up all filters to filter product list
+12. Display active filter count and applied filters
+13. Add "Clear All Filters" button
+14. Implement pagination (12 products per page) OR infinite scroll
+15. Display product count ("Showing X of Y products")
+16. Add loading states and error handling
+17. Test all combinations of sort and filter
 
-#### 12. Functional Product Pages (6%)
+---#### 12. Functional Product Pages (6%)
 **Description:** Product pages populated from data models with functioning dropdowns and counters.
 
 **Acceptance Criteria:**
@@ -246,6 +397,23 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Service: `ProductService`
 - State Management: Track selected variant, quantity
 - UI Components: Functional dropdowns, counter widget, image carousel
+
+**Subtasks:**
+1. Update product_page.dart to use ProductService
+2. Implement getProductById(id) method in ProductService
+3. Create functional image carousel (swipe/tap to change images)
+4. Add image indicator dots for carousel
+5. Implement size dropdown with state management
+6. Implement color selector with state management
+7. Create quantity counter widget (-, count, +)
+8. Wire up increment button (+ quantity)
+9. Wire up decrement button (- quantity, min 1)
+10. Display selected variant information (e.g., "Size: M, Color: Blue")
+11. Update price if different variants have different prices (optional)
+12. Ensure "Add to Cart" button is present (non-functional for now)
+13. Add loading state while fetching product
+14. Add error handling for product not found
+15. Test all interactive elements function correctly
 
 ---
 
@@ -269,9 +437,27 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Cart Page: Display items, totals
 - Checkout: Mock order placement
 
+**Subtasks:**
+1. Create `lib/models/cart_item.dart` with CartItem class
+2. Create `lib/services/cart_service.dart`
+3. Set up global cart state (Provider/Riverpod/Bloc)
+4. Implement addToCart(product, quantity, variant) method
+5. Implement getCartItems() method
+6. Implement getCartItemCount() method
+7. Update navbar cart icon to show item count badge
+8. Wire up "Add to Cart" button on product page
+9. Show confirmation message/snackbar when item added
+10. Create cart_page.dart with cart UI
+11. Display all cart items with image, name, variant, quantity, price
+12. Calculate and display subtotal
+13. Calculate and display total (can add tax if desired)
+14. Add "Checkout" button
+15. Create mock checkout function (show success message)
+16. Create order confirmation page or dialog
+17. Maintain cart state during app session (in-memory)
+18. Test adding multiple products to cart
 
-
-#### 14. Print Shack / Text Personalization (3%)
+---#### 14. Print Shack / Text Personalization (3%)
 **Description:** Text personalization page with dynamically updating form based on selected fields.
 
 **Acceptance Criteria:**
@@ -288,6 +474,22 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - State Management: Track form inputs and update preview
 - Form Fields: Text input, dropdowns for fonts/colors/sizes
 - Preview: Live rendering of personalization
+
+**Subtasks:**
+1. Create `personalization_page.dart` and `personalization_about_page.dart`
+2. Create personalization about page with service description
+3. Design form with product type selector (e.g., T-Shirt, Mug, Poster)
+4. Add text input field for custom text
+5. Add font dropdown (3-5 font options)
+6. Add color picker or color dropdown
+7. Add size dropdown (Small, Medium, Large text size)
+8. Create preview widget showing personalized item
+9. Implement real-time preview updates as user types/selects
+10. Change available fields based on product type selected
+11. Add "Add to Cart" button for personalized item
+12. Wire up adding personalized item to cart service
+13. Link personalization page from navbar or collections
+14. Test dynamic preview updates with all combinations
 
 ---
 
@@ -308,6 +510,21 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Navigation: Navigator.push, Navigator.pop
 - Deep Linking: Route parameters for collections/products
 - Navbar: Consistent across all pages
+
+**Subtasks:**
+1. Set up named routes in main.dart or router configuration
+2. Define routes for all pages (/, /collections, /product/:id, etc.)
+3. Wire up navbar links to navigate to correct pages
+4. Wire up collection cards to navigate to collection page
+5. Wire up product cards to navigate to product page
+6. Implement deep linking with route parameters (collectionId, productId)
+7. Test URL navigation (typing URLs directly)
+8. Ensure back button works correctly on all pages
+9. Add breadcrumbs on collection/product pages (optional)
+10. Test navigation flow: Home → Collections → Collection → Product → Cart
+11. Ensure navbar is consistent and functional on all pages
+12. Add page transitions/animations (optional)
+13. Test all navigation paths work correctly
 
 ---
 
@@ -332,6 +549,22 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Mobile breakpoint: < 600px
 - Desktop breakpoint: >= 600px
 - Test on various screen sizes in emulator
+
+**Subtasks:**
+1. Define breakpoint constants (mobile: <600px, desktop: >=600px)
+2. Update navbar to use MediaQuery for mobile/desktop switch
+3. Update homepage layout for responsive grid (1-2-3 columns)
+4. Update collections page grid (2 cols mobile, 3-4 cols desktop)
+5. Update collection products page grid (2 cols mobile, 3-4 cols desktop)
+6. Update product page layout for desktop (side-by-side vs stacked)
+7. Make footer responsive (stacked on mobile, columns on desktop)
+8. Ensure all images scale properly with constraints
+9. Test text readability at all breakpoints
+10. Ensure no horizontal scrolling on mobile
+11. Test on Chrome mobile emulator (iPhone, Android)
+12. Test on Chrome desktop at various widths (600px, 900px, 1200px)
+13. Test on Flutter web and mobile simulators
+14. Fix any layout issues found during testing
 
 ---
 
@@ -362,6 +595,32 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - Storage: Secure storage for tokens/session
 - Routes: Login, signup, account dashboard, edit profile
 
+**Subtasks:**
+1. Choose auth provider (Firebase Auth recommended)
+2. Set up Firebase project and add to Flutter app
+3. Install Firebase packages (firebase_core, firebase_auth)
+4. Create `lib/models/user.dart` with User class
+5. Create `lib/services/auth_service.dart`
+6. Implement signup method with email/password validation
+7. Implement login method with email/password validation
+8. Implement Google Sign-In OAuth
+9. Implement logout method
+10. Set up global auth state (Provider/Riverpod)
+11. Update auth_page.dart to use AuthService
+12. Wire up signup form with validation
+13. Wire up login form with validation
+14. Show error messages for invalid credentials
+15. Create account_page.dart for user dashboard
+16. Display user info (name, email, photo) on account page
+17. Create edit_profile_page.dart
+18. Implement update profile functionality
+19. Create order history section (mock data)
+20. Implement password reset/recovery (email link)
+21. Set up session persistence (Firebase handles automatically)
+22. Implement route guards for protected pages
+23. Redirect to login if user not authenticated
+24. Test complete auth flow: signup → login → dashboard → logout
+25. Test OAuth flow with Google Sign-In
 
 ---
 
@@ -388,6 +647,31 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - State Management: Real-time cart updates
 - UI: Editable quantities, remove buttons, totals display
 
+**Subtasks:**
+1. Install SharedPreferences or Hive for local storage
+2. Enhance CartService with persistence methods
+3. Implement saveCart() method (save to local storage)
+4. Implement loadCart() method (load from local storage)
+5. Load cart on app startup
+6. Add quantity editor on cart page (increment/decrement buttons)
+7. Implement updateQuantity(itemId, newQuantity) method
+8. Wire up quantity buttons to update cart
+9. Add remove button for each cart item
+10. Implement removeItem(itemId) method
+11. Wire up remove button to delete item from cart
+12. Implement automatic price calculations
+13. Calculate subtotal (sum of all item prices × quantities)
+14. Calculate tax (e.g., 10% of subtotal)
+15. Calculate total (subtotal + tax)
+16. Update totals in real-time when cart changes
+17. Create empty cart state UI with "Continue Shopping" button
+18. Save cart to cloud for logged-in users (Firebase/Supabase)
+19. Sync cart between devices for logged-in users
+20. Add cart validation (check stock, price changes) - optional
+21. Implement discount code input and validation - optional
+22. Test cart persistence across app restarts
+23. Test cart syncing for logged-in users
+
 ---
 
 #### 19. Search System (4%)
@@ -413,5 +697,28 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - UI: Search bar, results grid, empty state
 - State Management: Search query and results
 
+**Subtasks:**
+1. Add search icon/button to navbar
+2. Add search link to footer
+3. Create `search_page.dart` or search overlay widget
+4. Create search bar widget with TextField
+5. Implement search in ProductService or create SearchService
+6. Implement searchProducts(query) method
+7. Search by product name (case-insensitive)
+8. Search by product description
+9. Search by collection/category
+10. Wire up search bar to trigger search on submit
+11. Display search results in grid layout
+12. Show result count ("Found X products")
+13. Create empty state UI ("No results found for 'query'")
+14. Add suggestions or call-to-action on empty results
+15. Navigate to search page with query parameter
+16. Make result product cards tappable (navigate to product)
+17. Add search suggestions/autocomplete (optional)
+18. Implement recent searches feature (optional)
+19. Add filter/sort options on search results page
+20. Test search with various queries
+21. Test empty search results handling
 
+---
 
