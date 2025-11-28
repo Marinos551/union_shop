@@ -176,6 +176,18 @@ class HomeScreen extends StatelessWidget {
                       const Text("Sale Items", style: TextStyle(fontSize: 14)),
                     ],
                   ),
+                  Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/cart');
+                        },
+                        child: const Icon(Icons.shopping_cart_outlined, size: 32, color: Colors.deepPurple),
+                      ),
+                      const SizedBox(height: 8),
+                      const Text("Cart", style: TextStyle(fontSize: 14)),
+                    ],
+                  ),
                 ],
               ),
             ),
