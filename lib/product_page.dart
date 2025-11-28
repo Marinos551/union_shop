@@ -293,15 +293,17 @@ class _ProductPageState extends State<ProductPage> {
                       IconButton(
                         icon: const Icon(Icons.remove_circle_outline),
                         onPressed: () {
-                          if (_quantity > 1) {
-                            setState(() {
-                              _quantity--;
-                            });
-                          }
+                          // Dummy functionality - show feedback but don't change quantity
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Quantity decrease (demo)'),
+                              duration: Duration(milliseconds: 500),
+                            ),
+                          );
                         },
                       ),
                       Text(
-                        '$_quantity',
+                        '1', // Always show 1 for dummy requirement
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -310,11 +312,13 @@ class _ProductPageState extends State<ProductPage> {
                       IconButton(
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: () {
-                          if (_quantity < product.stockQuantity) {
-                            setState(() {
-                              _quantity++;
-                            });
-                          }
+                          // Dummy functionality - show feedback but don't change quantity
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Quantity increase (demo)'),
+                              duration: Duration(milliseconds: 500),
+                            ),
+                          );
                         },
                       ),
                     ],
