@@ -57,6 +57,29 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
     return filtered;
   }
 
+  List<Product> _getPaginatedProducts(List<Product> products) {
+    final startIndex = _currentPage * _productsPerPage;
+    if (startIndex >= products.length) {
+      return [];
+    }
+    
+    final endIndex = startIndex + _productsPerPage;
+    return products.sublist(
+      startIndex, 
+      endIndex > products.length ? products.length : endIndex
+    );
+  }
+
+  int _getTotalPages(int totalProducts) {
+    return (totalProducts / _productsPerPage).ceil();
+  }
+
+  void _resetToFirstPage() {
+    setState(() {
+      _currentPage = 0;
+    });
+  }
+
   Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
       onTap: () {
