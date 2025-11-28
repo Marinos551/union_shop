@@ -239,6 +239,7 @@ class _ProductPageState extends State<ProductPage> {
                         return ChoiceChip(
                           label: Text(size),
                           selected: _selectedSize == size,
+                          selectedColor: const Color(0xFF4d2963),
                           onSelected: (selected) {
                             setState(() {
                               _selectedSize = size;
