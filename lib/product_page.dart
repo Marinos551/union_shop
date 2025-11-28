@@ -3,6 +3,8 @@ import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/data/collections_data.dart';
+import 'package:union_shop/models/cart_service.dart';
+import 'package:union_shop/models/cart_model.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
