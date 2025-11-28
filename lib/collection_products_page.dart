@@ -43,6 +43,9 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
       case 'Price: High to Low':
         filtered.sort((a, b) => b.displayPrice.compareTo(a.displayPrice));
         break;
+      case 'Name: A-Z':
+        filtered.sort((a, b) => a.name.compareTo(b.name));
+        break;
     }
 
     return filtered;
