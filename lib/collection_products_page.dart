@@ -35,6 +35,16 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
       filtered = filtered.where((p) => p.displayPrice > 50).toList();
     }
 
+    // Apply sorting
+    switch (_sortBy) {
+      case 'Price: Low to High':
+        filtered.sort((a, b) => a.displayPrice.compareTo(b.displayPrice));
+        break;
+      case 'Price: High to Low':
+        filtered.sort((a, b) => b.displayPrice.compareTo(a.displayPrice));
+        break;
+    }
+
     return filtered;
   }
 
