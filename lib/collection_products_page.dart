@@ -80,6 +80,42 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
     });
   }
 
+  Widget _buildPaginationControls(int totalProducts) {
+    final totalPages = _getTotalPages(totalProducts);
+    
+    if (totalPages <= 1) return const SizedBox.shrink();
+    
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.chevron_left),
+            onPressed: _currentPage > 0 ? () {
+              setState(() => _currentPage--);
+            } : null,
+            color: _currentPage > 0 ? const Color(0xFF4d2963) : Colors.grey,
+          ),
+          Text(
+            'Page ${_currentPage + 1} of $totalPages',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14,
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.chevron_right),
+            onPressed: _currentPage < totalPages - 1 ? () {
+              setState(() => _currentPage++);
+            } : null,
+            color: _currentPage < totalPages - 1 ? const Color(0xFF4d2963) : Colors.grey,
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
       onTap: () {
