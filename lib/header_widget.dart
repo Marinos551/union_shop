@@ -1,15 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/main.dart';
 
 class HeaderWidget extends StatelessWidget {
   const HeaderWidget({super.key});
 
   // Navigation helper methods
   void navigateToHome(BuildContext context) {
-    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      (route) => false,
+    );
+  }
+
+  void navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
   }
 
   void navigateToSale(BuildContext context) {
     Navigator.pushNamed(context, '/sale');
+  }
+
+  void navigateToAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
+  void navigateToAuth(BuildContext context) {
+    Navigator.pushNamed(context, '/auth');
   }
 
   void placeholderCallback() {
@@ -88,7 +105,7 @@ class HeaderWidget extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, '/collections'),
+                            onPressed: () => navigateToCollections(context),
                             child: const Text(
                               'Collections',
                               style: TextStyle(
@@ -110,7 +127,7 @@ class HeaderWidget extends StatelessWidget {
                             ),
                           ),
                           TextButton(
-                            onPressed: () => Navigator.pushNamed(context, '/about'),
+                            onPressed: () => navigateToAbout(context),
                             child: const Text(
                               'About',
                               style: TextStyle(
@@ -153,9 +170,7 @@ class HeaderWidget extends StatelessWidget {
                           minWidth: 32,
                           minHeight: 32,
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/auth');
-                        },
+                        onPressed: () => navigateToAuth(context),
                       ),
                       IconButton(
                         icon: const Icon(
