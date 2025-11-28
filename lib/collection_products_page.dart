@@ -317,13 +317,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _filterPrice = value);
-                            // Show snackbar to indicate this is dummy functionality
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Filter by price: $value (demo)'),
-                                duration: const Duration(seconds: 1),
-                              ),
-                            );
+                            // Remove the demo snackbar - functionality is now real
                           }
                         },
                       ),
