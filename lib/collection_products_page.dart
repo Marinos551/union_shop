@@ -335,7 +335,10 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         ],
                         onChanged: (value) {
                           if (value != null) {
-                            setState(() => _sortBy = value);
+                            setState(() {
+                              _sortBy = value;
+                              _currentPage = 0;
+                            });
                             // Remove the demo snackbar - functionality is now real
                           }
                         },
@@ -359,7 +362,10 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         ],
                         onChanged: (value) {
                           if (value != null) {
-                            setState(() => _filterCategory = value);
+                            setState(() {
+                              _filterCategory = value;
+                              _currentPage = 0;
+                            });
                             // Remove the demo snackbar - functionality is now real
                           }
                         },
@@ -381,7 +387,10 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         ],
                         onChanged: (value) {
                           if (value != null) {
-                            setState(() => _filterPrice = value);
+                            setState(() {
+                              _filterPrice = value;
+                              _currentPage = 0;
+                            });
                             // Remove the demo snackbar - functionality is now real
                           }
                         },
