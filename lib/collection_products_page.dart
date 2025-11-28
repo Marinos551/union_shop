@@ -26,6 +26,15 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
       filtered = filtered.where((p) => p.category == _filterCategory).toList();
     }
 
+    // Apply price filter
+    if (_filterPrice == 'Under £20') {
+      filtered = filtered.where((p) => p.displayPrice < 20).toList();
+    } else if (_filterPrice == '£20 - £50') {
+      filtered = filtered.where((p) => p.displayPrice >= 20 && p.displayPrice <= 50).toList();
+    } else if (_filterPrice == 'Over £50') {
+      filtered = filtered.where((p) => p.displayPrice > 50).toList();
+    }
+
     return filtered;
   }
 
