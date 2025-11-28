@@ -293,17 +293,15 @@ class _ProductPageState extends State<ProductPage> {
                       IconButton(
                         icon: const Icon(Icons.remove_circle_outline),
                         onPressed: () {
-                          // Dummy functionality - show feedback but don't change quantity
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Quantity decrease (demo)'),
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          );
+                          setState(() {
+                            if (_quantity > 1) {
+                              _quantity--;
+                            }
+                          });
                         },
                       ),
                       Text(
-                        '1', // Always show 1 for dummy requirement
+                        '$_quantity',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -312,13 +310,9 @@ class _ProductPageState extends State<ProductPage> {
                       IconButton(
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: () {
-                          // Dummy functionality - show feedback but don't change quantity
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Quantity increase (demo)'),
-                              duration: Duration(milliseconds: 500),
-                            ),
-                          );
+                          setState(() {
+                            _quantity++;
+                          });
                         },
                       ),
                     ],
