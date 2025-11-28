@@ -391,6 +391,19 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       onPressed: product.inStock
                           ? () {
+                              final cartService = CartService();
+                              final cartItem = CartItem(
+                                productId: product.id,
+                                productName: product.name,
+                                price: product.isOnSale ? product.salePrice! : product.price,
+                                imageUrl: product.imageUrl,
+                                quantity: _quantity,
+                                selectedSize: _selectedSize,
+                                selectedColor: _selectedColor,
+                              );
+                              
+                              cartService.addToCart(cartItem);
+                              
                               String selectionInfo = 'Added to Cart: ${product.name} (Qty: $_quantity';
                               if (_selectedSize != null) selectionInfo += ', Size: $_selectedSize';
                               if (_selectedColor != null) selectionInfo += ', Color: $_selectedColor';
@@ -401,6 +414,13 @@ class _ProductPageState extends State<ProductPage> {
                                   content: Text(selectionInfo),
                                   duration: const Duration(seconds: 3),
                                   backgroundColor: const Color(0xFF4d2963),
+                                  action: SnackBarAction(
+                                    label: 'View Cart',
+                                    textColor: Colors.white,
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, '/cart');
+                                    },
+                                  ),
                                 ),
                               );
                             }
