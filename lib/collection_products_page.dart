@@ -411,7 +411,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                 ),
               ),
             ),
-            // Products Grid
+            // Products Grid with Pagination
             displayedProducts.isEmpty
                 ? Padding(
                     padding: const EdgeInsets.all(32),
@@ -431,20 +431,30 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                       ],
                     ),
                   )
-                : GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(16),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 0.7,
-                    ),
-                    itemCount: displayedProducts.length,
-                    itemBuilder: (context, index) {
-                      return _buildProductCard(displayedProducts[index], context);
-                    },
+                : Column(
+                    children: [
+                      // ADD PAGINATION CONTROLS AT TOP
+                      _buildPaginationControls(displayedProducts.length),
+                      // PRODUCTS GRID
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(16),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                          crossAxisSpacing: 16,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 0.7,
+                        ),
+                        itemCount: _getPaginatedProducts(displayedProducts).length,
+                        itemBuilder: (context, index) {
+                          final paginatedProducts = _getPaginatedProducts(displayedProducts);
+                          return _buildProductCard(paginatedProducts[index], context);
+                        },
+                      ),
+                      // ADD PAGINATION CONTROLS AT BOTTOM
+                      _buildPaginationControls(displayedProducts.length),
+                    ],
                   ),
             // Footer
             const FooterWidget(),
