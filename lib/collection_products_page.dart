@@ -19,8 +19,14 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   String _filterPrice = 'All Prices';
 
   List<Product> _getSortedAndFilteredProducts(List<Product> products) {
-    // For "dummy" requirement - return original list without actual filtering
-    return products;
+    List<Product> filtered = List.from(products);
+
+    // Apply category filter
+    if (_filterCategory != 'All Categories') {
+      filtered = filtered.where((p) => p.category == _filterCategory).toList();
+    }
+
+    return filtered;
   }
 
   Widget _buildProductCard(Product product, BuildContext context) {
