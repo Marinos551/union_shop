@@ -46,6 +46,10 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
       case 'Name: A-Z':
         filtered.sort((a, b) => a.name.compareTo(b.name));
         break;
+      // 'Popular' and 'Newest' use default collection order
+      default:
+        // Keep original order for Popular and Newest
+        break;
     }
 
     return filtered;
