@@ -316,7 +316,17 @@ class _ProductPageState extends State<ProductPage> {
                         icon: const Icon(Icons.add_circle_outline),
                         onPressed: () {
                           setState(() {
-                            _quantity++;
+                            if (_quantity < product.stockQuantity) {
+                              _quantity++;
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Maximum available: ${product.stockQuantity}'),
+                                  duration: const Duration(seconds: 2),
+                                  backgroundColor: Colors.orange,
+                                ),
+                              );
+                            }
                           });
                         },
                       ),
