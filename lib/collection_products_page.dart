@@ -19,36 +19,8 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   String _filterPrice = 'All Prices';
 
   List<Product> _getSortedAndFilteredProducts(List<Product> products) {
-    List<Product> filtered = List.from(products);
-
-    // Apply filters
-    if (_filterCategory != 'All Categories') {
-      filtered = filtered.where((p) => p.category == _filterCategory).toList();
-    }
-
-    if (_filterPrice == 'Under £20') {
-      filtered = filtered.where((p) => p.displayPrice < 20).toList();
-    } else if (_filterPrice == '£20 - £50') {
-      filtered = filtered.where((p) => p.displayPrice >= 20 && p.displayPrice <= 50).toList();
-    } else if (_filterPrice == 'Over £50') {
-      filtered = filtered.where((p) => p.displayPrice > 50).toList();
-    }
-
-    // Apply sorting
-    switch (_sortBy) {
-      case 'Price: Low to High':
-        filtered.sort((a, b) => a.displayPrice.compareTo(b.displayPrice));
-        break;
-      case 'Price: High to Low':
-        filtered.sort((a, b) => b.displayPrice.compareTo(a.displayPrice));
-        break;
-      case 'Name: A-Z':
-        filtered.sort((a, b) => a.name.compareTo(b.name));
-        break;
-      // 'Popular' and 'Newest' use default order
-    }
-
-    return filtered;
+    // For "dummy" requirement - return original list without actual filtering
+    return products;
   }
 
   Widget _buildProductCard(Product product, BuildContext context) {
@@ -271,6 +243,13 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _sortBy = value);
+                            // Show snackbar to indicate this is dummy functionality
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Sorting by: $value (demo)'),
+                                duration: const Duration(seconds: 1),
+                              ),
+                            );
                           }
                         },
                       ),
@@ -294,6 +273,13 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _filterCategory = value);
+                            // Show snackbar to indicate this is dummy functionality
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Filter by category: $value (demo)'),
+                                duration: const Duration(seconds: 1),
+                              ),
+                            );
                           }
                         },
                       ),
@@ -315,6 +301,13 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _filterPrice = value);
+                            // Show snackbar to indicate this is dummy functionality
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Filter by price: $value (demo)'),
+                                duration: const Duration(seconds: 1),
+                              ),
+                            );
                           }
                         },
                       ),
