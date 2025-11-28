@@ -379,10 +379,15 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       onPressed: product.inStock
                           ? () {
+                              String selectionInfo = 'Added to Cart: ${product.name} (Qty: $_quantity';
+                              if (_selectedSize != null) selectionInfo += ', Size: $_selectedSize';
+                              if (_selectedColor != null) selectionInfo += ', Color: $_selectedColor';
+                              selectionInfo += ')';
+                              
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  content: Text('Add to Cart demo: ${product.name}'),
-                                  duration: const Duration(seconds: 2),
+                                  content: Text(selectionInfo),
+                                  duration: const Duration(seconds: 3),
                                   backgroundColor: const Color(0xFF4d2963),
                                 ),
                               );
