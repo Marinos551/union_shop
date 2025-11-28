@@ -271,13 +271,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         onChanged: (value) {
                           if (value != null) {
                             setState(() => _sortBy = value);
-                            // Show snackbar to indicate this is dummy functionality
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Sorting by: $value (demo)'),
-                                duration: const Duration(seconds: 1),
-                              ),
-                            );
+                            // Remove the demo snackbar - functionality is now real
                           }
                         },
                       ),
