@@ -17,6 +17,8 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   String _sortBy = 'Popular';
   String _filterCategory = 'All Categories';
   String _filterPrice = 'All Prices';
+  int _currentPage = 0;
+  final int _productsPerPage = 8;
 
   List<Product> _getSortedAndFilteredProducts(List<Product> products) {
     List<Product> filtered = List.from(products);
