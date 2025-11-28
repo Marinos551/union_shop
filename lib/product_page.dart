@@ -323,6 +323,47 @@ class _ProductPageState extends State<ProductPage> {
                     ],
                   ),
 
+                  const SizedBox(height: 16),
+
+                  // Selection summary
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[50],
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: Colors.grey[300]!),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Selected Options:',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Quantity: $_quantity',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                        if (_selectedSize != null)
+                          Text(
+                            'Size: $_selectedSize',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                        if (_selectedColor != null)
+                          Text(
+                            'Color: $_selectedColor',
+                            style: const TextStyle(fontSize: 12),
+                          ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
                   const SizedBox(height: 24),
 
                   // Add to Cart button
