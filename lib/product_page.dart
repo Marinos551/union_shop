@@ -268,6 +268,10 @@ class _ProductPageState extends State<ProductPage> {
                         return ChoiceChip(
                           label: Text(color),
                           selected: _selectedColor == color,
+                          selectedColor: const Color(0xFF4d2963),
+                          labelStyle: TextStyle(
+                            color: _selectedColor == color ? Colors.white : Colors.black,
+                          ),
                           onSelected: (selected) {
                             setState(() {
                               _selectedColor = color;
