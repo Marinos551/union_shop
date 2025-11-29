@@ -105,27 +105,42 @@ class _PrintShackPageState extends State<PrintShackPage> {
 
             // Content
             Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Print Shack - Personalize Your Item',
-                    style: TextStyle(
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Create custom printed items with your own text',
-                    style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-                  ),
-                  const SizedBox(height: 32),
-                  _buildProductSelection(),
-                  const SizedBox(height: 24),
-                  _buildCustomizationForm(),
-                ],
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width > 600 ? 32 : 24),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWideScreen = constraints.maxWidth > 800;
+                  
+                  if (isWideScreen) {
+                    // Desktop: Side-by-side layout
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Form Section
+                        Expanded(
+                          flex: 1,
+                          child: _buildPrintShackForm(),
+                        ),
+                        const SizedBox(width: 40),
+                        // Preview Section
+                        Expanded(
+                          flex: 1,
+                          child: _buildPrintShackPreview(),
+                        ),
+                      ],
+                    );
+                  } else {
+                    // Mobile: Stacked layout
+                    return Column(
+                      children: [
+                        _buildPrintShackForm(),
+                        if (_customText.isNotEmpty) ...[
+                          const SizedBox(height: 32),
+                          _buildPrintShackPreview(),
+                        ],
+                      ],
+                    );
+                  }
+                },
               ),
             ),
 
@@ -183,6 +198,116 @@ class _PrintShackPageState extends State<PrintShackPage> {
           }),
         ],
       ),
+    );
+  }
+
+  Widget _buildPrintShackForm() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Print Shack - Personalize Your Item',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          'Create custom printed items with your own text',
+          style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+        ),
+        const SizedBox(height: 32),
+        _buildProductSelection(),
+        const SizedBox(height: 24),
+        _buildCustomizationForm(),
+      ],
+    );
+  }
+
+  Widget _buildPrintShackPreview() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          'Live Preview',
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 32),
+        Container(
+          width: double.infinity,
+          height: 300,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            border: Border.all(color: Colors.grey[300]!, width: 2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Center(
+            child: Text(
+              _customText,
+              style: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.bold,
+                color: _getColorFromString(_selectedColor),
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+        const SizedBox(height: 24),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.grey[50],
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Price per item:'),
+                  Text('\$${_currentProduct.basePrice.toStringAsFixed(2)}'),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [const Text('Quantity:'), Text('$_quantity')],
+              ),
+              const Divider(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text('Total:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  Text(
+                    '\$${(_currentProduct.basePrice * _quantity).toStringAsFixed(2)}',
+                    style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepPurple),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 24),
+        SizedBox(
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: _addToCart,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.deepPurple,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            child: const Text('ADD TO CART', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          ),
+        ),
+      ],
     );
   }
 
@@ -268,71 +393,6 @@ class _PrintShackPageState extends State<PrintShackPage> {
                 style: IconButton.styleFrom(backgroundColor: Colors.grey[200]),
               ),
             ],
-          ),
-          const SizedBox(height: 24),
-          if (_customText.isNotEmpty) ...[
-            const Text('Preview', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
-            const SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                border: Border.all(color: Colors.grey[300]!),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  _customText,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: _getColorFromString(_selectedColor)),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-          ],
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(color: Colors.grey[50], borderRadius: BorderRadius.circular(8)),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Price per item:'),
-                    Text('\$${_currentProduct.basePrice.toStringAsFixed(2)}'),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [const Text('Quantity:'), Text('$_quantity')],
-                ),
-                const Divider(height: 24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Total:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text('\$${(_currentProduct.basePrice * _quantity).toStringAsFixed(2)}',
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.deepPurple)),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: _addToCart,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.deepPurple,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-              ),
-              child: const Text('ADD TO CART', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-            ),
           ),
         ],
       ),
