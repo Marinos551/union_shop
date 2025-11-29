@@ -30,6 +30,10 @@ class HeaderWidget extends StatelessWidget {
     Navigator.pushNamed(context, '/auth');
   }
 
+  void navigateToPrintShack(BuildContext context) {
+    Navigator.pushNamed(context, '/print-shack');
+  }
+
   void placeholderCallback() {
     // Placeholder for buttons that don't have functionality yet
   }
@@ -131,6 +135,17 @@ class HeaderWidget extends StatelessWidget {
                             onPressed: () => navigateToAbout(context),
                             child: const Text(
                               'About',
+                              style: TextStyle(
+                                color: Colors.black87,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () => navigateToPrintShack(context),
+                            child: const Text(
+                              'Print Shack',
                               style: TextStyle(
                                 color: Colors.black87,
                                 fontSize: 14,
