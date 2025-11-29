@@ -399,6 +399,121 @@ class _PrintShackPageState extends State<PrintShackPage> {
     );
   }
 
+  Widget _buildDynamicOptions() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 24),
+        
+        // Font Selection
+        const Text(
+          '3. Choose Font',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          children: _currentProduct.availableFonts.map((font) {
+            return ChoiceChip(
+              label: Text(font),
+              selected: _selectedFont == font,
+              onSelected: (selected) => setState(() => _selectedFont = font),
+            );
+          }).toList(),
+        ),
+
+        const SizedBox(height: 24),
+
+        // Color Selection
+        const Text(
+          '4. Choose Color',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Wrap(
+          spacing: 8,
+          children: _currentProduct.availableColors.map((color) {
+            return ChoiceChip(
+              label: Text(color),
+              selected: _selectedColor == color,
+              onSelected: (selected) => setState(() => _selectedColor = color),
+            );
+          }).toList(),
+        ),
+
+        const SizedBox(height: 24),
+
+        // Quantity Selector
+        const Text(
+          '5. Quantity',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            IconButton(
+              icon: const Icon(Icons.remove),
+              onPressed: _quantity > 1 ? () => setState(() => _quantity--) : null,
+            ),
+            Text(
+              '$_quantity',
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: _quantity < 10 ? () => setState(() => _quantity++) : null,
+            ),
+          ],
+        ),
+
+        // Add to Cart Button
+        const SizedBox(height: 32),
+        SizedBox(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF4d2963),
+            ),
+            onPressed: _customText.isEmpty ? null : () {
+              final customization = PrintShackCustomization(
+                productId: _selectedProductId,
+                customText: _customText,
+                selectedFont: _selectedFont,
+                selectedColor: _selectedColor,
+                quantity: _quantity,
+              );
+              
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Added "$_customText" to cart!'),
+                  backgroundColor: const Color(0xFF4d2963),
+                ),
+              );
+            },
+            child: const Text(
+              'Add to Cart',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   Color _getColorFromString(String colorName) {
     switch (colorName.toLowerCase()) {
       case 'black':
