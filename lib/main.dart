@@ -147,12 +147,17 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Column(
-                    children: [
-                      Icon(Icons.local_mall_outlined, size: 32, color: Colors.deepPurple),
-                      SizedBox(height: 8),
-                      Text("Clothing", style: TextStyle(fontSize: 14)),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/collections');
+                    },
+                    child: const Column(
+                      children: [
+                        Icon(Icons.local_mall_outlined, size: 32, color: Colors.deepPurple),
+                        SizedBox(height: 8),
+                        Text("Clothing", style: TextStyle(fontSize: 14)),
+                      ],
+                    ),
                   ),
                   const Column(
                     children: [
