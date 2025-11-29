@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:union_shop/main.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
+
+  // Navigation methods
+  void _navigateToHome(BuildContext context) {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      (route) => false,
+    );
+  }
+
+  void _navigateToCollections(BuildContext context) {
+    Navigator.pushNamed(context, '/collections');
+  }
+
+  void _navigateToAbout(BuildContext context) {
+    Navigator.pushNamed(context, '/about');
+  }
+
+  void _navigateToPrintShack(BuildContext context) {
+    Navigator.pushNamed(context, '/print-shack');
+  }
 
   @override
   Widget build(BuildContext context) {
