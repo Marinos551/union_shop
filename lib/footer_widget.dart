@@ -53,59 +53,36 @@ class FooterWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // Added links row
               const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToHome(context);
-                    },
-                    child: const Text('Home', style: TextStyle(color: Colors.grey)),
-                  ),
-                  const SizedBox(width: 16),
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToCollections(context);
-                    },
-                    child: const Text('Products', style: TextStyle(color: Colors.grey)),
-                  ),
-                  const SizedBox(width: 16),
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToAbout(context);
-                    },
-                    child: const Text('About', style: TextStyle(color: Colors.grey)),
-                  ),
-                ],
-              ),
-              // Added contact section (as requested)
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToAbout(context);
-                    },
-                    child: const Text('Contact Us', style: TextStyle(color: Colors.grey)),
-                  ),
-                  const SizedBox(width: 16),
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToPrintShack(context);
-                    },
-                    child: const Text('Support', style: TextStyle(color: Colors.grey)),
-                  ),
-                  const SizedBox(width: 16),
-                  GestureDetector(
-                    onTap: () {
-                      _navigateToPrintShack(context);
-                    },
-                    child: const Text('FAQ', style: TextStyle(color: Colors.grey)),
-                  ),
-                ],
+              // Responsive links layout
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  if (constraints.maxWidth > 600) {
+                    // Desktop: Two rows of links
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _buildFooterLinks(context),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: _buildFooterLinks2(context),
+                        ),
+                      ],
+                    );
+                  } else {
+                    // Mobile: Single column
+                    return Column(
+                      children: [
+                        ..._buildFooterLinks(context),
+                        const SizedBox(height: 8),
+                        ..._buildFooterLinks2(context),
+                      ],
+                    );
+                  }
+                },
               ),
               // Social Media
               const SizedBox(height: 16),
@@ -161,6 +138,36 @@ class FooterWidget extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  List<Widget> _buildFooterLinks(BuildContext context) {
+    return [
+      _buildFooterLink('Home', () => _navigateToHome(context)),
+      if (MediaQuery.of(context).size.width > 600) const SizedBox(width: 16),
+      _buildFooterLink('Products', () => _navigateToCollections(context)),
+      if (MediaQuery.of(context).size.width > 600) const SizedBox(width: 16),
+      _buildFooterLink('About', () => _navigateToAbout(context)),
+    ];
+  }
+
+  List<Widget> _buildFooterLinks2(BuildContext context) {
+    return [
+      _buildFooterLink('Contact Us', () => _navigateToAbout(context)),
+      if (MediaQuery.of(context).size.width > 600) const SizedBox(width: 16),
+      _buildFooterLink('Support', () => _navigateToPrintShack(context)),
+      if (MediaQuery.of(context).size.width > 600) const SizedBox(width: 16),
+      _buildFooterLink('FAQ', () => _navigateToPrintShack(context)),
+    ];
+  }
+
+  Widget _buildFooterLink(String text, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Text(text, style: const TextStyle(color: Colors.grey)),
       ),
     );
   }
