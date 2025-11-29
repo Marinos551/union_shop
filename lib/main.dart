@@ -171,12 +171,17 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const Column(
-                    children: [
-                      Icon(Icons.school_outlined, size: 32, color: Colors.deepPurple),
-                      SizedBox(height: 8),
-                      Text("Accessories", style: TextStyle(fontSize: 14)),
-                    ],
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/collections');
+                    },
+                    child: const Column(
+                      children: [
+                        Icon(Icons.school_outlined, size: 32, color: Colors.deepPurple),
+                        SizedBox(height: 8),
+                        Text("Accessories", style: TextStyle(fontSize: 14)),
+                      ],
+                    ),
                   ),
                   Column(
                     children: [
