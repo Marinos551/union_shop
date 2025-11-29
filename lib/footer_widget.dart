@@ -94,12 +94,7 @@ class FooterWidget extends StatelessWidget {
                   const SizedBox(width: 16),
                   GestureDetector(
                     onTap: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('Footer link (demo)'),
-                          duration: Duration(milliseconds: 500),
-                        ),
-                      );
+                      _navigateToPrintShack(context);
                     },
                     child: const Text('Support', style: TextStyle(color: Colors.grey)),
                   ),
