@@ -74,6 +74,66 @@ class PrintShackAboutPage extends StatelessWidget {
                       _buildFeatureItem('Text Personalization', 'Add your own text in various fonts and colors'),
                     ],
                   ),
+                  
+                  const SizedBox(height: 24),
+                  
+                  // Turnaround Time
+                  const Text(
+                    'Turnaround Time',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Standard orders: 3-5 business days\n'
+                    'Express service: 1-2 business days (additional fee applies)',
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                  
+                  const SizedBox(height: 24),
+                  
+                  // Contact Info
+                  const Text(
+                    'Contact Print Shack',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Location: Student Union Building, Ground Floor\n'
+                    'Email: printshack@unionshop.com\n'
+                    'Phone: +44 123 456 7891\n'
+                    'Hours: Mon-Fri 9:00-17:00',
+                    style: TextStyle(fontSize: 16, height: 1.5),
+                  ),
+                  
+                  const SizedBox(height: 32),
+                  
+                  // Navigation to personalization
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFF4d2963),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                      ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/print-shack');
+                      },
+                      child: const Text(
+                        'Start Personalizing',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
