@@ -62,83 +62,98 @@ class HomeScreen extends StatelessWidget {
             // Header
             const HeaderWidget(),
 
-            // Hero Section
-            SizedBox(
-              height: 400,
-              width: double.infinity,
-              child: Stack(
-                children: [
-                  // Background image
-                  Positioned.fill(
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+            // Hero Section - Responsive
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final isWideScreen = constraints.maxWidth > 600;
+                final heroHeight = isWideScreen ? 500.0 : 400.0;
+                final titleFontSize = isWideScreen ? 36.0 : 28.0;
+                final subtitleFontSize = isWideScreen ? 22.0 : 18.0;
+
+                return SizedBox(
+                  height: heroHeight,
+                  width: double.infinity,
+                  child: Stack(
+                    children: [
+                      // Background image
+                      Positioned.fill(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(
+                                'https://shop.upsu.net/cdn/shop/files/PortsmouthCityPostcard2_1024x1024@2x.jpg?v=1752232561',
+                              ),
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // ignore: deprecated_member_use
-                          color: Colors.black.withOpacity(0.7),
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Content overlay
-                  Positioned(
-                    left: 24,
-                    right: 24,
-                    top: 80,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            'Welcome to the Union Shop',
-                            style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width < 400 ? 24 : 32,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              height: 1.2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black.withOpacity(0.7),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        Text(
-                          "Official merch, gifts, and essentials for Portsmouth students.",
-                          style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width < 400 ? 16 : 20,
-                            color: Colors.white,
-                            height: 1.5,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 32),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/collections'); // ✅ This works!
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF6A1B9A),
-                            foregroundColor: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
+                      ),
+                      // Content overlay
+                      Positioned(
+                        left: isWideScreen ? 80 : 24,
+                        right: isWideScreen ? 80 : 24,
+                        top: isWideScreen ? 120 : 80,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Welcome to the Union Shop',
+                                style: TextStyle(
+                                  fontSize: titleFontSize,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  height: 1.2,
+                                ),
+                              ),
                             ),
-                          ),
-                          child: const Text(
-                            'BROWSE PRODUCTS',
-                            style: TextStyle(fontSize: 14, letterSpacing: 1),
-                          ),
+                            const SizedBox(height: 20),
+                            Text(
+                              "Official merch, gifts, and essentials for Portsmouth students.",
+                              style: TextStyle(
+                                fontSize: subtitleFontSize,
+                                color: Colors.white,
+                                height: 1.5,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 40),
+                            SizedBox(
+                              width: isWideScreen ? 300 : double.infinity,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/collections');
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFF6A1B9A),
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero,
+                                  ),
+                                ),
+                                child: Text(
+                                  'BROWSE PRODUCTS',
+                                  style: TextStyle(
+                                    fontSize: isWideScreen ? 16 : 14,
+                                    letterSpacing: 1,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
 
             // Featured Categories
