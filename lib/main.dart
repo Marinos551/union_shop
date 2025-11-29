@@ -156,73 +156,81 @@ class HomeScreen extends StatelessWidget {
               },
             ),
 
-            // Featured Categories
+            // Featured Categories - Responsive
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/collections');
-                    },
-                    child: const Column(
-                      children: [
-                        Icon(Icons.local_mall_outlined, size: 32, color: Colors.deepPurple),
-                        SizedBox(height: 8),
-                        Text("Clothing", style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/collections');
-                    },
-                    child: const Column(
-                      children: [
-                        Icon(Icons.emoji_events_outlined, size: 32, color: Colors.deepPurple),
-                        SizedBox(height: 8),
-                        Text("Merch", style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/collections');
-                    },
-                    child: const Column(
-                      children: [
-                        Icon(Icons.school_outlined, size: 32, color: Colors.deepPurple),
-                        SizedBox(height: 8),
-                        Text("Accessories", style: TextStyle(fontSize: 14)),
-                      ],
-                    ),
-                  ),
-                  Column(
+              padding: EdgeInsets.symmetric(
+                vertical: 24,
+                horizontal: MediaQuery.of(context).size.width > 600 ? 60 : 16,
+              ),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final isWideScreen = constraints.maxWidth > 600;
+                  final iconSize = isWideScreen ? 40.0 : 32.0;
+                  final fontSize = isWideScreen ? 16.0 : 14.0;
+                  
+                  return Wrap(
+                    spacing: isWideScreen ? 40 : 20,
+                    runSpacing: 20,
+                    alignment: WrapAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/sale');
-                        },
-                        child: const Icon(Icons.local_offer_outlined, size: 32, color: Colors.deepPurple),
+                        onTap: () => Navigator.pushNamed(context, '/collections'),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.local_mall_outlined, size: iconSize, color: Colors.deepPurple),
+                            const SizedBox(height: 8),
+                            Text("Clothing", style: TextStyle(fontSize: fontSize)),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text("Sale Items", style: TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                  Column(
-                    children: [
                       GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(context, '/cart');
-                        },
-                        child: const Icon(Icons.shopping_cart_outlined, size: 32, color: Colors.deepPurple),
+                        onTap: () => Navigator.pushNamed(context, '/collections'),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.emoji_events_outlined, size: iconSize, color: Colors.deepPurple),
+                            const SizedBox(height: 8),
+                            Text("Merch", style: TextStyle(fontSize: fontSize)),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      const Text("Cart", style: TextStyle(fontSize: 14)),
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/collections'),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.school_outlined, size: iconSize, color: Colors.deepPurple),
+                            const SizedBox(height: 8),
+                            Text("Accessories", style: TextStyle(fontSize: fontSize)),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/sale'),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.local_offer_outlined, size: iconSize, color: Colors.deepPurple),
+                            const SizedBox(height: 8),
+                            Text("Sale Items", style: TextStyle(fontSize: fontSize)),
+                          ],
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/cart'),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.shopping_cart_outlined, size: iconSize, color: Colors.deepPurple),
+                            const SizedBox(height: 8),
+                            Text("Cart", style: TextStyle(fontSize: fontSize)),
+                          ],
+                        ),
+                      ),
                     ],
-                  ),
-                ],
+                  );
+                },
               ),
             ),
 
@@ -418,6 +426,95 @@ class ProductCard extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildProductCard(BuildContext context, Product product) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const ProductPage(),
+            settings: RouteSettings(
+              arguments: {'productId': product.id},
+            ),
+          ),
+        );
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 120,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.grey[300],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                product.imageUrl,
+                width: double.infinity,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: Colors.grey[200],
+                    child: const Center(
+                      child: Icon(Icons.image_not_supported, color: Colors.grey),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            product.name,
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          const SizedBox(height: 4),
+          if (product.isOnSale)
+            Row(
+              children: [
+                Text(
+                  '£${product.salePrice!.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.red,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  '£${product.price.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
+              ],
+            )
+          else
+            Text(
+              '£${product.price.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 14,
+                color: Colors.grey,
+              ),
+            ),
+          const SizedBox(height: 4),
+          Text(
+            product.description,
+            style: const TextStyle(fontSize: 12, color: Colors.grey),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
