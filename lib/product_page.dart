@@ -91,8 +91,7 @@ class _ProductPageState extends State<ProductPage> {
 
   Widget _buildProductImage(Product product) {
     return Container(
-      height: 400,
-      width: double.infinity,
+      height: MediaQuery.of(context).size.width > 800 ? 400 : 300,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         color: Colors.grey[200],
