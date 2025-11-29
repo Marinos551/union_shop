@@ -1,9 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:union_shop/main.dart';
 import 'package:union_shop/models/cart_service.dart';
+import 'package:union_shop/data/collections_data.dart';
+import 'package:union_shop/models/product_model.dart';
+import 'package:union_shop/product_page.dart';
 
-class HeaderWidget extends StatelessWidget {
+class HeaderWidget extends StatefulWidget {
   const HeaderWidget({super.key});
+
+  @override
+  State<HeaderWidget> createState() => _HeaderWidgetState();
+}
+
+class _HeaderWidgetState extends State<HeaderWidget> {
+  final TextEditingController _searchController = TextEditingController();
+  List<Product> _searchResults = [];
+  bool _showSearchResults = false;
+  final FocusNode _searchFocusNode = FocusNode();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _searchFocusNode.dispose();
+    super.dispose();
+  }
+
+  void _performSearch(String query) {
+    if (query.isEmpty) {
+      setState(() {
+        _searchResults = [];
+        _showSearchResults = false;
+      });
+      return;
+    }
+
+    setState(() {
+      _searchResults = allProducts
+          .where((product) =>
+              product.name.toLowerCase().contains(query.toLowerCase()) ||
+              product.description.toLowerCase().contains(query.toLowerCase()) ||
+              product.category.toLowerCase().contains(query.toLowerCase()))
+          .take(5)
+          .toList();
+      _showSearchResults = _searchResults.isNotEmpty;
+    });
+  }
+
+  void _navigateToProduct(Product product) {
+    setState(() {
+      _showSearchResults = false;
+      _searchController.clear();
+    });
+    _searchFocusNode.unfocus();
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ProductPage(),
+        settings: RouteSettings(
+          arguments: {'productId': product.id},
+        ),
+      ),
+    );
+  }
 
   // Navigation helper methods
   void navigateToHome(BuildContext context) {
@@ -44,21 +103,23 @@ class HeaderWidget extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
 
-    return Container(
-      height: 100,
-      color: Colors.white,
-      child: Column(
-        children: [
-          // Top purple banner
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            color: const Color(0xFF4d2963),
-            child: const Text(
-              'Union Shop',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.white,
+    return Stack(
+      children: [
+        Container(
+          height: 100,
+          color: Colors.white,
+          child: Column(
+            children: [
+              // Top purple banner
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                color: const Color(0xFF4d2963),
+                child: const Text(
+                  'Union Shop',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
@@ -162,18 +223,55 @@ class HeaderWidget extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.search,
-                          size: 18,
-                          color: Colors.grey,
+                      // Search field with dropdown
+                      SizedBox(
+                        width: isMobile ? 40 : 200,
+                        child: Stack(
+                          children: [
+                            if (!isMobile)
+                              TextField(
+                                controller: _searchController,
+                                focusNode: _searchFocusNode,
+                                decoration: InputDecoration(
+                                  hintText: 'Search products...',
+                                  hintStyle: TextStyle(fontSize: 12, color: Colors.grey[400]),
+                                  prefixIcon: const Icon(Icons.search, size: 18, color: Colors.grey),
+                                  contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(color: Colors.grey[300]!),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: BorderSide(color: Colors.grey[300]!),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                    borderSide: const BorderSide(color: Color(0xFF4d2963)),
+                                  ),
+                                ),
+                                style: const TextStyle(fontSize: 14),
+                                onChanged: _performSearch,
+                                onSubmitted: (value) {
+                                  if (_searchResults.isNotEmpty) {
+                                    _navigateToProduct(_searchResults.first);
+                                  }
+                                },
+                              )
+                            else
+                              IconButton(
+                                icon: const Icon(Icons.search, size: 18, color: Colors.grey),
+                                padding: const EdgeInsets.all(8),
+                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                                onPressed: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => _buildMobileSearchDialog(),
+                                  );
+                                },
+                              ),
+                          ],
                         ),
-                        padding: const EdgeInsets.all(8),
-                        constraints: const BoxConstraints(
-                          minWidth: 32,
-                          minHeight: 32,
-                        ),
-                        onPressed: placeholderCallback,
                       ),
                       IconButton(
                         icon: const Icon(
@@ -251,6 +349,151 @@ class HeaderWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    ),
+    // Search results overlay
+    if (_showSearchResults && !isMobile) _buildSearchResults(),
+      ],
+    );
+  }
+
+  Widget _buildSearchResults() {
+    if (!_showSearchResults || _searchResults.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Positioned(
+      top: 100,
+      right: 16,
+      child: Material(
+        elevation: 8,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          width: 300,
+          constraints: const BoxConstraints(maxHeight: 300),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.grey[300]!),
+          ),
+          child: ListView.builder(
+            shrinkWrap: true,
+            itemCount: _searchResults.length,
+            itemBuilder: (context, index) {
+              final product = _searchResults[index];
+              return ListTile(
+                leading: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.grey[200],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: Image.asset(
+                      product.imageUrl,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Icon(Icons.image_not_supported, color: Colors.grey);
+                      },
+                    ),
+                  ),
+                ),
+                title: Text(
+                  product.name,
+                  style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                  '£${product.isOnSale ? product.salePrice!.toStringAsFixed(2) : product.price.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: product.isOnSale ? Colors.red : Colors.grey[600],
+                  ),
+                ),
+                onTap: () => _navigateToProduct(product),
+              );
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMobileSearchDialog() {
+    return Dialog(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: 'Search products...',
+                prefixIcon: const Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onChanged: _performSearch,
+              onSubmitted: (value) {
+                if (_searchResults.isNotEmpty) {
+                  Navigator.pop(context);
+                  _navigateToProduct(_searchResults.first);
+                }
+              },
+            ),
+            const SizedBox(height: 16),
+            if (_searchResults.isNotEmpty)
+              Container(
+                constraints: const BoxConstraints(maxHeight: 300),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: _searchResults.length,
+                  itemBuilder: (context, index) {
+                    final product = _searchResults[index];
+                    return ListTile(
+                      leading: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          color: Colors.grey[200],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: Image.asset(
+                            product.imageUrl,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(Icons.image_not_supported, color: Colors.grey);
+                            },
+                          ),
+                        ),
+                      ),
+                      title: Text(product.name, style: const TextStyle(fontSize: 14)),
+                      subtitle: Text(
+                        '£${product.isOnSale ? product.salePrice!.toStringAsFixed(2) : product.price.toStringAsFixed(2)}',
+                        style: TextStyle(fontSize: 12, color: product.isOnSale ? Colors.red : Colors.grey[600]),
+                      ),
+                      onTap: () {
+                        Navigator.pop(context);
+                        _navigateToProduct(product);
+                      },
+                    );
+                  },
+                ),
+              )
+            else if (_searchController.text.isNotEmpty)
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('No products found', style: TextStyle(color: Colors.grey)),
+              ),
+          ],
+        ),
       ),
     );
   }
