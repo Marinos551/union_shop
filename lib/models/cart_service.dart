@@ -1,58 +1,83 @@
-import 'package:union_shop/models/cart_model.dart';
+import 'package:flutter/material.dart';
+import 'cart_model.dart';
 
-class CartService {
+class CartService extends ChangeNotifier {
   static final CartService _instance = CartService._internal();
   factory CartService() => _instance;
-  CartService._internal() {
-    _cart = Cart(items: []);
-  }
+  CartService._internal();
 
-  late Cart _cart;
+  final List<CartItem> _items = [];
 
-  Cart get cart => _cart;
+  List<CartItem> get items => List.unmodifiable(_items);
 
   void addToCart(CartItem item) {
-    // Check if item already exists in cart
-    final existingIndex = _cart.items.indexWhere(
-      (cartItem) =>
-          cartItem.productId == item.productId &&
-          cartItem.selectedSize == item.selectedSize &&
-          cartItem.selectedColor == item.selectedColor,
-    );
+    // Check if item already exists with same options
+    final existingIndex = _items.indexWhere((existingItem) =>
+        existingItem.productId == item.productId &&
+        existingItem.selectedSize == item.selectedSize &&
+        existingItem.selectedColor == item.selectedColor);
 
-    if (existingIndex != -1) {
+    if (existingIndex >= 0) {
       // Update quantity if item exists
-      _cart.updateQuantity(
-        item.productId,
-        _cart.items[existingIndex].quantity + item.quantity,
+      _items[existingIndex] = _items[existingIndex].copyWith(
+        quantity: _items[existingIndex].quantity + item.quantity,
       );
     } else {
       // Add new item
-      _cart.addItem(item);
+      _items.add(item);
     }
+    notifyListeners(); // This triggers UI updates
   }
 
-  void removeFromCart(String productId) {
-    _cart.removeItem(productId);
+  void removeFromCart(String productId, {String? size, String? color}) {
+    _items.removeWhere((item) =>
+        item.productId == productId &&
+        item.selectedSize == size &&
+        item.selectedColor == color);
+    notifyListeners();
   }
 
   void updateItemQuantity(String productId, int newQuantity) {
     if (newQuantity <= 0) {
       removeFromCart(productId);
     } else {
-      _cart.updateQuantity(productId, newQuantity);
+      updateQuantity(productId, newQuantity);
+    }
+  }
+
+  void updateQuantity(String productId, int quantity, {String? size, String? color}) {
+    final index = _items.indexWhere((item) =>
+        item.productId == productId &&
+        item.selectedSize == size &&
+        item.selectedColor == color);
+    
+    if (index >= 0) {
+      if (quantity <= 0) {
+        _items.removeAt(index);
+      } else {
+        _items[index] = _items[index].copyWith(quantity: quantity);
+      }
+      notifyListeners();
     }
   }
 
   void clearCart() {
-    _cart.clear();
+    _items.clear();
+    notifyListeners();
   }
 
   int getItemCount() {
-    return _cart.totalItems;
+    return _items.fold(0, (sum, item) => sum + item.quantity);
   }
 
   double getTotalAmount() {
-    return _cart.totalAmount;
+    return _items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
   }
+
+  double getTotalPrice() {
+    return _items.fold(0.0, (sum, item) => sum + (item.price * item.quantity));
+  }
+
+  bool get isNotEmpty => _items.isNotEmpty;
+  bool get isEmpty => _items.isEmpty;
 }
