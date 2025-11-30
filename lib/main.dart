@@ -32,8 +32,9 @@ class UnionShopApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
         ),
-        home: const HomeScreen(),
+        initialRoute: '/',
         routes: {
+          '/': (context) => const HomeScreen(),
           '/about': (context) => const AboutPage(),
           '/auth': (context) => const AuthPage(),
           '/collections': (context) => const CollectionsPage(),
