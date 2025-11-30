@@ -513,64 +513,70 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   }
 
   Widget _buildMobileMenu(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              'Menu',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF4d2963),
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'Menu',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF4d2963),
+                ),
               ),
             ),
-          ),
-          const Divider(),
-          ListTile(
-            leading: const Icon(Icons.home, color: Color(0xFF4d2963)),
-            title: const Text('Home', style: TextStyle(fontSize: 16)),
-            onTap: () {
-              Navigator.pop(context);
-              navigateToHome(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.collections, color: Color(0xFF4d2963)),
-            title: const Text('Collections', style: TextStyle(fontSize: 16)),
-            onTap: () {
-              Navigator.pop(context);
-              navigateToCollections(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.local_offer, color: Color(0xFF4d2963)),
-            title: const Text('Sale', style: TextStyle(fontSize: 16)),
-            onTap: () {
-              Navigator.pop(context);
-              navigateToSale(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.info_outline, color: Color(0xFF4d2963)),
-            title: const Text('About', style: TextStyle(fontSize: 16)),
-            onTap: () {
-              Navigator.pop(context);
-              navigateToAbout(context);
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.print, color: Color(0xFF4d2963)),
-            title: const Text('Print Shack', style: TextStyle(fontSize: 16)),
-            onTap: () {
-              Navigator.pop(context);
-              navigateToPrintShack(context);
-            },
-          ),
-        ],
+            const Divider(),
+            ListTile(
+              leading: const Icon(Icons.home, color: Color(0xFF4d2963)),
+              title: const Text('Home', style: TextStyle(fontSize: 16)),
+              onTap: () {
+                Navigator.pop(context);
+                navigateToHome(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.collections, color: Color(0xFF4d2963)),
+              title: const Text('Collections', style: TextStyle(fontSize: 16)),
+              onTap: () {
+                Navigator.pop(context);
+                navigateToCollections(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.local_offer, color: Color(0xFF4d2963)),
+              title: const Text('Sale', style: TextStyle(fontSize: 16)),
+              onTap: () {
+                Navigator.pop(context);
+                navigateToSale(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.info_outline, color: Color(0xFF4d2963)),
+              title: const Text('About', style: TextStyle(fontSize: 16)),
+              onTap: () {
+                Navigator.pop(context);
+                navigateToAbout(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.print, color: Color(0xFF4d2963)),
+              title: const Text('Print Shack', style: TextStyle(fontSize: 16)),
+              onTap: () {
+                Navigator.pop(context);
+                navigateToPrintShack(context);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
