@@ -184,31 +184,9 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.local_mall_outlined, size: iconSize, color: Colors.deepPurple),
-                            const SizedBox(height: 8),
-                            Text("Clothing", style: TextStyle(fontSize: fontSize)),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, '/collections'),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.emoji_events_outlined, size: iconSize, color: Colors.deepPurple),
-                            const SizedBox(height: 8),
-                            Text("Merch", style: TextStyle(fontSize: fontSize)),
-                          ],
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, '/collections'),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
                             Icon(Icons.school_outlined, size: iconSize, color: Colors.deepPurple),
                             const SizedBox(height: 8),
-                            Text("Accessories", style: TextStyle(fontSize: fontSize)),
+                            Text("Collections", style: TextStyle(fontSize: fontSize)),
                           ],
                         ),
                       ),
