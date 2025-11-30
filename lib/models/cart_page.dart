@@ -1,43 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/models/cart_model.dart';
 
-class CartPage extends StatefulWidget {
+class CartPage extends StatelessWidget {
   const CartPage({super.key});
 
-  @override
-  State<CartPage> createState() => _CartPageState();
-}
-
-class _CartPageState extends State<CartPage> {
-  final CartService _cartService = CartService();
-
-  void _updateQuantity(String productId, int newQuantity) {
-    setState(() {
-      _cartService.updateItemQuantity(productId, newQuantity);
-    });
-  }
-
-  void _removeItem(String productId) {
-    setState(() {
-      _cartService.removeFromCart(productId);
-    });
-  }
-
-  void _clearCart() {
-    setState(() {
-      _cartService.clearCart();
-    });
-  }
-
-  void _checkout() {
-    if (_cartService.items.isEmpty) return;
+  void _checkout(BuildContext context, CartService cartService) {
+    if (cartService.items.isEmpty) return;
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Order placed successfully! Total: £${_cartService.getTotalAmount().toStringAsFixed(2)}'),
+        content: Text('Order placed successfully! Total: £${cartService.getTotalAmount().toStringAsFixed(2)}'),
         duration: const Duration(seconds: 3),
         backgroundColor: Colors.green,
       ),
@@ -45,11 +21,11 @@ class _CartPageState extends State<CartPage> {
     
     // Clear cart after successful "order"
     Future.delayed(const Duration(seconds: 2), () {
-      _clearCart();
+      cartService.clearCart();
     });
   }
 
-  Widget _buildCartItem(CartItem item) {
+  Widget _buildCartItem(CartItem item, CartService cartService) {
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Padding(
@@ -118,7 +94,12 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                       icon: const Icon(Icons.remove, size: 20),
                       onPressed: () {
-                        _updateQuantity(item.productId, item.quantity - 1);
+                        cartService.updateQuantity(
+                          item.productId,
+                          item.quantity - 1,
+                          size: item.selectedSize,
+                          color: item.selectedColor,
+                        );
                       },
                     ),
                     Text(
@@ -131,13 +112,22 @@ class _CartPageState extends State<CartPage> {
                     IconButton(
                       icon: const Icon(Icons.add, size: 20),
                       onPressed: () {
-                        _updateQuantity(item.productId, item.quantity + 1);
+                        cartService.updateQuantity(
+                          item.productId,
+                          item.quantity + 1,
+                          size: item.selectedSize,
+                          color: item.selectedColor,
+                        );
                       },
                     ),
                   ],
                 ),
                 TextButton(
-                  onPressed: () => _removeItem(item.productId),
+                  onPressed: () => cartService.removeFromCart(
+                    item.productId,
+                    size: item.selectedSize,
+                    color: item.selectedColor,
+                  ),
                   child: const Text(
                     'Remove',
                     style: TextStyle(color: Colors.red),
@@ -153,9 +143,10 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = _cartService.items;
-    final totalAmount = _cartService.getTotalAmount();
-    final totalItems = _cartService.getItemCount();
+    final cartService = Provider.of<CartService>(context);
+    final cartItems = cartService.items;
+    final totalAmount = cartService.getTotalAmount();
+    final totalItems = cartService.getItemCount();
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -207,7 +198,7 @@ class _CartPageState extends State<CartPage> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: cartItems.length,
                     itemBuilder: (context, index) {
-                      return _buildCartItem(cartItems[index]);
+                      return _buildCartItem(cartItems[index], cartService);
                     },
                   ),
                   const SizedBox(height: 24),
@@ -276,7 +267,7 @@ class _CartPageState extends State<CartPage> {
                       children: [
                         Expanded(
                           child: OutlinedButton(
-                            onPressed: _clearCart,
+                            onPressed: () => cartService.clearCart(),
                             style: OutlinedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 16),
                             ),
@@ -286,7 +277,7 @@ class _CartPageState extends State<CartPage> {
                         const SizedBox(width: 16),
                         Expanded(
                           child: ElevatedButton(
-                            onPressed: _checkout,
+                            onPressed: () => _checkout(context, cartService),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF4d2963),
                               padding: const EdgeInsets.symmetric(vertical: 16),
