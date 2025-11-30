@@ -133,10 +133,8 @@ class _PrintShackPageState extends State<PrintShackPage> {
                     return Column(
                       children: [
                         _buildPrintShackForm(),
-                        if (_customText.isNotEmpty) ...[
-                          const SizedBox(height: 32),
-                          _buildPrintShackPreview(),
-                        ],
+                        const SizedBox(height: 32),
+                        _buildPrintShackPreview(),
                       ],
                     );
                   }
