@@ -13,6 +13,9 @@ class _AuthPageState extends State<AuthPage> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
   
+  // Form key
+  final _formKey = GlobalKey<FormState>();
+  
   // Text controllers
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -29,14 +32,16 @@ class _AuthPageState extends State<AuthPage> {
   }
 
   void _handleSubmit() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(_isLoginMode
-            ? 'Login functionality coming soon!'
-            : 'Signup functionality coming soon!'),
-        backgroundColor: const Color(0xFF4d2963),
-      ),
-    );
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(_isLoginMode
+              ? 'Login functionality coming soon!'
+              : 'Signup functionality coming soon!'),
+          backgroundColor: const Color(0xFF4d2963),
+        ),
+      );
+    }
   }
 
   @override
@@ -49,30 +54,32 @@ class _AuthPageState extends State<AuthPage> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 40),
-              // Logo
-              const Icon(
-                Icons.shopping_bag,
-                size: 80,
-                color: Color(0xFF4d2963),
-              ),
-              const SizedBox(height: 24),
-              // Welcome text
-              const Text(
-                'Welcome to Union Shop',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 40),
+                // Logo
+                const Icon(
+                  Icons.shopping_bag,
+                  size: 80,
                   color: Color(0xFF4d2963),
                 ),
-              ),
-              const SizedBox(height: 8),
-              // Subtitle
-              Text(
-                _isLoginMode ? 'Login to your account' : 'Create a new account',
+                const SizedBox(height: 24),
+                // Welcome text
+                const Text(
+                  'Welcome to Union Shop',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF4d2963),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                // Subtitle
+                Text(
+                  _isLoginMode ? 'Login to your account' : 'Create a new account',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],
@@ -102,9 +109,18 @@ class _AuthPageState extends State<AuthPage> {
                 const SizedBox(height: 16),
               ],
               // Email field
-              TextField(
+              TextFormField(
                 controller: _emailController,
                 keyboardType: TextInputType.emailAddress,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your email';
+                  }
+                  if (!value.contains('@gmail.com')) {
+                    return 'Please enter a valid @gmail.com email';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   labelText: 'Email',
                   hintText: 'Enter your email',
@@ -119,13 +135,25 @@ class _AuthPageState extends State<AuthPage> {
                       width: 2,
                     ),
                   ),
+                  errorStyle: const TextStyle(
+                    color: Colors.red,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
               // Password field
-              TextField(
+              TextFormField(
                 controller: _passwordController,
                 obscureText: _obscurePassword,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your password';
+                  }
+                  if (value.length < 6) {
+                    return 'Password must be at least 6 characters';
+                  }
+                  return null;
+                },
                 decoration: InputDecoration(
                   labelText: 'Password',
                   hintText: 'Enter your password',
@@ -150,14 +178,28 @@ class _AuthPageState extends State<AuthPage> {
                       width: 2,
                     ),
                   ),
+                  errorStyle: const TextStyle(
+                    color: Colors.red,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),
               // Confirm Password field (only for signup)
               if (!_isLoginMode)
-                TextField(
+                TextFormField(
                   controller: _confirmPasswordController,
                   obscureText: _obscureConfirmPassword,
+                  validator: (value) {
+                    if (!_isLoginMode) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please confirm your password';
+                      }
+                      if (value != _passwordController.text) {
+                        return 'Passwords do not match';
+                      }
+                    }
+                    return null;
+                  },
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     hintText: 'Re-enter your password',
@@ -183,6 +225,9 @@ class _AuthPageState extends State<AuthPage> {
                         color: Color(0xFF4d2963),
                         width: 2,
                       ),
+                    ),
+                    errorStyle: const TextStyle(
+                      color: Colors.red,
                     ),
                   ),
                 ),
@@ -269,6 +314,7 @@ class _AuthPageState extends State<AuthPage> {
             ],
           ),
         ),
+      ),
       ),
     );
   }
