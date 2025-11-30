@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/about_page.dart';
 import 'package:union_shop/auth_page.dart';
@@ -22,24 +24,27 @@ class UnionShopApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Union Shop',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+    return ChangeNotifierProvider(
+      create: (context) => CartService(),
+      child: MaterialApp(
+        title: 'Union Shop',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4d2963)),
+        ),
+        home: const HomeScreen(),
+        routes: {
+          '/about': (context) => const AboutPage(),
+          '/auth': (context) => const AuthPage(),
+          '/collections': (context) => const CollectionsPage(),
+          '/collection-products': (context) => const CollectionProductsPage(),
+          '/sale': (context) => const SaleCollectionPage(),
+          '/cart': (context) => const CartPage(),
+          '/print-shack': (context) => const PrintShackPage(),
+          '/print-shack-about': (context) => const PrintShackAboutPage(),
+          // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
+        },
       ),
-      home: const HomeScreen(),
-      routes: {
-        '/about': (context) => const AboutPage(),
-        '/auth': (context) => const AuthPage(),
-        '/collections': (context) => const CollectionsPage(),
-        '/collection-products': (context) => const CollectionProductsPage(),
-        '/sale': (context) => const SaleCollectionPage(),
-        '/cart': (context) => const CartPage(),
-        '/print-shack': (context) => const PrintShackPage(),
-        '/print-shack-about': (context) => const PrintShackAboutPage(),
-        // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
-      },
     );
   }
 }
