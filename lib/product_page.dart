@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/product_model.dart';
@@ -471,7 +472,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
         onPressed: product.inStock
             ? () {
-                final cartService = CartService();
+                final cartService = Provider.of<CartService>(context, listen: false);
                 final cartItem = CartItem(
                   productId: product.id,
                   productName: product.name,
