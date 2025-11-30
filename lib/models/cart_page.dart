@@ -33,7 +33,7 @@ class _CartPageState extends State<CartPage> {
   }
 
   void _checkout() {
-    if (_cartService.cart.items.isEmpty) return;
+    if (_cartService.items.isEmpty) return;
     
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -153,7 +153,7 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    final cartItems = _cartService.cart.items;
+    final cartItems = _cartService.items;
     final totalAmount = _cartService.getTotalAmount();
     final totalItems = _cartService.getItemCount();
 
