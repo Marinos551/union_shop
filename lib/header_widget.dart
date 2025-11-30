@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:union_shop/main.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/data/collections_data.dart';
 import 'package:union_shop/models/product_model.dart';
@@ -67,9 +66,9 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   // Navigation helper methods
   void navigateToHome(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
+    Navigator.pushNamedAndRemoveUntil(
       context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
+      '/',
       (route) => false,
     );
   }
@@ -115,7 +114,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
           color: Colors.white,
           child: Column(
             children: [
-              // Top purple banner
+              // Top purple banner - always shows "Union Shop"
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 8),
