@@ -25,6 +25,10 @@ class FooterWidget extends StatelessWidget {
     Navigator.pushNamed(context, '/print-shack');
   }
 
+  void _navigateToPurchaseHistory(BuildContext context) {
+    Navigator.pushNamed(context, '/purchase-history');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -154,6 +158,8 @@ class FooterWidget extends StatelessWidget {
 
   List<Widget> _buildFooterLinks2(BuildContext context) {
     return [
+      _buildFooterLink('Purchase History', () => _navigateToPurchaseHistory(context)),
+      if (MediaQuery.of(context).size.width > 600) const SizedBox(width: 16),
       _buildFooterLink('Contact Us', () => _navigateToAbout(context)),
       if (MediaQuery.of(context).size.width > 600) const SizedBox(width: 16),
       _buildFooterLink('Support', () => _navigateToPrintShack(context)),
