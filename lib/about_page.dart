@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/header_widget.dart';
 
@@ -23,7 +24,11 @@ class AboutPage extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
                     onPressed: () {
-                      Navigator.pop(context);
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go('/');
+                      }
                     },
                     tooltip: 'Go back',
                     alignment: Alignment.centerLeft,
