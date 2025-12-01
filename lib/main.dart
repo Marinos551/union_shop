@@ -14,6 +14,7 @@ import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/models/cart_page.dart';
 import 'package:union_shop/print_shack_page.dart';
 import 'package:union_shop/print_shack_about_page.dart';
+import 'package:union_shop/purchase_history_page.dart';
 
 void main() {
   runApp(const UnionShopApp());
@@ -41,6 +42,7 @@ class UnionShopApp extends StatelessWidget {
           '/collection-products': (context) => const CollectionProductsPage(),
           '/sale': (context) => const SaleCollectionPage(),
           '/cart': (context) => const CartPage(),
+          '/purchase-history': (context) => const PurchaseHistoryPage(),
           '/print-shack': (context) => const PrintShackPage(),
           '/print-shack-about': (context) => const PrintShackAboutPage(),
           // removed '/product' because ProductPage is navigated using MaterialPageRoute with custom args
