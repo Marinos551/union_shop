@@ -198,7 +198,9 @@ class CartPage extends StatelessWidget {
                         context.go('/collections');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF4d2963),
+                        backgroundColor: Colors.green,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                       ),
                       child: const Text('Continue Shopping'),
                     ),
@@ -295,7 +297,8 @@ class CartPage extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () => _checkout(context, cartService),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: const Color(0xFF4d2963),
+                              backgroundColor: Colors.orange,
+                              foregroundColor: Colors.white,
                               padding: const EdgeInsets.symmetric(vertical: 16),
                             ),
                             child: const Text('Checkout'),
