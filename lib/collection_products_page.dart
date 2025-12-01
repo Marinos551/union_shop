@@ -292,7 +292,11 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
                       onPressed: () {
-                        Navigator.pop(context);
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/collections');
+                        }
                       },
                       tooltip: 'Go back',
                     ),
