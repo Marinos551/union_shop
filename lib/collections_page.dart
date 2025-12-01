@@ -118,7 +118,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
           return InkWell(
             borderRadius: BorderRadius.circular(8), // Match card corners
             onTap: () {
-              context.go('/collection/${collection.id}');
+              context.push('/collection/${collection.id}');
             },
             child: Column(
               children: [
@@ -173,7 +173,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
         child: Column(
           children: [
             // Header
-            HeaderWidget(key: headerKey),
+            const HeaderWidget(),
             // Page Title
             Padding(
               padding: const EdgeInsets.all(24.0),

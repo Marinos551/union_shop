@@ -14,7 +14,7 @@ class AboutPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header
-            HeaderWidget(key: headerKey),
+            const HeaderWidget(),
             // Content
             Padding(
               padding: const EdgeInsets.all(16),

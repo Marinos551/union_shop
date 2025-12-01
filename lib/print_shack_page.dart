@@ -102,7 +102,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
         child: Column(
           children: [
             // Header
-            HeaderWidget(key: headerKey),
+            const HeaderWidget(),
 
             // Back button
             Padding(

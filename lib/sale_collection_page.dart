@@ -15,7 +15,7 @@ class SaleCollectionPage extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          context.go('/product/${product.id}');
+          context.push('/product/${product.id}');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +132,7 @@ class SaleCollectionPage extends StatelessWidget {
         child: Column(
           children: [
             // Header
-            HeaderWidget(key: headerKey),
+            const HeaderWidget(),
             // Promotional header
             Container(
               width: double.infinity,

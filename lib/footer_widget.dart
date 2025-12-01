@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
@@ -135,10 +134,6 @@ class FooterWidget extends StatelessWidget {
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut,
                       );
-                      // Focus the search bar after scrolling
-                      Future.delayed(const Duration(milliseconds: 600), () {
-                        headerKey.currentState?.focusSearch();
-                      });
                     },
                     child: const Icon(Icons.search, color: Colors.grey),
                   ),

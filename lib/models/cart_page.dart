@@ -167,7 +167,7 @@ class CartPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HeaderWidget(key: headerKey),
+            const HeaderWidget(),
             // Page Title with back button
             Padding(
               padding: const EdgeInsets.all(24),

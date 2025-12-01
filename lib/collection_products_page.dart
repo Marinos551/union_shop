@@ -120,7 +120,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
       onTap: () {
-        context.go('/product/${product.id}');
+        context.push('/product/${product.id}');
       },
       child: Card(
         elevation: 2,
@@ -276,7 +276,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
         child: Column(
           children: [
             // Header
-            HeaderWidget(key: headerKey),
+            const HeaderWidget(),
             // Collection Header
             Container(
               width: double.infinity,
