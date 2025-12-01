@@ -11,18 +11,32 @@ class CartPage extends StatelessWidget {
   void _checkout(BuildContext context, CartService cartService) {
     if (cartService.items.isEmpty) return;
     
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Order placed successfully! Total: £${cartService.getTotalAmount().toStringAsFixed(2)}'),
-        duration: const Duration(seconds: 3),
-        backgroundColor: Colors.green,
-      ),
-    );
-    
-    // Clear cart after successful "order"
-    Future.delayed(const Duration(seconds: 2), () {
-      cartService.clearCart();
-    });
+    try {
+      final order = cartService.completeCheckout();
+      
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Order ${order.orderId} placed successfully! Total: £${order.totalAmount.toStringAsFixed(2)}'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.green,
+          action: SnackBarAction(
+            label: 'View History',
+            textColor: Colors.white,
+            onPressed: () {
+              Navigator.pushNamed(context, '/purchase-history');
+            },
+          ),
+        ),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: ${e.toString()}'),
+          duration: const Duration(seconds: 3),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   Widget _buildCartItem(CartItem item, CartService cartService) {
