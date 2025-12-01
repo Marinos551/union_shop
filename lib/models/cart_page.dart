@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/models/cart_model.dart';
 
@@ -163,13 +162,11 @@ class CartPage extends StatelessWidget {
     final totalAmount = cartService.getTotalAmount();
     final totalItems = cartService.getItemCount();
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const HeaderWidget(),
-            // Page Title with back button
-            Padding(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Page Title with back button
+        Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
@@ -309,10 +306,7 @@ class CartPage extends StatelessWidget {
                   ),
                 ],
               ),
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

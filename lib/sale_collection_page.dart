@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/data/collections_data.dart';
@@ -127,14 +126,11 @@ class SaleCollectionPage extends StatelessWidget {
     // Get all sale products using the helper function
     final List<Product> saleProducts = getSaleProducts();
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            const HeaderWidget(),
-            // Promotional header
-            Container(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Promotional header
+        Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               color: Colors.red[50],
@@ -206,11 +202,7 @@ class SaleCollectionPage extends StatelessWidget {
                       return _buildSaleProductCard(saleProducts[index], context);
                     },
                   ),
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

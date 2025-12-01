@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 
 class PrintShackAboutPage extends StatelessWidget {
   const PrintShackAboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            const HeaderWidget(),
-            
-            // Content
-            Padding(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Content
+        Padding(
               padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,12 +132,7 @@ class PrintShackAboutPage extends StatelessWidget {
                 ],
               ),
             ),
-            
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 

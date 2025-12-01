@@ -167,14 +167,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Create a ValueNotifier to trigger search focus
+    final ValueNotifier<bool> focusSearchNotifier = ValueNotifier<bool>(false);
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-            // Header
-            const HeaderWidget(),
+            // Header with focus notifier
+            HeaderWidget(focusSearchNotifier: focusSearchNotifier),
 
             // Hero Section - Responsive
             LayoutBuilder(
@@ -366,9 +369,9 @@ class HomeScreen extends StatelessWidget {
             ),
 
             // Footer: moved back into the scroll view
-            const SizedBox(
+            SizedBox(
               height: 260, // adjust for your footer size
-              child: FooterWidget(),
+              child: FooterWidget(focusSearchNotifier: focusSearchNotifier),
             ),
             ],
           ),

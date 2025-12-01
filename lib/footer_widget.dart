@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class FooterWidget extends StatelessWidget {
-  const FooterWidget({super.key});
+  final ValueNotifier<bool>? focusSearchNotifier;
+  
+  const FooterWidget({super.key, this.focusSearchNotifier});
 
   // Navigation methods
   void _navigateToHome(BuildContext context) {
@@ -125,15 +127,19 @@ class FooterWidget extends StatelessWidget {
                     child: const Icon(Icons.camera_alt, color: Colors.grey),
                   ),
                   const SizedBox(width: 16),
-                  // Search button that scrolls to top
+                  // Search button that scrolls to top and focuses search
                   GestureDetector(
                     onTap: () {
-                      // Scroll to top of the page
+                      // First scroll to top of the page
                       PrimaryScrollController.of(context).animateTo(
                         0.0,
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.easeInOut,
                       );
+                      // Then focus the search bar after a short delay
+                      Future.delayed(const Duration(milliseconds: 600), () {
+                        focusSearchNotifier?.value = true;
+                      });
                     },
                     child: const Icon(Icons.search, color: Colors.grey),
                   ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/data/collections_data.dart';
 import 'package:union_shop/models/cart_service.dart';
@@ -36,15 +35,11 @@ class _ProductPageState extends State<ProductPage> {
     _selectedSize ??= product.sizes.isNotEmpty ? product.sizes.first : null;
     _selectedColor ??= product.colors.isNotEmpty ? product.colors.first : null;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            const HeaderWidget(),
-
-            // Product details - Responsive layout
-            Container(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Product details - Responsive layout
+        Container(
               color: Colors.white,
               padding: const EdgeInsets.all(24),
               child: LayoutBuilder(
@@ -82,12 +77,7 @@ class _ProductPageState extends State<ProductPage> {
                 },
               ),
             ),
-
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 

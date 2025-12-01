@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/models/order_model.dart';
 
@@ -232,15 +231,11 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
     final cartService = Provider.of<CartService>(context);
     final filteredOrders = cartService.getOrdersByPeriod(_selectedPeriod);
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            const HeaderWidget(),
-            
-            // Back Button and Page Title
-            Container(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Back Button and Page Title
+        Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -345,12 +340,7 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
                   ),
 
             const SizedBox(height: 24),
-            
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

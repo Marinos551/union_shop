@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 import 'package:union_shop/product_page.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/models/collection_model.dart';
@@ -271,14 +270,11 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
     final List<Product> collectionProducts = getProductsByCollection(collection.id);
     final List<Product> displayedProducts = _getSortedAndFilteredProducts(collectionProducts);
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            const HeaderWidget(),
-            // Collection Header
-            Container(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Collection Header
+        Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
@@ -450,11 +446,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                       _buildPaginationControls(displayedProducts.length),
                     ],
                   ),
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

@@ -4,10 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/data/collections_data.dart';
 import 'package:union_shop/models/product_model.dart';
-import 'package:union_shop/product_page.dart';
 
 class HeaderWidget extends StatefulWidget {
-  const HeaderWidget({super.key});
+  final ValueNotifier<bool>? focusSearchNotifier;
+  
+  const HeaderWidget({super.key, this.focusSearchNotifier});
 
   @override
   State<HeaderWidget> createState() => _HeaderWidgetState();
@@ -19,16 +20,26 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   bool _showSearchResults = false;
   final FocusNode _searchFocusNode = FocusNode();
 
-  // Method to focus search from external widgets
-  void focusSearch() {
-    _searchFocusNode.requestFocus();
+  @override
+  void initState() {
+    super.initState();
+    // Listen to the focus notifier
+    widget.focusSearchNotifier?.addListener(_handleFocusRequest);
   }
 
   @override
   void dispose() {
+    widget.focusSearchNotifier?.removeListener(_handleFocusRequest);
     _searchController.dispose();
     _searchFocusNode.dispose();
     super.dispose();
+  }
+
+  void _handleFocusRequest() {
+    if (widget.focusSearchNotifier?.value == true) {
+      _searchFocusNode.requestFocus();
+      widget.focusSearchNotifier?.value = false;
+    }
   }
 
   void _performSearch(String query) {

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/header_widget.dart';
-import 'package:union_shop/footer_widget.dart';
+import 'package:union_shop/common_page_scaffold.dart';
 import 'package:union_shop/models/print_shack_model.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/models/cart_model.dart';
@@ -97,15 +96,11 @@ class _PrintShackPageState extends State<PrintShackPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            // Header
-            const HeaderWidget(),
-
-            // Content
-            Padding(
+    return CommonPageScaffold(
+      padding: EdgeInsets.zero,
+      children: [
+        // Content
+        Padding(
               padding: EdgeInsets.all(MediaQuery.of(context).size.width > 600 ? 32 : 24),
               child: LayoutBuilder(
                 builder: (context, constraints) {
@@ -142,12 +137,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
                 },
               ),
             ),
-
-            // Footer
-            const FooterWidget(),
-          ],
-        ),
-      ),
+      ],
     );
   }
 
