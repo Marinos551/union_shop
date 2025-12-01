@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/product_page.dart';
@@ -14,15 +15,7 @@ class SaleCollectionPage extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const ProductPage(),
-              settings: RouteSettings(
-                arguments: {'productId': product.id},
-              ),
-            ),
-          );
+          context.go('/product/${product.id}');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

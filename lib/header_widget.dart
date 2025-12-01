@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/data/collections_data.dart';
 import 'package:union_shop/models/product_model.dart';
@@ -53,48 +54,36 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     });
     _searchFocusNode.unfocus();
     
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ProductPage(),
-        settings: RouteSettings(
-          arguments: {'productId': product.id},
-        ),
-      ),
-    );
+    context.go('/product/${product.id}');
   }
 
   // Navigation helper methods
   void navigateToHome(BuildContext context) {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      '/',
-      (route) => false,
-    );
+    context.go('/');
   }
 
   void navigateToCollections(BuildContext context) {
-    Navigator.pushNamed(context, '/collections');
+    context.go('/collections');
   }
 
   void navigateToSale(BuildContext context) {
-    Navigator.pushNamed(context, '/sale');
+    context.go('/sale');
   }
 
   void navigateToAbout(BuildContext context) {
-    Navigator.pushNamed(context, '/about');
+    context.go('/about');
   }
 
   void navigateToAuth(BuildContext context) {
-    Navigator.pushNamed(context, '/auth');
+    context.go('/auth');
   }
 
   void navigateToPrintShack(BuildContext context) {
-    Navigator.pushNamed(context, '/print-shack');
+    context.go('/print-shack');
   }
 
   void navigateToPurchaseHistory(BuildContext context) {
-    Navigator.pushNamed(context, '/purchase-history');
+    context.go('/purchase-history');
   }
 
   void placeholderCallback() {
@@ -322,7 +311,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                               minHeight: 32,
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/cart');
+                              context.go('/cart');
                             },
                           ),
                           if (cartItemCount > 0)

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/product_page.dart';
@@ -119,15 +120,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const ProductPage(),
-            settings: RouteSettings(
-              arguments: {'productId': product.id},
-            ),
-          ),
-        );
+        context.go('/product/${product.id}');
       },
       child: Card(
         elevation: 2,
@@ -266,8 +259,9 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get collection ID from route arguments
-    final String collectionId = ModalRoute.of(context)?.settings.arguments as String? ?? 'clothing';
+    // Get collection ID from GoRouter
+    final routeState = GoRouterState.of(context);
+    final String collectionId = routeState.pathParameters['collectionId'] ?? 'clothing';
     
     // Get collection and products
     final Collection collection = collections.firstWhere(

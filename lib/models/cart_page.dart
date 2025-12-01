@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/cart_service.dart';
@@ -23,7 +24,7 @@ class CartPage extends StatelessWidget {
             label: 'View History',
             textColor: Colors.white,
             onPressed: () {
-              Navigator.pushNamed(context, '/purchase-history');
+              context.go('/purchase-history');
             },
           ),
         ),
@@ -207,7 +208,7 @@ class CartPage extends StatelessWidget {
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/collections');
+                        context.go('/collections');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF4d2963),

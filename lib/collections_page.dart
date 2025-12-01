@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/collection_model.dart';
@@ -117,11 +118,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
           return InkWell(
             borderRadius: BorderRadius.circular(8), // Match card corners
             onTap: () {
-              Navigator.pushNamed(
-                context,
-                '/collection-products',
-                arguments: collection.id, // Pass collection ID to next page
-              );
+              context.go('/collection/${collection.id}');
             },
             child: Column(
               children: [

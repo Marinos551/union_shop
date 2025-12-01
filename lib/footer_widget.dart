@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/main.dart';
 
 class FooterWidget extends StatelessWidget {
@@ -6,27 +7,23 @@ class FooterWidget extends StatelessWidget {
 
   // Navigation methods
   void _navigateToHome(BuildContext context) {
-    Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const HomeScreen()),
-      (route) => false,
-    );
+    context.go('/');
   }
 
   void _navigateToCollections(BuildContext context) {
-    Navigator.pushNamed(context, '/collections');
+    context.go('/collections');
   }
 
   void _navigateToAbout(BuildContext context) {
-    Navigator.pushNamed(context, '/about');
+    context.go('/about');
   }
 
   void _navigateToPrintShack(BuildContext context) {
-    Navigator.pushNamed(context, '/print-shack');
+    context.go('/print-shack');
   }
 
   void _navigateToPurchaseHistory(BuildContext context) {
-    Navigator.pushNamed(context, '/purchase-history');
+    context.go('/purchase-history');
   }
 
   @override

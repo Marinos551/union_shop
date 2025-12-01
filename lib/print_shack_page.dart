@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/print_shack_model.dart';
@@ -87,7 +88,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
           label: 'VIEW CART',
           textColor: Colors.white,
           onPressed: () {
-            Navigator.pushNamed(context, '/cart');
+            context.go('/cart');
           },
         ),
       ),

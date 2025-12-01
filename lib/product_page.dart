@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/models/product_model.dart';
@@ -21,9 +22,9 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get product ID from route arguments
-    final Map<String, dynamic>? args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-    final String productId = args?['productId'] as String? ?? 'p1';
+    // Get product ID from GoRouter
+    final routeState = GoRouterState.of(context);
+    final String productId = routeState.pathParameters['productId'] ?? 'p1';
     
     // Find the product
     final Product product = allProducts.firstWhere(
