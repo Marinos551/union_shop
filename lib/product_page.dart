@@ -41,7 +41,7 @@ class _ProductPageState extends State<ProductPage> {
         child: Column(
           children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
 
             // Back button
             Padding(

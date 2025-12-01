@@ -13,7 +13,7 @@ class PrintShackAboutPage extends StatelessWidget {
         child: Column(
           children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
             
             // Content
             Padding(

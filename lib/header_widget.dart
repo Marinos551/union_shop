@@ -6,6 +6,9 @@ import 'package:union_shop/data/collections_data.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/product_page.dart';
 
+// Global key to access header from other widgets
+final GlobalKey<_HeaderWidgetState> headerKey = GlobalKey<_HeaderWidgetState>();
+
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({super.key});
 
@@ -18,6 +21,11 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   List<Product> _searchResults = [];
   bool _showSearchResults = false;
   final FocusNode _searchFocusNode = FocusNode();
+
+  // Method to focus search from external widgets
+  void focusSearch() {
+    _searchFocusNode.requestFocus();
+  }
 
   @override
   void dispose() {

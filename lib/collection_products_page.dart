@@ -276,7 +276,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
         child: Column(
           children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
             // Collection Header
             Container(
               width: double.infinity,

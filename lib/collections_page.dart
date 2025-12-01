@@ -173,7 +173,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
         child: Column(
           children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
             // Page Title
             Padding(
               padding: const EdgeInsets.all(24.0),

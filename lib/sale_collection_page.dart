@@ -132,7 +132,7 @@ class SaleCollectionPage extends StatelessWidget {
         child: Column(
           children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
             // Promotional header
             Container(
               width: double.infinity,

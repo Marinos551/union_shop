@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:union_shop/main.dart';
+import 'package:union_shop/header_widget.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
@@ -124,6 +124,23 @@ class FooterWidget extends StatelessWidget {
                       );
                     },
                     child: const Icon(Icons.camera_alt, color: Colors.grey),
+                  ),
+                  const SizedBox(width: 16),
+                  // Search button that scrolls to top
+                  GestureDetector(
+                    onTap: () {
+                      // Scroll to top of the page
+                      PrimaryScrollController.of(context).animateTo(
+                        0.0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                      // Focus the search bar after scrolling
+                      Future.delayed(const Duration(milliseconds: 600), () {
+                        headerKey.currentState?.focusSearch();
+                      });
+                    },
+                    child: const Icon(Icons.search, color: Colors.grey),
                   ),
                 ],
               ),

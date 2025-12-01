@@ -149,7 +149,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
 
             // Hero Section - Responsive
             LayoutBuilder(

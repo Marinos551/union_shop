@@ -237,7 +237,7 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
         child: Column(
           children: [
             // Header
-            const HeaderWidget(),
+            HeaderWidget(key: headerKey),
             
             // Back Button and Page Title
             Container(
