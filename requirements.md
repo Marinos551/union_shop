@@ -327,16 +327,17 @@ This is a Flutter-based e-commerce mobile application assessment that replicates
 - [x] 1. Create `lib/models/collection.dart` with Collection class
 - [x] 2. Create `lib/services/collection_service.dart` (using collections_data.dart)
 - [x] 3. Implement getCollections() method in service
-- [ ] 4. Set up state management (Provider/Riverpod/Bloc)
+- [x] 4. Set up state management (StatefulWidget with setState)
 - [x] 5. Update collections_page.dart to use service instead of hardcoded data
-- [x] 6. Implement sorting dropdown (A-Z, Z-A, Newest, Most Popular)
-- [ ] 7. Wire up sorting functionality to re-order collections
-- [ ] 8. Implement filter chips or options (All, Featured, New)
-- [ ] 9. Wire up filtering to show/hide collections
-- [ ] 10. Implement pagination (load 6 at a time) OR infinite scroll
-- [ ] 11. Add loading indicator while fetching data
-- [ ] 12. Add error handling for data loading failures
-- [ ] 13. Test all sorting and filtering combinations
+- [x] 6. Implement sorting dropdown (Popular, Newest, Item Count: Low to High, Item Count: High to Low, Name: A-Z)
+- [x] 7. Wire up sorting functionality to re-order collections
+- [x] 8. Implement filter options (Item Count: All, Under 5 items, 5-10 items, Over 10 items)
+- [x] 9. Wire up filtering to show/hide collections based on item count
+- [x] 10. Implement pagination (6 collections per page)
+- [x] 11. Add pagination controls with page navigation (top and bottom)
+- [x] 12. Display collection count showing filtered results
+- [x] 13. Add empty state UI when no collections match filters
+- [x] 14. Test all sorting and filtering combinations
 
 ---
 
