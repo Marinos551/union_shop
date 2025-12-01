@@ -93,6 +93,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     Navigator.pushNamed(context, '/print-shack');
   }
 
+  void navigateToPurchaseHistory(BuildContext context) {
+    Navigator.pushNamed(context, '/purchase-history');
+  }
+
   void placeholderCallback() {
     // Placeholder for buttons that don't have functionality yet
   }
@@ -289,6 +293,20 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                           minHeight: 32,
                         ),
                         onPressed: () => navigateToAuth(context),
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.history,
+                          size: 18,
+                          color: Colors.grey,
+                        ),
+                        padding: const EdgeInsets.all(8),
+                        constraints: const BoxConstraints(
+                          minWidth: 32,
+                          minHeight: 32,
+                        ),
+                        tooltip: 'Purchase History',
+                        onPressed: () => navigateToPurchaseHistory(context),
                       ),
                       Stack(
                         children: [
