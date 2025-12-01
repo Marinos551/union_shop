@@ -15,10 +15,16 @@ class PrintShackPage extends StatefulWidget {
 class _PrintShackPageState extends State<PrintShackPage> {
   String _selectedProductId = 'tshirt';
   String _customText = '';
+  String _line1Text = '';
+  String _line2Text = '';
+  String _line3Text = '';
   String _selectedFont = 'Arial';
   String _selectedColor = 'Black';
   int _quantity = 1;
   final _textController = TextEditingController();
+  final _line1Controller = TextEditingController();
+  final _line2Controller = TextEditingController();
+  final _line3Controller = TextEditingController();
 
   PrintShackProduct get _currentProduct {
     return getPrintShackProductById(_selectedProductId);
@@ -34,6 +40,9 @@ class _PrintShackPageState extends State<PrintShackPage> {
   @override
   void dispose() {
     _textController.dispose();
+    _line1Controller.dispose();
+    _line2Controller.dispose();
+    _line3Controller.dispose();
     super.dispose();
   }
 
@@ -41,7 +50,13 @@ class _PrintShackPageState extends State<PrintShackPage> {
     setState(() {
       _selectedProductId = productId;
       _customText = '';
+      _line1Text = '';
+      _line2Text = '';
+      _line3Text = '';
       _textController.clear();
+      _line1Controller.clear();
+      _line2Controller.clear();
+      _line3Controller.clear();
       _selectedFont = _currentProduct.availableFonts.first;
       _selectedColor = _currentProduct.availableColors.first;
       _quantity = 1;
@@ -49,31 +64,27 @@ class _PrintShackPageState extends State<PrintShackPage> {
   }
 
   void _addToCart() {
-    if (_customText.isEmpty) {
+    if (_line1Text.isEmpty && _line2Text.isEmpty && _line3Text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Please enter custom text'),
+          content: Text('Please enter text on at least one line'),
           backgroundColor: Colors.red,
         ),
       );
       return;
     }
 
-    final customization = PrintShackCustomization(
-      productId: _selectedProductId,
-      customText: _customText,
-      selectedFont: _selectedFont,
-      selectedColor: _selectedColor,
-      quantity: _quantity,
-    );
+    final combinedText = [_line1Text, _line2Text, _line3Text]
+        .where((text) => text.isNotEmpty)
+        .join(' / ');
 
     final cartItem = CartItem(
       productId: 'print_shack_${_selectedProductId}_${DateTime.now().millisecondsSinceEpoch}',
       productName: '${_currentProduct.name} - Custom Print',
-      price: customization.calculatePrice(_currentProduct),
+      price: _currentProduct.basePrice * _quantity,
       imageUrl: 'assets/images/print_shack.png',
       quantity: 1,
-      selectedSize: 'Custom: $_customText',
+      selectedSize: 'Custom: $combinedText',
       selectedColor: _selectedColor,
     );
 
@@ -228,7 +239,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
         const SizedBox(height: 32),
         Container(
           width: double.infinity,
-          height: 300,
+          height: 400,
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
             color: Colors.grey[100],
@@ -236,14 +247,53 @@ class _PrintShackPageState extends State<PrintShackPage> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Center(
-            child: Text(
-              _customText,
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: _getColorFromString(_selectedColor),
-              ),
-              textAlign: TextAlign.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (_line1Text.isNotEmpty)
+                  Text(
+                    _line1Text,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: _getColorFromString(_selectedColor),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                if (_line1Text.isNotEmpty && _line2Text.isNotEmpty)
+                  const SizedBox(height: 16),
+                if (_line2Text.isNotEmpty)
+                  Text(
+                    _line2Text,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: _getColorFromString(_selectedColor),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                if (_line2Text.isNotEmpty && _line3Text.isNotEmpty)
+                  const SizedBox(height: 16),
+                if (_line3Text.isNotEmpty)
+                  Text(
+                    _line3Text,
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                      color: _getColorFromString(_selectedColor),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                if (_line1Text.isEmpty && _line2Text.isEmpty && _line3Text.isEmpty)
+                  Text(
+                    'Type to see preview',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.grey[400],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+              ],
             ),
           ),
         ),
@@ -312,17 +362,40 @@ class _PrintShackPageState extends State<PrintShackPage> {
         children: [
           const Text('Customize Your Item', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
           const SizedBox(height: 24),
-          const Text('Custom Text', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const Text('Line 1', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
           const SizedBox(height: 8),
           TextField(
-            controller: _textController,
-            maxLength: _currentProduct.maxTextLength,
-            decoration: InputDecoration(
-              hintText: 'Enter your custom text',
-              border: const OutlineInputBorder(),
-              counterText: '${_customText.length}/${_currentProduct.maxTextLength}',
+            controller: _line1Controller,
+            maxLength: 30,
+            decoration: const InputDecoration(
+              hintText: 'Enter text for line 1',
+              border: OutlineInputBorder(),
             ),
-            onChanged: (value) => setState(() => _customText = value),
+            onChanged: (value) => setState(() => _line1Text = value),
+          ),
+          const SizedBox(height: 16),
+          const Text('Line 2', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _line2Controller,
+            maxLength: 30,
+            decoration: const InputDecoration(
+              hintText: 'Enter text for line 2',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) => setState(() => _line2Text = value),
+          ),
+          const SizedBox(height: 16),
+          const Text('Line 3', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 8),
+          TextField(
+            controller: _line3Controller,
+            maxLength: 30,
+            decoration: const InputDecoration(
+              hintText: 'Enter text for line 3',
+              border: OutlineInputBorder(),
+            ),
+            onChanged: (value) => setState(() => _line3Text = value),
           ),
           const SizedBox(height: 24),
           const Text('Font Style', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
