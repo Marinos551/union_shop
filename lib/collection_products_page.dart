@@ -117,10 +117,10 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
     );
   }
 
-  Widget _buildProductCard(Product product, BuildContext context) {
+  Widget _buildProductCard(Product product, BuildContext context, String collectionId) {
     return InkWell(
       onTap: () {
-        context.go('/product/${product.id}');
+        context.go('/collection/$collectionId/product/${product.id}');
       },
       child: Card(
         elevation: 2,
@@ -443,7 +443,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                         itemCount: _getPaginatedProducts(displayedProducts).length,
                         itemBuilder: (context, index) {
                           final paginatedProducts = _getPaginatedProducts(displayedProducts);
-                          return _buildProductCard(paginatedProducts[index], context);
+                          return _buildProductCard(paginatedProducts[index], context, collectionId);
                         },
                       ),
                       // ADD PAGINATION CONTROLS AT BOTTOM

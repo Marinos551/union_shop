@@ -64,19 +64,19 @@ final GoRouter _router = GoRouter(
           key: ValueKey(collectionId),
         );
       },
-    ),
-    
-    // Product route with product ID parameter
-    GoRoute(
-      path: '/product/:productId',
-      name: 'product',
-      builder: (context, state) {
-        final productId = state.pathParameters['productId'] ?? 'p1';
-        // Pass productId as extra data that can be retrieved in the page
-        return ProductPage(
-          key: ValueKey(productId),
-        );
-      },
+      routes: [
+        // Nested product route under collection
+        GoRoute(
+          path: 'product/:productId',
+          name: 'collection-product',
+          builder: (context, state) {
+            final productId = state.pathParameters['productId'] ?? 'p1';
+            return ProductPage(
+              key: ValueKey(productId),
+            );
+          },
+        ),
+      ],
     ),
     
     // Sale route
@@ -84,6 +84,19 @@ final GoRouter _router = GoRouter(
       path: '/sale',
       name: 'sale',
       builder: (context, state) => const SaleCollectionPage(),
+      routes: [
+        // Nested product route under sale
+        GoRoute(
+          path: 'product/:productId',
+          name: 'sale-product',
+          builder: (context, state) {
+            final productId = state.pathParameters['productId'] ?? 'p1';
+            return ProductPage(
+              key: ValueKey(productId),
+            );
+          },
+        ),
+      ],
     ),
     
     // Cart route

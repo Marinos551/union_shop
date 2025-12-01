@@ -15,7 +15,7 @@ class SaleCollectionPage extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          context.go('/product/${product.id}');
+          context.go('/sale/product/${product.id}');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
