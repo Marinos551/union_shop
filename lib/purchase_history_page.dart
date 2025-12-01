@@ -255,7 +255,11 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
                       onPressed: () {
-                        Navigator.pop(context);
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/');
+                        }
                       },
                       tooltip: 'Go back',
                     ),

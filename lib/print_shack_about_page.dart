@@ -24,7 +24,11 @@ class PrintShackAboutPage extends StatelessWidget {
                   IconButton(
                     icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
                     onPressed: () {
-                      Navigator.pop(context);
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        context.go('/print-shack');
+                      }
                     },
                     tooltip: 'Go back',
                     alignment: Alignment.centerLeft,

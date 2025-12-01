@@ -51,7 +51,16 @@ class _ProductPageState extends State<ProductPage> {
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
                   onPressed: () {
-                    Navigator.pop(context);
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      // If no history, go to sale page if product is on sale, otherwise home
+                      if (product.isOnSale) {
+                        context.go('/sale');
+                      } else {
+                        context.go('/');
+                      }
+                    }
                   },
                   tooltip: 'Go back',
                 ),

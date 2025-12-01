@@ -145,7 +145,11 @@ class SaleCollectionPage extends StatelessWidget {
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back, color: Colors.red),
                       onPressed: () {
-                        Navigator.pop(context);
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/');
+                        }
                       },
                       tooltip: 'Go back',
                     ),
