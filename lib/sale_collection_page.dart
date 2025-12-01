@@ -15,7 +15,7 @@ class SaleCollectionPage extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          context.push('/product/${product.id}');
+          context.go('/product/${product.id}');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,20 +140,6 @@ class SaleCollectionPage extends StatelessWidget {
               color: Colors.red[50],
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Colors.red),
-                      onPressed: () {
-                        if (context.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
-                      tooltip: 'Go back',
-                    ),
-                  ),
                   const Text(
                     'SALE',
                     style: TextStyle(

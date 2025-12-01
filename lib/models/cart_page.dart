@@ -173,20 +173,6 @@ class CartPage extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                      onPressed: () {
-                        if (context.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
-                      tooltip: 'Go back',
-                    ),
-                  ),
                   Text(
                     'Shopping Cart ($totalItems ${totalItems == 1 ? 'item' : 'items'})',
                     style: const TextStyle(

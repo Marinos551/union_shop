@@ -118,7 +118,7 @@ class _CollectionsPageState extends State<CollectionsPage> {
           return InkWell(
             borderRadius: BorderRadius.circular(8), // Match card corners
             onTap: () {
-              context.push('/collection/${collection.id}');
+              context.go('/collection/${collection.id}');
             },
             child: Column(
               children: [
@@ -179,20 +179,6 @@ class _CollectionsPageState extends State<CollectionsPage> {
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                      onPressed: () {
-                        if (context.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
-                      tooltip: 'Go back',
-                    ),
-                  ),
                   const Text(
                     'Collections',
                     style: TextStyle(

@@ -120,7 +120,7 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   Widget _buildProductCard(Product product, BuildContext context) {
     return InkWell(
       onTap: () {
-        context.push('/product/${product.id}');
+        context.go('/product/${product.id}');
       },
       child: Card(
         elevation: 2,
@@ -287,20 +287,6 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                      onPressed: () {
-                        if (context.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/collections');
-                        }
-                      },
-                      tooltip: 'Go back',
-                    ),
-                  ),
                   Text(
                     collection.name,
                     style: const TextStyle(

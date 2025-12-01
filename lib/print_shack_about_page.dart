@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:union_shop/header_widget.dart';
 import 'package:union_shop/footer_widget.dart';
 
@@ -21,19 +20,6 @@ class PrintShackAboutPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                    onPressed: () {
-                      if (context.canPop()) {
-                        context.pop();
-                      } else {
-                        context.go('/print-shack');
-                      }
-                    },
-                    tooltip: 'Go back',
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.zero,
-                  ),
                   const Text(
                     'About Print Shack',
                     style: TextStyle(

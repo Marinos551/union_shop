@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:union_shop/header_widget.dart';
+import 'package:union_shop/footer_widget.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -48,51 +49,41 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF4d2963),
-        foregroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            if (context.canPop()) {
-              context.pop();
-            } else {
-              context.go('/');
-            }
-          },
-          tooltip: 'Go back',
-        ),
-        title: const Text('Authentication'),
-      ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 40),
-                // Logo
-                const Icon(
-                  Icons.shopping_bag,
-                  size: 80,
-                  color: Color(0xFF4d2963),
-                ),
-                const SizedBox(height: 24),
-                // Welcome text
-                const Text(
-                  'Welcome to Union Shop',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF4d2963),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // Subtitle
-                Text(
-                  _isLoginMode ? 'Login to your account' : 'Create a new account',
+        child: Column(
+          children: [
+            // Header
+            const HeaderWidget(),
+            
+            // Auth form content
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 40),
+                    // Logo
+                    const Icon(
+                      Icons.shopping_bag,
+                      size: 80,
+                      color: Color(0xFF4d2963),
+                    ),
+                    const SizedBox(height: 24),
+                    // Welcome text
+                    const Text(
+                      'Welcome to Union Shop',
+                      style: TextStyle(
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF4d2963),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    // Subtitle
+                    Text(
+                      _isLoginMode ? 'Login to your account' : 'Create a new account',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.grey[600],
@@ -328,6 +319,11 @@ class _AuthPageState extends State<AuthPage> {
           ),
         ),
       ),
+      
+      // Footer
+      const FooterWidget(),
+          ],
+        ),
       ),
     );
   }

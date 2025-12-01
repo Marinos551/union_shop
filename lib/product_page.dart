@@ -43,30 +43,6 @@ class _ProductPageState extends State<ProductPage> {
             // Header
             const HeaderWidget(),
 
-            // Back button
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                  onPressed: () {
-                    if (context.canPop()) {
-                      context.pop();
-                    } else {
-                      // If no history, go to sale page if product is on sale, otherwise home
-                      if (product.isOnSale) {
-                        context.go('/sale');
-                      } else {
-                        context.go('/');
-                      }
-                    }
-                  },
-                  tooltip: 'Go back',
-                ),
-              ),
-            ),
-
             // Product details - Responsive layout
             Container(
               color: Colors.white,

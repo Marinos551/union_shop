@@ -104,6 +104,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     // Get screen width for responsive design
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
+    
+    // Check if we're on the home page for back button visibility
+    final currentLocation = GoRouterState.of(context).uri.toString();
+    final isHomePage = currentLocation == '/';
 
     return Stack(
       children: [
@@ -133,6 +137,28 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Row(
                 children: [
+                  // Back button (only show if not on home page)
+                  if (!isHomePage)
+                    IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        size: 20,
+                        color: Colors.black87,
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      constraints: const BoxConstraints(
+                        minWidth: 32,
+                        minHeight: 32,
+                      ),
+                      onPressed: () {
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/');
+                        }
+                      },
+                      tooltip: 'Go back',
+                    ),
                   // Logo on the left
                   GestureDetector(
                     onTap: () => navigateToHome(context),

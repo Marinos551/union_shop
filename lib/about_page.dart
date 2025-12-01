@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:union_shop/footer_widget.dart';
 import 'package:union_shop/header_widget.dart';
+import 'package:union_shop/footer_widget.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -21,19 +20,6 @@ class AboutPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                    onPressed: () {
-                      if (context.canPop()) {
-                        context.pop();
-                      } else {
-                        context.go('/');
-                      }
-                    },
-                    tooltip: 'Go back',
-                    alignment: Alignment.centerLeft,
-                    padding: EdgeInsets.zero,
-                  ),
                   const Text(
                     'About Union Shop',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),

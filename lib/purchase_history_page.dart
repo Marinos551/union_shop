@@ -249,21 +249,6 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Back button aligned to the left
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
-                      onPressed: () {
-                        if (context.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
-                      tooltip: 'Go back',
-                    ),
-                  ),
                   const Text(
                     'Purchase History',
                     style: TextStyle(
