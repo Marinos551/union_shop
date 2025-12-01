@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:union_shop/collection_products_page.dart';
+import 'package:union_shop/views/collection_products_page.dart';
 
 void main() {
   group('CollectionProductsPage Tests', () {
