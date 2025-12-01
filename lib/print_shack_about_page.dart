@@ -20,6 +20,15 @@ class PrintShackAboutPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    tooltip: 'Go back',
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.zero,
+                  ),
                   const Text(
                     'About Print Shack',
                     style: TextStyle(

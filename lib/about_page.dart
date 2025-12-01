@@ -7,20 +7,29 @@ class AboutPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // Header
-            HeaderWidget(),
+            const HeaderWidget(),
             // Content
             Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    tooltip: 'Go back',
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.zero,
+                  ),
+                  const Text(
                     'About Union Shop',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),

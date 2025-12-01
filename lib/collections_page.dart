@@ -182,6 +182,16 @@ class _CollectionsPageState extends State<CollectionsPage> {
               padding: const EdgeInsets.all(24.0),
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      tooltip: 'Go back',
+                    ),
+                  ),
                   const Text(
                     'Collections',
                     style: TextStyle(

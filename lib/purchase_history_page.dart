@@ -238,7 +238,7 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
             // Header
             const HeaderWidget(),
             
-            // Page Title and Filter
+            // Back Button and Page Title
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(24),
@@ -248,6 +248,17 @@ class _PurchaseHistoryPageState extends State<PurchaseHistoryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  // Back button aligned to the left
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      tooltip: 'Go back',
+                    ),
+                  ),
                   const Text(
                     'Purchase History',
                     style: TextStyle(

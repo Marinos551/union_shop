@@ -42,6 +42,21 @@ class _ProductPageState extends State<ProductPage> {
             // Header
             const HeaderWidget(),
 
+            // Back button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  tooltip: 'Go back',
+                ),
+              ),
+            ),
+
             // Product details - Responsive layout
             Container(
               color: Colors.white,

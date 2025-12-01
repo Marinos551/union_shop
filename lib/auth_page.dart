@@ -48,8 +48,16 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Authentication'),
         backgroundColor: const Color(0xFF4d2963),
+        foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          tooltip: 'Go back',
+        ),
+        title: const Text('Authentication'),
       ),
       body: SingleChildScrollView(
         child: Padding(

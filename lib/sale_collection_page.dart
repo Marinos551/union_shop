@@ -147,6 +147,16 @@ class SaleCollectionPage extends StatelessWidget {
               color: Colors.red[50],
               child: Column(
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Colors.red),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      tooltip: 'Go back',
+                    ),
+                  ),
                   const Text(
                     'SALE',
                     style: TextStyle(

@@ -167,15 +167,29 @@ class CartPage extends StatelessWidget {
         child: Column(
           children: [
             const HeaderWidget(),
-            // Page Title
+            // Page Title with back button
             Padding(
               padding: const EdgeInsets.all(24),
-              child: Text(
-                'Shopping Cart ($totalItems ${totalItems == 1 ? 'item' : 'items'})',
-                style: const TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                ),
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      tooltip: 'Go back',
+                    ),
+                  ),
+                  Text(
+                    'Shopping Cart ($totalItems ${totalItems == 1 ? 'item' : 'items'})',
+                    style: const TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
             // Cart Items or Empty State

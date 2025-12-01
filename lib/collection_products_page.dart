@@ -293,6 +293,16 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      tooltip: 'Go back',
+                    ),
+                  ),
                   Text(
                     collection.name,
                     style: const TextStyle(

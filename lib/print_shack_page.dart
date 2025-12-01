@@ -103,6 +103,21 @@ class _PrintShackPageState extends State<PrintShackPage> {
             // Header
             const HeaderWidget(),
 
+            // Back button
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Color(0xFF4d2963)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  tooltip: 'Go back',
+                ),
+              ),
+            ),
+
             // Content
             Padding(
               padding: EdgeInsets.all(MediaQuery.of(context).size.width > 600 ? 32 : 24),
