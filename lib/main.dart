@@ -99,6 +99,18 @@ final GoRouter _router = GoRouter(
       ],
     ),
     
+    // Standalone product route (for search results)
+    GoRoute(
+      path: '/product/:productId',
+      name: 'product',
+      builder: (context, state) {
+        final productId = state.pathParameters['productId'] ?? 'p1';
+        return ProductPage(
+          key: ValueKey(productId),
+        );
+      },
+    ),
+    
     // Cart route
     GoRoute(
       path: '/cart',
