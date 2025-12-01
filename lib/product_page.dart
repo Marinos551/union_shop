@@ -476,7 +476,8 @@ class _ProductPageState extends State<ProductPage> {
                 
                 cartService.addToCart(cartItem);
                 
-                String selectionInfo = 'Added to Cart: ${product.name} (Qty: $_quantity';
+                // Show snackbar with option to view cart
+                String selectionInfo = '✓ Added to Cart: ${product.name} (Qty: $_quantity';
                 if (_selectedSize != null) selectionInfo += ', Size: $_selectedSize';
                 if (_selectedColor != null) selectionInfo += ', Color: $_selectedColor';
                 selectionInfo += ')';
@@ -484,13 +485,13 @@ class _ProductPageState extends State<ProductPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(selectionInfo),
-                    duration: const Duration(seconds: 3),
-                    backgroundColor: const Color(0xFF4d2963),
+                    duration: const Duration(seconds: 4),
+                    backgroundColor: Colors.green,
                     action: SnackBarAction(
-                      label: 'View Cart',
+                      label: 'VIEW CART',
                       textColor: Colors.white,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/cart');
+                        context.go('/cart');
                       },
                     ),
                   ),
