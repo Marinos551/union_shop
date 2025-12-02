@@ -450,7 +450,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
                 child: Text('$_quantity', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               IconButton(
-                onPressed: () => setState(() => _quantity++),
+                onPressed: _quantity < 10 ? () => setState(() => _quantity++) : null,
                 icon: const Icon(Icons.add),
                 style: IconButton.styleFrom(backgroundColor: Colors.grey[200]),
               ),
