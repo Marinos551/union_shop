@@ -14,6 +14,10 @@ void main() {
       cartService = CartService();
     });
 
+    tearDown(() {
+      cartService.clearCart();
+    });
+
     Widget createTestWidget({String productId = 'p1'}) {
       final router = GoRouter(
         initialLocation: '/product/$productId',
