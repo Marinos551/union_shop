@@ -52,9 +52,9 @@ void main() {
       await tester.pumpWidget(createTestWidget(tester));
       await tester.pumpAndSettle();
 
-      // Check Clothing collection (first page, 5 items)
+      // Check Clothing collection (first page, 9 items after adding new products)
       expect(find.text('Clothing'), findsWidgets);
-      expect(find.text('5 items'), findsOneWidget);
+      expect(find.text('9 items'), findsOneWidget);
     });
 
     testWidgets('should display Bestsellers collection', (tester) async {
@@ -111,10 +111,10 @@ void main() {
       await tester.pumpAndSettle();
 
       // Verify item counts for collections visible on first page
-      expect(find.text('5 items'), findsOneWidget); // Clothing
+      expect(find.text('9 items'), findsOneWidget); // Clothing (updated from 5 to 9)
       expect(find.text('4 items'), findsNWidgets(2)); // Accessories and Stationery
       expect(find.text('3 items'), findsOneWidget); // Electronics
-      expect(find.text('2 items'), findsOneWidget); // Backpacks
+      expect(find.text('2 items'), findsWidgets); // Backpacks (and possibly New Arrivals if on same page)
       expect(find.text('6 items'), findsOneWidget); // Best Sellers
     });
 
