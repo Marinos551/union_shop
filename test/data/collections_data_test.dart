@@ -4,7 +4,7 @@ import 'package:union_shop/data/collections_data.dart';
 void main() {
   group('allProducts', () {
     test('should have 20 products', () {
-      expect(allProducts.length, 20);
+      expect(allProducts.length, 24);
     });
 
     test('all products should have required fields', () {
@@ -23,7 +23,7 @@ void main() {
   group('getProductsByCollection', () {
     test('should return products for clothing collection', () {
       final products = getProductsByCollection('clothing');
-      expect(products.length, 5);
+      expect(products.length, 9);
       expect(products.every((p) => p.collectionId == 'clothing'), isTrue);
     });
 
@@ -106,9 +106,10 @@ void main() {
       expect(inStockProducts.every((p) => p.inStock == true), isTrue);
     });
 
-    test('should return all products since all are in stock', () {
+    test('should return in-stock products', () {
       final inStockProducts = getInStockProducts();
-      expect(inStockProducts.length, allProducts.length);
+      expect(inStockProducts.length, 23);
+      expect(inStockProducts.every((p) => p.inStock == true), isTrue);
     });
   });
 
