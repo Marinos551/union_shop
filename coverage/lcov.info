@@ -27,7 +27,7 @@ LF:24
 LH:24
 end_of_record
 SF:lib\models\product_model.dart
-DA:17,3
+DA:17,2
 DA:35,10
 DA:38,6
 DA:41,6
@@ -35,7 +35,7 @@ LF:4
 LH:4
 end_of_record
 SF:lib\models\collection_model.dart
-DA:9,3
+DA:9,2
 LF:1
 LH:1
 end_of_record
@@ -720,7 +720,7 @@ LF:24
 LH:24
 end_of_record
 SF:lib\views\collections_page.dart
-DA:8,1
+DA:8,2
 DA:10,1
 DA:11,1
 DA:21,1
