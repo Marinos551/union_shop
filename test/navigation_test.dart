@@ -62,15 +62,36 @@ void main() {
     await tester.pumpWidget(const UnionShopApp());
     await tester.pumpAndSettle();
 
-    // Test that feature icons exist (text may appear multiple times in header and body)
-    expect(find.text('Collections'), findsAtLeastNWidgets(1));
-    expect(find.text('Sale Items'), findsAtLeastNWidgets(1));
-    expect(find.text('Cart'), findsAtLeastNWidgets(1));
+    // Test Collections icon navigation
+    final collectionsIcon = find.byIcon(Icons.school_outlined);
+    expect(collectionsIcon, findsOneWidget);
+    await tester.tap(collectionsIcon);
+    await tester.pumpAndSettle();
+    expect(find.text('Explore our curated collections'), findsOneWidget);
     
-    // Also verify the specific icons exist in the feature section
-    expect(find.byIcon(Icons.school_outlined), findsOneWidget);
-    expect(find.byIcon(Icons.local_offer_outlined), findsOneWidget);
-    expect(find.byIcon(Icons.shopping_cart_outlined), findsWidgets);
+    // Go back to home
+    var context = tester.element(find.byType(Scaffold).first);
+    context.go('/');
+    await tester.pumpAndSettle();
+    
+    // Test Sale Items icon navigation
+    final saleIcon = find.byIcon(Icons.local_offer_outlined);
+    expect(saleIcon, findsOneWidget);
+    await tester.tap(saleIcon);
+    await tester.pumpAndSettle();
+    expect(find.text('SALE'), findsOneWidget);
+    
+    // Go back to home
+    context = tester.element(find.byType(Scaffold).first);
+    context.go('/');
+    await tester.pumpAndSettle();
+    
+    // Test Cart icon navigation (use last to avoid header cart icon)
+    final cartIcon = find.byIcon(Icons.shopping_cart_outlined).last;
+    expect(cartIcon, findsOneWidget);
+    await tester.tap(cartIcon);
+    await tester.pumpAndSettle();
+    expect(find.text('Your cart is empty'), findsOneWidget);
   });
 
   testWidgets('Print Shack page loads correctly', (tester) async {
@@ -84,8 +105,7 @@ void main() {
 
     final context = tester.element(find.byType(Scaffold).first);
     context.go('/print-shack');
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pumpAndSettle();
 
     // Verify Print Shack page content
     expect(find.text('Print Shack - Personalize Your Item'), findsOneWidget);
@@ -102,8 +122,7 @@ void main() {
 
     final context = tester.element(find.byType(Scaffold).first);
     context.go('/print-shack-about');
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 500));
+    await tester.pumpAndSettle();
 
     // Verify Print Shack About page content
     expect(find.text('About Print Shack'), findsOneWidget);
