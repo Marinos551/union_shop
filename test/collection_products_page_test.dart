@@ -63,8 +63,8 @@ void main() {
       await tester.pumpWidget(createTestWidget(tester));
       await tester.pumpAndSettle();
 
-      // Check products count (should be 5 products)
-      expect(find.text('5 products'), findsOneWidget);
+      // Check products count (should be 9 products)
+      expect(find.text('9 products'), findsOneWidget);
     });
 
     testWidgets('should display product cards', (tester) async {
@@ -178,7 +178,7 @@ void main() {
       await tester.pumpAndSettle();
 
       // Initial product count
-      expect(find.text('5 products'), findsOneWidget);
+      expect(find.text('9 products'), findsOneWidget);
 
       // Tap category dropdown
       await tester.tap(find.text('All Categories').first);
@@ -188,8 +188,8 @@ void main() {
       await tester.tap(find.text('Clothing').last);
       await tester.pumpAndSettle();
 
-      // Should still show 5 products (all in clothing collection are Clothing category)
-      expect(find.text('5 products'), findsOneWidget);
+      // Should still show 9 products (all in clothing collection are Clothing category)
+      expect(find.text('9 products'), findsOneWidget);
     });
 
     testWidgets('should filter by Accessories category', (tester) async {
