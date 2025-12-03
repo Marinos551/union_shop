@@ -18,12 +18,12 @@ void main() {
       cartService.clearCart();
     });
 
-    Widget createTestWidget({String productId = 'p1'}) {
+    Widget createTestWidget({String productSlug = 'classic-hoodie'}) {
       final router = GoRouter(
-        initialLocation: '/product/$productId',
+        initialLocation: '/product/$productSlug',
         routes: [
           GoRoute(
-            path: '/product/:productId',
+            path: '/product/:productSlug',
             builder: (context, state) => const ProductPage(),
           ),
           GoRoute(
@@ -94,7 +94,7 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
 
-      await tester.pumpWidget(createTestWidget(productId: 'p2'));
+      await tester.pumpWidget(createTestWidget(productSlug: 'union-t-shirt'));
       await tester.pumpAndSettle();
 
       // Verify product p2 (Union T-Shirt) is shown
@@ -295,7 +295,7 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
 
-      await tester.pumpWidget(createTestWidget(productId: 'p8'));
+      await tester.pumpWidget(createTestWidget(productSlug: 'knitted-scarf'));
       await tester.pumpAndSettle();
 
       expect(find.textContaining('% OFF'), findsOneWidget);
@@ -347,7 +347,7 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
 
-      await tester.pumpWidget(createTestWidget(productId: 'p2'));
+      await tester.pumpWidget(createTestWidget(productSlug: 'union-t-shirt'));
       await tester.pumpAndSettle();
 
       expect(find.byIcon(Icons.cancel), findsOneWidget);
@@ -426,7 +426,7 @@ void main() {
       tester.view.devicePixelRatio = 1.0;
       addTearDown(() => tester.view.resetPhysicalSize());
 
-      await tester.pumpWidget(createTestWidget(productId: 'p8'));
+      await tester.pumpWidget(createTestWidget(productSlug: 'knitted-scarf'));
       await tester.pumpAndSettle();
 
       // Should show both sale and original price
