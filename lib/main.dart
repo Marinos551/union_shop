@@ -31,28 +31,28 @@ final GoRouter _router = GoRouter(
       name: 'home',
       builder: (context, state) => const HomeScreen(),
     ),
-    
+
     // About route
     GoRoute(
       path: '/about',
       name: 'about',
       builder: (context, state) => const AboutPage(),
     ),
-    
+
     // Auth route
     GoRoute(
       path: '/auth',
       name: 'auth',
       builder: (context, state) => const AuthPage(),
     ),
-    
+
     // Collections route
     GoRoute(
       path: '/collections',
       name: 'collections',
       builder: (context, state) => const CollectionsPage(),
     ),
-    
+
     // Collection products route with collection ID parameter
     GoRoute(
       path: '/collection/:collectionId',
@@ -67,18 +67,18 @@ final GoRouter _router = GoRouter(
       routes: [
         // Nested product route under collection
         GoRoute(
-          path: 'product/:productId',
+          path: 'product/:productSlug',
           name: 'collection-product',
           builder: (context, state) {
-            final productId = state.pathParameters['productId'] ?? 'p1';
+            final productSlug = state.pathParameters['productSlug'] ?? '';
             return ProductPage(
-              key: ValueKey(productId),
+              key: ValueKey(productSlug),
             );
           },
         ),
       ],
     ),
-    
+
     // Sale route
     GoRoute(
       path: '/sale',
@@ -87,51 +87,51 @@ final GoRouter _router = GoRouter(
       routes: [
         // Nested product route under sale
         GoRoute(
-          path: 'product/:productId',
+          path: 'product/:productSlug',
           name: 'sale-product',
           builder: (context, state) {
-            final productId = state.pathParameters['productId'] ?? 'p1';
+            final productSlug = state.pathParameters['productSlug'] ?? '';
             return ProductPage(
-              key: ValueKey(productId),
+              key: ValueKey(productSlug),
             );
           },
         ),
       ],
     ),
-    
+
     // Standalone product route (for search results)
     GoRoute(
-      path: '/product/:productId',
+      path: '/product/:productSlug',
       name: 'product',
       builder: (context, state) {
-        final productId = state.pathParameters['productId'] ?? 'p1';
+        final productSlug = state.pathParameters['productSlug'] ?? '';
         return ProductPage(
-          key: ValueKey(productId),
+          key: ValueKey(productSlug),
         );
       },
     ),
-    
+
     // Cart route
     GoRoute(
       path: '/cart',
       name: 'cart',
       builder: (context, state) => const CartPage(),
     ),
-    
+
     // Purchase history route
     GoRoute(
       path: '/purchase-history',
       name: 'purchase-history',
       builder: (context, state) => const PurchaseHistoryPage(),
     ),
-    
+
     // Print Shack route
     GoRoute(
       path: '/print-shack',
       name: 'print-shack',
       builder: (context, state) => const PrintShackPage(),
     ),
-    
+
     // Print Shack About route
     GoRoute(
       path: '/print-shack-about',
@@ -169,208 +169,222 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Create a ValueNotifier to trigger search focus
     final ValueNotifier<bool> focusSearchNotifier = ValueNotifier<bool>(false);
-    
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
             children: [
-            // Header with focus notifier
-            HeaderWidget(focusSearchNotifier: focusSearchNotifier),
+              // Header with focus notifier
+              HeaderWidget(focusSearchNotifier: focusSearchNotifier),
 
-            // Hero Section - Responsive
-            LayoutBuilder(
-              builder: (context, constraints) {
-                final isWideScreen = constraints.maxWidth > 600;
-                final heroHeight = isWideScreen ? 500.0 : 400.0;
-                final titleFontSize = isWideScreen ? 36.0 : 28.0;
-                final subtitleFontSize = isWideScreen ? 22.0 : 18.0;
-
-                return SizedBox(
-                  height: heroHeight,
-                  width: double.infinity,
-                  child: Stack(
-                    children: [
-                      // Background image
-                      Positioned.fill(
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage('assets/images/oip.jpg'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black.withOpacity(0.7),
-                            ),
-                          ),
-                        ),
-                      ),
-                      // Content overlay
-                      Positioned(
-                        left: isWideScreen ? 80 : 24,
-                        right: isWideScreen ? 80 : 24,
-                        top: isWideScreen ? 120 : 80,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'Welcome to the Union Shop',
-                                style: TextStyle(
-                                  fontSize: titleFontSize,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  height: 1.2,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(height: 20),
-                            Text(
-                              "Official merch, gifts, and essentials for Portsmouth students.",
-                              style: TextStyle(
-                                fontSize: subtitleFontSize,
-                                color: Colors.white,
-                                height: 1.5,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            const SizedBox(height: 40),
-                            SizedBox(
-                              width: isWideScreen ? 300 : double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  context.go('/collections');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF6A1B9A),
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(vertical: 16),
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.zero,
-                                  ),
-                                ),
-                                child: Text(
-                                  'BROWSE PRODUCTS',
-                                  style: TextStyle(
-                                    fontSize: isWideScreen ? 16 : 14,
-                                    letterSpacing: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-
-            // Featured Categories - Responsive
-            Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 24,
-                horizontal: MediaQuery.of(context).size.width > 600 ? 60 : 16,
-              ),
-              child: LayoutBuilder(
+              // Hero Section - Responsive
+              LayoutBuilder(
                 builder: (context, constraints) {
                   final isWideScreen = constraints.maxWidth > 600;
-                  final iconSize = isWideScreen ? 40.0 : 32.0;
-                  final fontSize = isWideScreen ? 16.0 : 14.0;
-                  
-                  return Wrap(
-                    spacing: isWideScreen ? 40 : 20,
-                    runSpacing: 20,
-                    alignment: WrapAlignment.spaceEvenly,
-                    children: [
-                      GestureDetector(
-                        onTap: () => context.go('/collections'),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.school_outlined, size: iconSize, color: Colors.deepPurple),
-                            const SizedBox(height: 8),
-                            Text("Collections", style: TextStyle(fontSize: fontSize)),
-                          ],
+                  final heroHeight = isWideScreen ? 500.0 : 400.0;
+                  final titleFontSize = isWideScreen ? 36.0 : 28.0;
+                  final subtitleFontSize = isWideScreen ? 22.0 : 18.0;
+
+                  return SizedBox(
+                    height: heroHeight,
+                    width: double.infinity,
+                    child: Stack(
+                      children: [
+                        // Background image
+                        Positioned.fill(
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/oip.jpg'),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.7),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () => context.go('/sale'),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.local_offer_outlined, size: iconSize, color: Colors.deepPurple),
-                            const SizedBox(height: 8),
-                            Text("Sale Items", style: TextStyle(fontSize: fontSize)),
-                          ],
+                        // Content overlay
+                        Positioned(
+                          left: isWideScreen ? 80 : 24,
+                          right: isWideScreen ? 80 : 24,
+                          top: isWideScreen ? 120 : 80,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  'Welcome to the Union Shop',
+                                  style: TextStyle(
+                                    fontSize: titleFontSize,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    height: 1.2,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                "Official merch, gifts, and essentials for Portsmouth students.",
+                                style: TextStyle(
+                                  fontSize: subtitleFontSize,
+                                  color: Colors.white,
+                                  height: 1.5,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 40),
+                              SizedBox(
+                                width: isWideScreen ? 300 : double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    context.go('/collections');
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xFF6A1B9A),
+                                    foregroundColor: Colors.white,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16),
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.zero,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    'BROWSE PRODUCTS',
+                                    style: TextStyle(
+                                      fontSize: isWideScreen ? 16 : 14,
+                                      letterSpacing: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () => context.go('/cart'),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.shopping_cart_outlined, size: iconSize, color: Colors.deepPurple),
-                            const SizedBox(height: 8),
-                            Text("Cart", style: TextStyle(fontSize: fontSize)),
-                          ],
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 },
               ),
-            ),
 
-            // Products Section - Featured Best Sellers
-            Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-                      child: Text(
-                        'FEATURED PRODUCTS',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF4d2963),
+              // Featured Categories - Responsive
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: MediaQuery.of(context).size.width > 600 ? 60 : 16,
+                ),
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    final isWideScreen = constraints.maxWidth > 600;
+                    final iconSize = isWideScreen ? 40.0 : 32.0;
+                    final fontSize = isWideScreen ? 16.0 : 14.0;
+
+                    return Wrap(
+                      spacing: isWideScreen ? 40 : 20,
+                      runSpacing: 20,
+                      alignment: WrapAlignment.spaceEvenly,
+                      children: [
+                        GestureDetector(
+                          onTap: () => context.go('/collections'),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.school_outlined,
+                                  size: iconSize, color: Colors.deepPurple),
+                              const SizedBox(height: 8),
+                              Text("Collections",
+                                  style: TextStyle(fontSize: fontSize)),
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
-                    GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: MediaQuery.of(context).size.width > 600 ? 2 : 1,
-                        crossAxisSpacing: MediaQuery.of(context).size.width > 600 ? 16 : 12,
-                        mainAxisSpacing: MediaQuery.of(context).size.width > 600 ? 24 : 20,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemCount: getProductsByCollection('bestsellers').take(4).length,
-                      itemBuilder: (context, index) {
-                        final product = getProductsByCollection('bestsellers').elementAt(index);
-                        return ProductCard(product: product);
-                      },
-                    ),
-                  ],
+                        GestureDetector(
+                          onTap: () => context.go('/sale'),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.local_offer_outlined,
+                                  size: iconSize, color: Colors.deepPurple),
+                              const SizedBox(height: 8),
+                              Text("Sale Items",
+                                  style: TextStyle(fontSize: fontSize)),
+                            ],
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () => context.go('/cart'),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.shopping_cart_outlined,
+                                  size: iconSize, color: Colors.deepPurple),
+                              const SizedBox(height: 8),
+                              Text("Cart",
+                                  style: TextStyle(fontSize: fontSize)),
+                            ],
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
-            ),
 
-            // Footer: moved back into the scroll view
-            SizedBox(
-              height: 260, // adjust for your footer size
-              child: FooterWidget(focusSearchNotifier: focusSearchNotifier),
-            ),
+              // Products Section - Featured Best Sellers
+              Container(
+                color: Colors.white,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 8.0),
+                        child: Text(
+                          'FEATURED PRODUCTS',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF4d2963),
+                          ),
+                        ),
+                      ),
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount:
+                              MediaQuery.of(context).size.width > 600 ? 2 : 1,
+                          crossAxisSpacing:
+                              MediaQuery.of(context).size.width > 600 ? 16 : 12,
+                          mainAxisSpacing:
+                              MediaQuery.of(context).size.width > 600 ? 24 : 20,
+                          childAspectRatio: 0.75,
+                        ),
+                        itemCount: getProductsByCollection('bestsellers')
+                            .take(4)
+                            .length,
+                        itemBuilder: (context, index) {
+                          final product = getProductsByCollection('bestsellers')
+                              .elementAt(index);
+                          return ProductCard(product: product);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+              // Footer: moved back into the scroll view
+              SizedBox(
+                height: 260, // adjust for your footer size
+                child: FooterWidget(focusSearchNotifier: focusSearchNotifier),
+              ),
             ],
           ),
         ),
@@ -391,7 +405,7 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/product/${product.id}');
+        context.go('/product/${product.slug}');
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -407,7 +421,8 @@ class ProductCard extends StatelessWidget {
                     return Container(
                       color: Colors.grey[300],
                       child: const Center(
-                        child: Icon(Icons.image_not_supported, color: Colors.grey),
+                        child:
+                            Icon(Icons.image_not_supported, color: Colors.grey),
                       ),
                     );
                   },
@@ -418,7 +433,8 @@ class ProductCard extends StatelessWidget {
                     top: 8,
                     right: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(4),
@@ -439,7 +455,8 @@ class ProductCard extends StatelessWidget {
                     top: 8,
                     left: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         // ignore: deprecated_member_use
                         color: Colors.black.withOpacity(0.7),
@@ -549,7 +566,8 @@ class ProductCard extends StatelessWidget {
                   return Container(
                     color: Colors.grey[200],
                     child: const Center(
-                      child: Icon(Icons.image_not_supported, color: Colors.grey),
+                      child:
+                          Icon(Icons.image_not_supported, color: Colors.grey),
                     ),
                   );
                 },
