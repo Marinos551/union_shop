@@ -14,13 +14,14 @@ class SaleCollectionPage extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
         onTap: () {
-          context.go('/sale/product/${product.id}');
+          context.go('/sale/product/${product.slug}');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(8)),
               child: Stack(
                 children: [
                   SizedBox(
@@ -34,7 +35,8 @@ class SaleCollectionPage extends StatelessWidget {
                           color: Colors.grey[300],
                           height: 150,
                           alignment: Alignment.center,
-                          child: const Icon(Icons.image_not_supported, color: Colors.grey),
+                          child: const Icon(Icons.image_not_supported,
+                              color: Colors.grey),
                         );
                       },
                     ),
@@ -43,7 +45,8 @@ class SaleCollectionPage extends StatelessWidget {
                     top: 8,
                     left: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.red[700],
                         borderRadius: BorderRadius.circular(4),
@@ -99,7 +102,8 @@ class SaleCollectionPage extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(4),
@@ -131,77 +135,79 @@ class SaleCollectionPage extends StatelessWidget {
       children: [
         // Promotional header
         Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              color: Colors.red[50],
-              child: Column(
-                children: [
-                  const Text(
-                    'SALE',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    'Limited time offers on selected items',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.red[700],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            // Product count
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                '${saleProducts.length} sale ${saleProducts.length == 1 ? 'item' : 'items'}',
-                style: const TextStyle(
+          width: double.infinity,
+          padding: const EdgeInsets.all(16),
+          color: Colors.red[50],
+          child: Column(
+            children: [
+              const Text(
+                'SALE',
+                style: TextStyle(
+                  fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  color: Colors.red,
                 ),
               ),
+              const SizedBox(height: 8),
+              Text(
+                'Limited time offers on selected items',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.red[700],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        // Product count
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: Text(
+            '${saleProducts.length} sale ${saleProducts.length == 1 ? 'item' : 'items'}',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
             ),
-            // Products grid
-            saleProducts.isEmpty
-                ? Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      children: [
-                        Icon(Icons.shopping_bag_outlined, size: 64, color: Colors.grey[400]),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No sale items available',
-                          style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Check back soon for amazing deals!',
-                          style: TextStyle(color: Colors.grey[500]),
-                        ),
-                      ],
+          ),
+        ),
+        // Products grid
+        saleProducts.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    Icon(Icons.shopping_bag_outlined,
+                        size: 64, color: Colors.grey[400]),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No sale items available',
+                      style: TextStyle(fontSize: 18, color: Colors.grey[600]),
                     ),
-                  )
-                : GridView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    padding: const EdgeInsets.all(16),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                      childAspectRatio: 0.7,
+                    const SizedBox(height: 8),
+                    Text(
+                      'Check back soon for amazing deals!',
+                      style: TextStyle(color: Colors.grey[500]),
                     ),
-                    itemCount: saleProducts.length,
-                    itemBuilder: (context, index) {
-                      return _buildSaleProductCard(saleProducts[index], context);
-                    },
-                  ),
+                  ],
+                ),
+              )
+            : GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(16),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount:
+                      MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                  childAspectRatio: 0.7,
+                ),
+                itemCount: saleProducts.length,
+                itemBuilder: (context, index) {
+                  return _buildSaleProductCard(saleProducts[index], context);
+                },
+              ),
       ],
     );
   }
