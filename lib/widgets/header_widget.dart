@@ -7,7 +7,7 @@ import 'package:union_shop/models/product_model.dart';
 
 class HeaderWidget extends StatefulWidget {
   final ValueNotifier<bool>? focusSearchNotifier;
-  
+
   const HeaderWidget({super.key, this.focusSearchNotifier});
 
   @override
@@ -71,8 +71,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       _searchController.clear();
     });
     _searchFocusNode.unfocus();
-    
-    context.go('/product/${product.id}');
+
+    context.go('/product/${product.slug}');
   }
 
   // Navigation helper methods
@@ -113,11 +113,11 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     // Watch the cart service for changes
     final cartService = Provider.of<CartService>(context);
     final cartItemCount = cartService.getItemCount();
-    
+
     // Get screen width for responsive design
     final screenWidth = MediaQuery.of(context).size.width;
     final isMobile = screenWidth < 600;
-    
+
     // Check if we're on the home page for back button visibility
     final currentLocation = GoRouterState.of(context).uri.toString();
     final isHomePage = currentLocation == '/';
@@ -140,360 +140,413 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          // Main navigation bar
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Row(
-                children: [
-                  // Back button (only show if not on home page)
-                  if (!isHomePage)
-                    IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        size: 20,
-                        color: Colors.black87,
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      constraints: const BoxConstraints(
-                        minWidth: 32,
-                        minHeight: 32,
-                      ),
-                      onPressed: () {
-                        if (context.canPop()) {
-                          context.pop();
-                        } else {
-                          context.go('/');
-                        }
-                      },
-                      tooltip: 'Go back',
-                    ),
-                  // Logo on the left
-                  GestureDetector(
-                    onTap: () => navigateToHome(context),
-                    child: Image.network(
-                      'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
-                      height: 18,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          color: Colors.grey[300],
-                          width: 18,
-                          height: 18,
-                          child: const Center(
-                            child: Icon(
-                              Icons.image_not_supported,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  // Navigation links in the center (desktop only)
-                  if (!isMobile)
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          TextButton(
-                            onPressed: () => navigateToHome(context),
-                            child: const Text(
-                              'Home',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => navigateToCollections(context),
-                            child: const Text(
-                              'Collections',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => navigateToSale(context),
-                            child: const Text(
-                              'Sale',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => navigateToAbout(context),
-                            child: const Text(
-                              'About',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => navigateToPrintShack(context),
-                            child: const Text(
-                              'Print Shack',
-                              style: TextStyle(
-                                color: Colors.black87,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  // Spacer for mobile
-                  if (isMobile) const Spacer(),
-                  // Icon buttons on the right
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
+                ),
+              ),
+              // Main navigation bar
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
                     children: [
-                      // Search field with dropdown
-                      SizedBox(
-                        width: isMobile ? 40 : 250,
-                        child: !isMobile
-                            ? Autocomplete<Product>(
-                                optionsBuilder: (TextEditingValue textEditingValue) {
-                                  if (textEditingValue.text.isEmpty) {
-                                    return const Iterable<Product>.empty();
-                                  }
-                                  return allProducts.where((Product product) {
-                                    return product.name.toLowerCase().contains(textEditingValue.text.toLowerCase()) ||
-                                        product.description.toLowerCase().contains(textEditingValue.text.toLowerCase()) ||
-                                        product.category.toLowerCase().contains(textEditingValue.text.toLowerCase());
-                                  });
-                                },
-                                displayStringForOption: (Product product) => product.name,
-                                onSelected: (Product product) {
-                                  context.go('/product/${product.id}');
-                                },
-                                fieldViewBuilder: (context, controller, focusNode, onFieldSubmitted) {
-                                  _searchController.text = controller.text;
-                                  return TextField(
-                                    controller: controller,
-                                    focusNode: focusNode,
-                                    decoration: InputDecoration(
-                                      hintText: 'Search products...',
-                                      hintStyle: TextStyle(fontSize: 12, color: Colors.grey[400]),
-                                      prefixIcon: const Icon(Icons.search, size: 18, color: Colors.grey),
-                                      contentPadding: const EdgeInsets.symmetric(vertical: 8),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(color: Colors.grey[300]!),
-                                      ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide(color: Colors.grey[300]!),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                        borderSide: const BorderSide(color: Color(0xFF4d2963)),
-                                      ),
-                                    ),
-                                    style: const TextStyle(fontSize: 14),
-                                    onSubmitted: (value) => onFieldSubmitted(),
-                                  );
-                                },
-                                optionsViewBuilder: (context, onSelected, options) {
-                                  return Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Material(
-                                      elevation: 8,
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: Container(
-                                        width: 300,
-                                        constraints: const BoxConstraints(maxHeight: 300),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                          border: Border.all(color: Colors.grey[300]!),
-                                        ),
-                                        child: ListView.builder(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          itemCount: options.length,
-                                          itemBuilder: (context, index) {
-                                            final product = options.elementAt(index);
-                                            return ListTile(
-                                              leading: Container(
-                                                width: 40,
-                                                height: 40,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(4),
-                                                  color: Colors.grey[200],
-                                                ),
-                                                child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(4),
-                                                  child: Image.asset(
-                                                    product.imageUrl,
-                                                    fit: BoxFit.cover,
-                                                    errorBuilder: (context, error, stackTrace) {
-                                                      return const Icon(Icons.image_not_supported, color: Colors.grey);
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                              title: Text(
-                                                product.name,
-                                                style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              subtitle: Text(
-                                                '£${product.isOnSale ? product.salePrice!.toStringAsFixed(2) : product.price.toStringAsFixed(2)}',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: product.isOnSale ? Colors.red : Colors.grey[600],
-                                                ),
-                                              ),
-                                              onTap: () => onSelected(product),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              )
-                            : IconButton(
-                                icon: const Icon(Icons.search, size: 18, color: Colors.grey),
-                                padding: const EdgeInsets.all(8),
-                                constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => _buildMobileSearchDialog(),
-                                  );
-                                },
+                      // Back button (only show if not on home page)
+                      if (!isHomePage)
+                        IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            size: 20,
+                            color: Colors.black87,
+                          ),
+                          padding: const EdgeInsets.all(8),
+                          constraints: const BoxConstraints(
+                            minWidth: 32,
+                            minHeight: 32,
+                          ),
+                          onPressed: () {
+                            if (context.canPop()) {
+                              context.pop();
+                            } else {
+                              context.go('/');
+                            }
+                          },
+                          tooltip: 'Go back',
+                        ),
+                      // Logo on the left
+                      GestureDetector(
+                        onTap: () => navigateToHome(context),
+                        child: Image.network(
+                          'https://shop.upsu.net/cdn/shop/files/upsu_300x300.png?v=1614735854',
+                          height: 18,
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey[300],
+                              width: 18,
+                              height: 18,
+                              child: const Center(
+                                child: Icon(
+                                  Icons.image_not_supported,
+                                  color: Colors.grey,
+                                ),
                               ),
+                            );
+                          },
+                        ),
                       ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.person_outline,
-                          size: 18,
-                          color: Colors.grey,
+                      // Navigation links in the center (desktop only)
+                      if (!isMobile)
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              TextButton(
+                                onPressed: () => navigateToHome(context),
+                                child: const Text(
+                                  'Home',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => navigateToCollections(context),
+                                child: const Text(
+                                  'Collections',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => navigateToSale(context),
+                                child: const Text(
+                                  'Sale',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => navigateToAbout(context),
+                                child: const Text(
+                                  'About',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () => navigateToPrintShack(context),
+                                child: const Text(
+                                  'Print Shack',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        padding: const EdgeInsets.all(8),
-                        constraints: const BoxConstraints(
-                          minWidth: 32,
-                          minHeight: 32,
-                        ),
-                        onPressed: () => navigateToAuth(context),
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.history,
-                          size: 18,
-                          color: Colors.grey,
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        constraints: const BoxConstraints(
-                          minWidth: 32,
-                          minHeight: 32,
-                        ),
-                        tooltip: 'Purchase History',
-                        onPressed: () => navigateToPurchaseHistory(context),
-                      ),
-                      Stack(
+                      // Spacer for mobile
+                      if (isMobile) const Spacer(),
+                      // Icon buttons on the right
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          // Search field with dropdown
+                          SizedBox(
+                            width: isMobile ? 40 : 250,
+                            child: !isMobile
+                                ? Autocomplete<Product>(
+                                    optionsBuilder:
+                                        (TextEditingValue textEditingValue) {
+                                      if (textEditingValue.text.isEmpty) {
+                                        return const Iterable<Product>.empty();
+                                      }
+                                      return allProducts
+                                          .where((Product product) {
+                                        return product.name
+                                                .toLowerCase()
+                                                .contains(textEditingValue.text
+                                                    .toLowerCase()) ||
+                                            product.description
+                                                .toLowerCase()
+                                                .contains(textEditingValue.text
+                                                    .toLowerCase()) ||
+                                            product.category
+                                                .toLowerCase()
+                                                .contains(textEditingValue.text
+                                                    .toLowerCase());
+                                      });
+                                    },
+                                    displayStringForOption: (Product product) =>
+                                        product.name,
+                                    onSelected: (Product product) {
+                                      context.go('/product/${product.slug}');
+                                    },
+                                    fieldViewBuilder: (context, controller,
+                                        focusNode, onFieldSubmitted) {
+                                      _searchController.text = controller.text;
+                                      return TextField(
+                                        controller: controller,
+                                        focusNode: focusNode,
+                                        decoration: InputDecoration(
+                                          hintText: 'Search products...',
+                                          hintStyle: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey[400]),
+                                          prefixIcon: const Icon(Icons.search,
+                                              size: 18, color: Colors.grey),
+                                          contentPadding:
+                                              const EdgeInsets.symmetric(
+                                                  vertical: 8),
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey[300]!),
+                                          ),
+                                          enabledBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: BorderSide(
+                                                color: Colors.grey[300]!),
+                                          ),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            borderSide: const BorderSide(
+                                                color: Color(0xFF4d2963)),
+                                          ),
+                                        ),
+                                        style: const TextStyle(fontSize: 14),
+                                        onSubmitted: (value) =>
+                                            onFieldSubmitted(),
+                                      );
+                                    },
+                                    optionsViewBuilder:
+                                        (context, onSelected, options) {
+                                      return Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Material(
+                                          elevation: 8,
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Container(
+                                            width: 300,
+                                            constraints: const BoxConstraints(
+                                                maxHeight: 300),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              border: Border.all(
+                                                  color: Colors.grey[300]!),
+                                            ),
+                                            child: ListView.builder(
+                                              padding: EdgeInsets.zero,
+                                              shrinkWrap: true,
+                                              itemCount: options.length,
+                                              itemBuilder: (context, index) {
+                                                final product =
+                                                    options.elementAt(index);
+                                                return ListTile(
+                                                  leading: Container(
+                                                    width: 40,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      color: Colors.grey[200],
+                                                    ),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              4),
+                                                      child: Image.asset(
+                                                        product.imageUrl,
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder: (context,
+                                                            error, stackTrace) {
+                                                          return const Icon(
+                                                              Icons
+                                                                  .image_not_supported,
+                                                              color:
+                                                                  Colors.grey);
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  title: Text(
+                                                    product.name,
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  subtitle: Text(
+                                                    '£${product.isOnSale ? product.salePrice!.toStringAsFixed(2) : product.price.toStringAsFixed(2)}',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: product.isOnSale
+                                                          ? Colors.red
+                                                          : Colors.grey[600],
+                                                    ),
+                                                  ),
+                                                  onTap: () =>
+                                                      onSelected(product),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : IconButton(
+                                    icon: const Icon(Icons.search,
+                                        size: 24, color: Colors.grey),
+                                    padding: const EdgeInsets.all(8),
+                                    constraints: const BoxConstraints(
+                                        minWidth: 40, minHeight: 40),
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (context) =>
+                                            _buildMobileSearchDialog(),
+                                      );
+                                    },
+                                  ),
+                          ),
                           IconButton(
                             icon: const Icon(
-                              Icons.shopping_bag_outlined,
-                              size: 18,
+                              Icons.person_outline,
+                              size: 24,
                               color: Colors.grey,
                             ),
                             padding: const EdgeInsets.all(8),
                             constraints: const BoxConstraints(
-                              minWidth: 32,
-                              minHeight: 32,
+                              minWidth: 40,
+                              minHeight: 40,
                             ),
-                            onPressed: () {
-                              context.go('/cart');
-                            },
+                            onPressed: () => navigateToAuth(context),
                           ),
-                          if (cartItemCount > 0)
-                            Positioned(
-                              right: 8,
-                              top: 8,
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: const BoxDecoration(
-                                  color: Colors.red,
-                                  shape: BoxShape.circle,
+                          IconButton(
+                            icon: const Icon(
+                              Icons.history,
+                              size: 24,
+                              color: Colors.grey,
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            constraints: const BoxConstraints(
+                              minWidth: 40,
+                              minHeight: 40,
+                            ),
+                            tooltip: 'Purchase History',
+                            onPressed: () => navigateToPurchaseHistory(context),
+                          ),
+                          Stack(
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.shopping_bag_outlined,
+                                  size: 24,
+                                  color: Colors.grey,
                                 ),
+                                padding: const EdgeInsets.all(8),
                                 constraints: const BoxConstraints(
-                                  minWidth: 16,
-                                  minHeight: 16,
+                                  minWidth: 40,
+                                  minHeight: 40,
                                 ),
-                                child: Text(
-                                  '$cartItemCount',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
+                                onPressed: () {
+                                  context.go('/cart');
+                                },
                               ),
+                              if (cartItemCount > 0)
+                                Positioned(
+                                  right: 6,
+                                  top: 6,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(4),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.red,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 18,
+                                      minHeight: 18,
+                                    ),
+                                    child: Text(
+                                      '$cartItemCount',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          if (isMobile)
+                            IconButton(
+                              icon: const Icon(
+                                Icons.menu,
+                                size: 18,
+                                color: Colors.grey,
+                              ),
+                              padding: const EdgeInsets.all(8),
+                              constraints: const BoxConstraints(
+                                minWidth: 32,
+                                minHeight: 32,
+                              ),
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(20)),
+                                  ),
+                                  builder: (context) =>
+                                      _buildMobileMenu(context),
+                                );
+                              },
                             ),
                         ],
                       ),
-                      if (isMobile)
-                        IconButton(
-                        icon: const Icon(
-                          Icons.menu,
-                          size: 18,
-                          color: Colors.grey,
-                        ),
-                        padding: const EdgeInsets.all(8),
-                        constraints: const BoxConstraints(
-                          minWidth: 32,
-                          minHeight: 32,
-                        ),
-                        onPressed: () {
-                          showModalBottomSheet(
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-                            ),
-                            builder: (context) => _buildMobileMenu(context),
-                          );
-                        },
-                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
+            ],
           ),
-        ],
-      ),
-    ),
-    // Search results overlay
-    if (_showSearchResults && !isMobile) _buildSearchResults(),
+        ),
+        // Search results overlay
+        if (_showSearchResults && !isMobile) _buildSearchResults(),
       ],
     );
   }
 
   Widget _buildSearchResults() {
-    print('Building search results: show=$_showSearchResults, count=${_searchResults.length}'); // Debug
+    print(
+        'Building search results: show=$_showSearchResults, count=${_searchResults.length}'); // Debug
     if (!_showSearchResults) {
       return const SizedBox.shrink();
     }
@@ -540,14 +593,16 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             product.imageUrl,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.image_not_supported, color: Colors.grey);
+                              return const Icon(Icons.image_not_supported,
+                                  color: Colors.grey);
                             },
                           ),
                         ),
                       ),
                       title: Text(
                         product.name,
-                        style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                        style: const TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w500),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -555,7 +610,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         '£${product.isOnSale ? product.salePrice!.toStringAsFixed(2) : product.price.toStringAsFixed(2)}',
                         style: TextStyle(
                           fontSize: 12,
-                          color: product.isOnSale ? Colors.red : Colors.grey[600],
+                          color:
+                              product.isOnSale ? Colors.red : Colors.grey[600],
                         ),
                       ),
                       onTap: () => _navigateToProduct(product),
@@ -614,15 +670,21 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                             product.imageUrl,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
-                              return const Icon(Icons.image_not_supported, color: Colors.grey);
+                              return const Icon(Icons.image_not_supported,
+                                  color: Colors.grey);
                             },
                           ),
                         ),
                       ),
-                      title: Text(product.name, style: const TextStyle(fontSize: 14)),
+                      title: Text(product.name,
+                          style: const TextStyle(fontSize: 14)),
                       subtitle: Text(
                         '£${product.isOnSale ? product.salePrice!.toStringAsFixed(2) : product.price.toStringAsFixed(2)}',
-                        style: TextStyle(fontSize: 12, color: product.isOnSale ? Colors.red : Colors.grey[600]),
+                        style: TextStyle(
+                            fontSize: 12,
+                            color: product.isOnSale
+                                ? Colors.red
+                                : Colors.grey[600]),
                       ),
                       onTap: () {
                         Navigator.pop(context);
@@ -635,7 +697,8 @@ class _HeaderWidgetState extends State<HeaderWidget> {
             else if (_searchController.text.isNotEmpty)
               const Padding(
                 padding: EdgeInsets.all(16.0),
-                child: Text('No products found', style: TextStyle(color: Colors.grey)),
+                child: Text('No products found',
+                    style: TextStyle(color: Colors.grey)),
               ),
           ],
         ),
