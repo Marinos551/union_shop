@@ -319,7 +319,7 @@ void main() {
             builder: (context, state) => const CollectionProductsPage(),
             routes: [
               GoRoute(
-                path: 'product/:productId',
+                path: 'product/:productSlug',
                 builder: (context, state) {
                   navigatedToProduct = true;
                   return const Scaffold(body: Text('Product Page'));
