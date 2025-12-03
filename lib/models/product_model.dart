@@ -10,7 +10,8 @@ class Product {
   final bool isOnSale;
   final double? salePrice;
   final int discountPercentage; // e.g., 20 for 20% off
-  final String category; // 'Clothing', 'Accessories', 'Stationery', 'Electronics'
+  final String
+      category; // 'Clothing', 'Accessories', 'Stationery', 'Electronics'
   final bool inStock;
   final int stockQuantity;
 
@@ -39,4 +40,23 @@ class Product {
 
   // Helper method to check if product has multiple color options
   bool get hasMultipleColors => colors.isNotEmpty && colors.length > 1;
+
+  // Convert product name to URL-friendly slug
+  String get slug {
+    return name
+        .toLowerCase()
+        .replaceAll(RegExp(r'[^a-z0-9\s-]'), '') // Remove special characters
+        .replaceAll(RegExp(r'\s+'), '-') // Replace spaces with hyphens
+        .replaceAll(RegExp(r'-+'), '-') // Replace multiple hyphens with single
+        .trim();
+  }
+
+  // Static helper to find product by slug
+  static Product? findBySlug(List<Product> products, String slug) {
+    try {
+      return products.firstWhere((product) => product.slug == slug);
+    } catch (e) {
+      return null;
+    }
+  }
 }
