@@ -44,8 +44,8 @@ void main() {
           builder: (context, state) => const Scaffold(body: Text('Purchase History Page')),
         ),
         GoRoute(
-          path: '/product/:id',
-          builder: (context, state) => Scaffold(body: Text('Product ${state.pathParameters['id']}')),
+          path: '/product/:productSlug',
+          builder: (context, state) => Scaffold(body: Text('Product ${state.pathParameters['productSlug']}')),
         ),
       ],
     );
@@ -652,7 +652,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Should navigate to product page
-    expect(find.text('Product p1'), findsOneWidget);
+    expect(find.text('Product classic-hoodie'), findsOneWidget);
   });
 
   /* Skipping - mobile search results not appearing in test
@@ -744,7 +744,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Should navigate to first result
-    expect(find.text('Product p1'), findsOneWidget);
+    expect(find.text('Product classic-hoodie'), findsOneWidget);
   });
 
   testWidgets('HeaderWidget logo error builder displays fallback', (WidgetTester tester) async {
