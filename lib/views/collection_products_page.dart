@@ -32,7 +32,9 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
     if (_filterPrice == 'Under £20') {
       filtered = filtered.where((p) => p.displayPrice < 20).toList();
     } else if (_filterPrice == '£20 - £50') {
-      filtered = filtered.where((p) => p.displayPrice >= 20 && p.displayPrice <= 50).toList();
+      filtered = filtered
+          .where((p) => p.displayPrice >= 20 && p.displayPrice <= 50)
+          .toList();
     } else if (_filterPrice == 'Over £50') {
       filtered = filtered.where((p) => p.displayPrice > 50).toList();
     }
@@ -62,12 +64,10 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
     if (startIndex >= products.length) {
       return [];
     }
-    
+
     final endIndex = startIndex + _productsPerPage;
     return products.sublist(
-      startIndex, 
-      endIndex > products.length ? products.length : endIndex
-    );
+        startIndex, endIndex > products.length ? products.length : endIndex);
   }
 
   int _getTotalPages(int totalProducts) {
@@ -82,9 +82,9 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
 
   Widget _buildPaginationControls(int totalProducts) {
     final totalPages = _getTotalPages(totalProducts);
-    
+
     if (totalPages <= 1) return const SizedBox.shrink();
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Row(
@@ -92,9 +92,11 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
         children: [
           IconButton(
             icon: const Icon(Icons.chevron_left),
-            onPressed: _currentPage > 0 ? () {
-              setState(() => _currentPage--);
-            } : null,
+            onPressed: _currentPage > 0
+                ? () {
+                    setState(() => _currentPage--);
+                  }
+                : null,
             color: _currentPage > 0 ? const Color(0xFF4d2963) : Colors.grey,
           ),
           Text(
@@ -106,20 +108,25 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
           ),
           IconButton(
             icon: const Icon(Icons.chevron_right),
-            onPressed: _currentPage < totalPages - 1 ? () {
-              setState(() => _currentPage++);
-            } : null,
-            color: _currentPage < totalPages - 1 ? const Color(0xFF4d2963) : Colors.grey,
+            onPressed: _currentPage < totalPages - 1
+                ? () {
+                    setState(() => _currentPage++);
+                  }
+                : null,
+            color: _currentPage < totalPages - 1
+                ? const Color(0xFF4d2963)
+                : Colors.grey,
           ),
         ],
       ),
     );
   }
 
-  Widget _buildProductCard(Product product, BuildContext context, String collectionId) {
+  Widget _buildProductCard(
+      Product product, BuildContext context, String collectionId) {
     return InkWell(
       onTap: () {
-        context.go('/collection/$collectionId/product/${product.id}');
+        context.go('/collection/$collectionId/product/${product.slug}');
       },
       child: Card(
         elevation: 2,
@@ -133,7 +140,8 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
             Stack(
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(8)),
                   child: Image.asset(
                     product.imageUrl,
                     height: 150,
@@ -153,7 +161,8 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                     top: 8,
                     right: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.red,
                         borderRadius: BorderRadius.circular(4),
@@ -173,7 +182,8 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                     top: 8,
                     left: 8,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
                         color: Colors.grey[800],
                         borderRadius: BorderRadius.circular(4),
@@ -206,7 +216,8 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
                   ),
                   const SizedBox(height: 4),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(4),
@@ -260,192 +271,215 @@ class _CollectionProductsPageState extends State<CollectionProductsPage> {
   Widget build(BuildContext context) {
     // Get collection ID from GoRouter
     final routeState = GoRouterState.of(context);
-    final String collectionId = routeState.pathParameters['collectionId'] ?? 'clothing';
-    
+    final String collectionId =
+        routeState.pathParameters['collectionId'] ?? 'clothing';
+
     // Get collection and products
     final Collection collection = collections.firstWhere(
       (c) => c.id == collectionId,
       orElse: () => collections.first,
     );
-    final List<Product> collectionProducts = getProductsByCollection(collection.id);
-    final List<Product> displayedProducts = _getSortedAndFilteredProducts(collectionProducts);
+    final List<Product> collectionProducts =
+        getProductsByCollection(collection.id);
+    final List<Product> displayedProducts =
+        _getSortedAndFilteredProducts(collectionProducts);
 
     return CommonPageScaffold(
       padding: EdgeInsets.zero,
       children: [
         // Collection Header
         Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(24),
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    collection.name,
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    collection.description,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-            ),
-            // Sort/Filter Controls
-            Container(
-              padding: const EdgeInsets.all(16),
-              child: Wrap(
-                spacing: 16,
-                runSpacing: 8,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text('Sort:'),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                        value: _sortBy,
-                        items: const [
-                          DropdownMenuItem(value: 'Popular', child: Text('Popular')),
-                          DropdownMenuItem(value: 'Newest', child: Text('Newest')),
-                          DropdownMenuItem(value: 'Price: Low to High', child: Text('Price: Low to High')),
-                          DropdownMenuItem(value: 'Price: High to Low', child: Text('Price: High to Low')),
-                          DropdownMenuItem(value: 'Name: A-Z', child: Text('Name: A-Z')),
-                        ],
-                        onChanged: (value) {
-                          if (value != null) {
-                            setState(() {
-                              _sortBy = value;
-                              _currentPage = 0;
-                            });
-                            // Remove the demo snackbar - functionality is now real
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text('Category:'),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                        value: _filterCategory,
-                        items: const [
-                          DropdownMenuItem(value: 'All Categories', child: Text('All Categories')),
-                          DropdownMenuItem(value: 'Clothing', child: Text('Clothing')),
-                          DropdownMenuItem(value: 'Accessories', child: Text('Accessories')),
-                          DropdownMenuItem(value: 'Stationery', child: Text('Stationery')),
-                          DropdownMenuItem(value: 'Electronics', child: Text('Electronics')),
-                          DropdownMenuItem(value: 'Backpacks', child: Text('Backpacks')),
-                        ],
-                        onChanged: (value) {
-                          if (value != null) {
-                            setState(() {
-                              _filterCategory = value;
-                              _currentPage = 0;
-                            });
-                            // Remove the demo snackbar - functionality is now real
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text('Price:'),
-                      const SizedBox(width: 8),
-                      DropdownButton<String>(
-                        value: _filterPrice,
-                        items: const [
-                          DropdownMenuItem(value: 'All Prices', child: Text('All Prices')),
-                          DropdownMenuItem(value: 'Under £20', child: Text('Under £20')),
-                          DropdownMenuItem(value: '£20 - £50', child: Text('£20 - £50')),
-                          DropdownMenuItem(value: 'Over £50', child: Text('Over £50')),
-                        ],
-                        onChanged: (value) {
-                          if (value != null) {
-                            setState(() {
-                              _filterPrice = value;
-                              _currentPage = 0;
-                            });
-                            // Remove the demo snackbar - functionality is now real
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            // Product Count
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '${displayedProducts.length} ${displayedProducts.length == 1 ? 'product' : 'products'}',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          width: double.infinity,
+          padding: const EdgeInsets.all(24),
+          decoration: BoxDecoration(
+            color: Colors.grey[50],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                collection.name,
+                style: const TextStyle(
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-            // Products Grid with Pagination
-            displayedProducts.isEmpty
-                ? Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      children: [
-                        Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
-                        const SizedBox(height: 16),
-                        Text(
-                          'No products found',
-                          style: TextStyle(fontSize: 18, color: Colors.grey[600]),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Try adjusting your filters',
-                          style: TextStyle(color: Colors.grey[500]),
-                        ),
-                      ],
-                    ),
-                  )
-                : Column(
-                    children: [
-                      // ADD PAGINATION CONTROLS AT TOP
-                      _buildPaginationControls(displayedProducts.length),
-                      // PRODUCTS GRID
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.all(16),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 0.7,
-                        ),
-                        itemCount: _getPaginatedProducts(displayedProducts).length,
-                        itemBuilder: (context, index) {
-                          final paginatedProducts = _getPaginatedProducts(displayedProducts);
-                          return _buildProductCard(paginatedProducts[index], context, collectionId);
-                        },
-                      ),
-                      // ADD PAGINATION CONTROLS AT BOTTOM
-                      _buildPaginationControls(displayedProducts.length),
+              const SizedBox(height: 8),
+              Text(
+                collection.description,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+        // Sort/Filter Controls
+        Container(
+          padding: const EdgeInsets.all(16),
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Sort:'),
+                  const SizedBox(width: 8),
+                  DropdownButton<String>(
+                    value: _sortBy,
+                    items: const [
+                      DropdownMenuItem(
+                          value: 'Popular', child: Text('Popular')),
+                      DropdownMenuItem(value: 'Newest', child: Text('Newest')),
+                      DropdownMenuItem(
+                          value: 'Price: Low to High',
+                          child: Text('Price: Low to High')),
+                      DropdownMenuItem(
+                          value: 'Price: High to Low',
+                          child: Text('Price: High to Low')),
+                      DropdownMenuItem(
+                          value: 'Name: A-Z', child: Text('Name: A-Z')),
                     ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _sortBy = value;
+                          _currentPage = 0;
+                        });
+                        // Remove the demo snackbar - functionality is now real
+                      }
+                    },
                   ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Category:'),
+                  const SizedBox(width: 8),
+                  DropdownButton<String>(
+                    value: _filterCategory,
+                    items: const [
+                      DropdownMenuItem(
+                          value: 'All Categories',
+                          child: Text('All Categories')),
+                      DropdownMenuItem(
+                          value: 'Clothing', child: Text('Clothing')),
+                      DropdownMenuItem(
+                          value: 'Accessories', child: Text('Accessories')),
+                      DropdownMenuItem(
+                          value: 'Stationery', child: Text('Stationery')),
+                      DropdownMenuItem(
+                          value: 'Electronics', child: Text('Electronics')),
+                      DropdownMenuItem(
+                          value: 'Backpacks', child: Text('Backpacks')),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _filterCategory = value;
+                          _currentPage = 0;
+                        });
+                        // Remove the demo snackbar - functionality is now real
+                      }
+                    },
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('Price:'),
+                  const SizedBox(width: 8),
+                  DropdownButton<String>(
+                    value: _filterPrice,
+                    items: const [
+                      DropdownMenuItem(
+                          value: 'All Prices', child: Text('All Prices')),
+                      DropdownMenuItem(
+                          value: 'Under £20', child: Text('Under £20')),
+                      DropdownMenuItem(
+                          value: '£20 - £50', child: Text('£20 - £50')),
+                      DropdownMenuItem(
+                          value: 'Over £50', child: Text('Over £50')),
+                    ],
+                    onChanged: (value) {
+                      if (value != null) {
+                        setState(() {
+                          _filterPrice = value;
+                          _currentPage = 0;
+                        });
+                        // Remove the demo snackbar - functionality is now real
+                      }
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        // Product Count
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              '${displayedProducts.length} ${displayedProducts.length == 1 ? 'product' : 'products'}',
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+            ),
+          ),
+        ),
+        // Products Grid with Pagination
+        displayedProducts.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.all(32),
+                child: Column(
+                  children: [
+                    Icon(Icons.search_off, size: 64, color: Colors.grey[400]),
+                    const SizedBox(height: 16),
+                    Text(
+                      'No products found',
+                      style: TextStyle(fontSize: 18, color: Colors.grey[600]),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Try adjusting your filters',
+                      style: TextStyle(color: Colors.grey[500]),
+                    ),
+                  ],
+                ),
+              )
+            : Column(
+                children: [
+                  // ADD PAGINATION CONTROLS AT TOP
+                  _buildPaginationControls(displayedProducts.length),
+                  // PRODUCTS GRID
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(16),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount:
+                          MediaQuery.of(context).size.width > 600 ? 3 : 2,
+                      crossAxisSpacing: 16,
+                      mainAxisSpacing: 16,
+                      childAspectRatio: 0.7,
+                    ),
+                    itemCount: _getPaginatedProducts(displayedProducts).length,
+                    itemBuilder: (context, index) {
+                      final paginatedProducts =
+                          _getPaginatedProducts(displayedProducts);
+                      return _buildProductCard(
+                          paginatedProducts[index], context, collectionId);
+                    },
+                  ),
+                  // ADD PAGINATION CONTROLS AT BOTTOM
+                  _buildPaginationControls(displayedProducts.length),
+                ],
+              ),
       ],
     );
   }
