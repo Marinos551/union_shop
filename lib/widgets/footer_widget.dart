@@ -154,6 +154,33 @@ class FooterWidget extends StatelessWidget {
                   fontSize: 12,
                 ),
               ),
+              const SizedBox(height: 8),
+              // GitHub link
+              GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Visit: github.com/Marinos551/union_shop'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.code, color: Colors.grey[600], size: 16),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Made with ❤️ by Marinos',
+                      style: TextStyle(
+                        color: Colors.grey[600],
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
