@@ -21,15 +21,13 @@ class _ProductPageState extends State<ProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Get product ID from GoRouter
+    // Get product slug from GoRouter
     final routeState = GoRouterState.of(context);
-    final String productId = routeState.pathParameters['productId'] ?? 'p1';
-    
-    // Find the product
-    final Product product = allProducts.firstWhere(
-      (p) => p.id == productId,
-      orElse: () => allProducts.first,
-    );
+    final String productSlug = routeState.pathParameters['productSlug'] ?? '';
+
+    // Find the product by slug
+    final Product? foundProduct = Product.findBySlug(allProducts, productSlug);
+    final Product product = foundProduct ?? allProducts.first;
 
     // Set default selections
     _selectedSize ??= product.sizes.isNotEmpty ? product.sizes.first : null;
@@ -40,43 +38,43 @@ class _ProductPageState extends State<ProductPage> {
       children: [
         // Product details - Responsive layout
         Container(
-              color: Colors.white,
-              padding: const EdgeInsets.all(24),
-              child: LayoutBuilder(
-                builder: (context, constraints) {
-                  final isWideScreen = constraints.maxWidth > 800;
-                  
-                  if (isWideScreen) {
-                    // Desktop: Side-by-side layout
-                    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // Product Image
-                        Expanded(
-                          flex: 1,
-                          child: _buildProductImage(product),
-                        ),
-                        const SizedBox(width: 32),
-                        // Product Details
-                        Expanded(
-                          flex: 1,
-                          child: _buildProductDetails(product),
-                        ),
-                      ],
-                    );
-                  } else {
-                    // Mobile: Stacked layout
-                    return Column(
-                      children: [
-                        _buildProductImage(product),
-                        const SizedBox(height: 24),
-                        _buildProductDetails(product),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ),
+          color: Colors.white,
+          padding: const EdgeInsets.all(24),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isWideScreen = constraints.maxWidth > 800;
+
+              if (isWideScreen) {
+                // Desktop: Side-by-side layout
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Product Image
+                    Expanded(
+                      flex: 1,
+                      child: _buildProductImage(product),
+                    ),
+                    const SizedBox(width: 32),
+                    // Product Details
+                    Expanded(
+                      flex: 1,
+                      child: _buildProductDetails(product),
+                    ),
+                  ],
+                );
+              } else {
+                // Mobile: Stacked layout
+                return Column(
+                  children: [
+                    _buildProductImage(product),
+                    const SizedBox(height: 24),
+                    _buildProductDetails(product),
+                  ],
+                );
+              }
+            },
+          ),
+        ),
       ],
     );
   }
@@ -126,7 +124,8 @@ class _ProductPageState extends State<ProductPage> {
               top: 16,
               right: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.red,
                   borderRadius: BorderRadius.circular(4),
@@ -146,7 +145,8 @@ class _ProductPageState extends State<ProductPage> {
               top: 16,
               left: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
                   color: Colors.grey[800],
                   borderRadius: BorderRadius.circular(4),
@@ -246,7 +246,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             const SizedBox(width: 4),
             Text(
-              product.inStock 
+              product.inStock
                   ? 'In Stock (${product.stockQuantity} available)'
                   : 'Out of Stock',
               style: TextStyle(
@@ -397,7 +397,8 @@ class _ProductPageState extends State<ProductPage> {
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        content: Text('Maximum available: ${product.stockQuantity}'),
+                        content:
+                            Text('Maximum available: ${product.stockQuantity}'),
                         duration: const Duration(seconds: 2),
                         backgroundColor: Colors.orange,
                       ),
@@ -456,14 +457,16 @@ class _ProductPageState extends State<ProductPage> {
       height: 50,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: product.inStock ? const Color(0xFF4d2963) : Colors.grey,
+          backgroundColor:
+              product.inStock ? const Color(0xFF4d2963) : Colors.grey,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
         ),
         onPressed: product.inStock
             ? () {
-                final cartService = Provider.of<CartService>(context, listen: false);
+                final cartService =
+                    Provider.of<CartService>(context, listen: false);
                 final cartItem = CartItem(
                   productId: product.id,
                   productName: product.name,
@@ -473,15 +476,18 @@ class _ProductPageState extends State<ProductPage> {
                   selectedSize: _selectedSize,
                   selectedColor: _selectedColor,
                 );
-                
+
                 cartService.addToCart(cartItem);
-                
+
                 // Show snackbar with option to view cart
-                String selectionInfo = '✓ Added to Cart: ${product.name} (Qty: $_quantity';
-                if (_selectedSize != null) selectionInfo += ', Size: $_selectedSize';
-                if (_selectedColor != null) selectionInfo += ', Color: $_selectedColor';
+                String selectionInfo =
+                    '✓ Added to Cart: ${product.name} (Qty: $_quantity';
+                if (_selectedSize != null)
+                  selectionInfo += ', Size: $_selectedSize';
+                if (_selectedColor != null)
+                  selectionInfo += ', Color: $_selectedColor';
                 selectionInfo += ')';
-                
+
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(selectionInfo),
