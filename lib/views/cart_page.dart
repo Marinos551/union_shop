@@ -247,11 +247,11 @@ class CartPage extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 8),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text('Shipping:'),
-                            const Text('Free'),
+                            Text('Shipping:'),
+                            Text('Free'),
                           ],
                         ),
                         const Divider(height: 24),

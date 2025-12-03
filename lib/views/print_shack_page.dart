@@ -461,6 +461,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
     );
   }
 
+  // ignore: unused_element
   Widget _buildDynamicOptions() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -547,6 +548,7 @@ class _PrintShackPageState extends State<PrintShackPage> {
               backgroundColor: const Color(0xFF4d2963),
             ),
             onPressed: _customText.isEmpty ? null : () {
+              // ignore: unused_local_variable
               final customization = PrintShackCustomization(
                 productId: _selectedProductId,
                 customText: _customText,

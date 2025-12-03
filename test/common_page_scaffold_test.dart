@@ -18,7 +18,9 @@ void main() {
       routes: [
         GoRoute(
           path: '/',
+          // ignore: prefer_const_constructors
           builder: (context, state) => CommonPageScaffold(
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Text('Test Content'),
             ],
@@ -53,7 +55,9 @@ void main() {
       routes: [
         GoRoute(
           path: '/',
+          // ignore: prefer_const_constructors
           builder: (context, state) => CommonPageScaffold(
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Text('Page Content'),
             ],
@@ -89,8 +93,10 @@ void main() {
       routes: [
         GoRoute(
           path: '/',
+          // ignore: prefer_const_constructors
           builder: (context, state) => CommonPageScaffold(
             padding: const EdgeInsets.all(24),
+            // ignore: prefer_const_literals_to_create_immutables
             children: [
               const Text('Custom Padding'),
             ],

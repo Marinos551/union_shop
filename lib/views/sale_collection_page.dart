@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/views/common_page_scaffold.dart';
+// ignore: unused_import
 import 'package:union_shop/views/product_page.dart';
 import 'package:union_shop/models/product_model.dart';
 import 'package:union_shop/data/collections_data.dart';

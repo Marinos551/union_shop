@@ -13,6 +13,7 @@ class CollectionsPage extends StatefulWidget {
 
 class _CollectionsPageState extends State<CollectionsPage> {
   String _sortBy = 'Popular';
+  // ignore: unused_field, prefer_final_fields
   String _filterCategory = 'All Categories';
   String _filterItemCount = 'All';
   int _currentPage = 0;

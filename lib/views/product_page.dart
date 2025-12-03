@@ -482,10 +482,12 @@ class _ProductPageState extends State<ProductPage> {
                 // Show snackbar with option to view cart
                 String selectionInfo =
                     '✓ Added to Cart: ${product.name} (Qty: $_quantity';
-                if (_selectedSize != null)
+                if (_selectedSize != null) {
                   selectionInfo += ', Size: $_selectedSize';
-                if (_selectedColor != null)
+                }
+                if (_selectedColor != null) {
                   selectionInfo += ', Color: $_selectedColor';
+                }
                 selectionInfo += ')';
 
                 ScaffoldMessenger.of(context).showSnackBar(

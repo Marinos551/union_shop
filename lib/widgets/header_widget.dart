@@ -43,6 +43,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   }
 
   void _performSearch(String query) {
+    // ignore: avoid_print
     print('Search query: $query'); // Debug
     if (query.isEmpty) {
       setState(() {
@@ -60,7 +61,9 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               product.category.toLowerCase().contains(query.toLowerCase()))
           .toList(); // Show ALL matching products, not just 5
       _showSearchResults = true; // Always show dropdown when typing
+      // ignore: avoid_print
       print('Found ${_searchResults.length} products'); // Debug
+      // ignore: avoid_print
       print('Show dropdown: $_showSearchResults'); // Debug
     });
   }
@@ -545,6 +548,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   }
 
   Widget _buildSearchResults() {
+    // ignore: avoid_print
     print(
         'Building search results: show=$_showSearchResults, count=${_searchResults.length}'); // Debug
     if (!_showSearchResults) {

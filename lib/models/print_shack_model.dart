@@ -37,6 +37,7 @@ class PrintShackCustomization {
 }
 
 final List<PrintShackProduct> printShackProducts = [
+  // ignore: prefer_const_constructors
   PrintShackProduct(
     id: 'tshirt',
     name: 'T-Shirt',
@@ -45,6 +46,7 @@ final List<PrintShackProduct> printShackProducts = [
     availableColors: ['Black', 'White', 'Red', 'Blue', 'Green'],
     maxTextLength: 30,
   ),
+  // ignore: prefer_const_constructors
   PrintShackProduct(
     id: 'hoodie',
     name: 'Hoodie',
@@ -53,6 +55,7 @@ final List<PrintShackProduct> printShackProducts = [
     availableColors: ['Black', 'Navy', 'Red', 'Grey'],
     maxTextLength: 25,
   ),
+  // ignore: prefer_const_constructors
   PrintShackProduct(
     id: 'mug',
     name: 'Mug',

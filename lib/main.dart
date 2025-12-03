@@ -203,6 +203,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             child: Container(
                               decoration: BoxDecoration(
+                                // ignore: deprecated_member_use
                                 color: Colors.black.withOpacity(0.7),
                               ),
                             ),
@@ -534,6 +535,7 @@ class ProductCard extends StatelessWidget {
     );
   }
 
+  // ignore: unused_element
   Widget _buildProductCard(BuildContext context, Product product) {
     return GestureDetector(
       onTap: () {

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:union_shop/models/cart_service.dart';
 import 'package:union_shop/views/product_page.dart';
+// ignore: unused_import
 import 'package:union_shop/data/collections_data.dart';
 
 void main() {
