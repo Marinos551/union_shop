@@ -384,7 +384,7 @@ This project is part of academic coursework for the University of Portsmouth.
 
 ---
 
-**Last Updated:** December 3, 2025
+**Last Updated:** December 4, 2025
 
 **Version:** 1.0.0
 
@@ -412,7 +412,7 @@ Go to the repository containing the code for the coursework and click on the for
 
 ![Fork Button](https://raw.githubusercontent.com/manighahrmani/sandwich_shop/refs/heads/main/images/screenshot_fork_button.png)
 
-Do not change anything and click on the Create fork button. You should then have a public fork of my repository with a URL like (YOUR-USERNAME replaced with your username): [github.com/YOUR-USERNAME/union_shop](https://github.com/YOUR-USERNAME/union_shop)
+Do not change anything and click on the Create fork button. You should then have a public fork of my repository with a URL like : [github.com/Marinos551/union_shop](https://github.com/Marinos551/union_shop)
 
 ![Fork Settings](https://raw.githubusercontent.com/manighahrmani/sandwich_shop/refs/heads/main/images/screenshot_fork_settings.png)
 
@@ -425,11 +425,11 @@ If you are using Firebase Studio, head to [idx.google.com](https://idx.google.co
 Otherwise, open a terminal, change to your desired directory, and run the following commands:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/union_shop.git
+git clone https://github.com/Marinos551/union_shop.git
 cd union_shop
 ```
 
-Replace `YOUR-USERNAME` with your actual GitHub username.
+
 
 ### Install Dependencies
 
