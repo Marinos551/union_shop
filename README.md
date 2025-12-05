@@ -52,17 +52,25 @@ A fully functional e-commerce Flutter application built for the University of Po
 
 ## 📸 Screenshots
 
-### Home Page
-![Home Page](./assets/screenshots/home.png)
-
 ### Product Page
-![Product Page](./assets/screenshots/product.png)
+![Product Page](./assets/images/product.png)
+![Product Page](./assets/images/Notebook.png)
+![Product Page](./assets/images/Water.png)
+
+# Authentication 
+![Product Page](./assets/images/auth.png)
+
+# History
+![Product Page](./assets/images/history.png)
+
+# Searching
+![Product Page](./assets/images/search.png)
 
 ### Shopping Cart
-![Shopping Cart](./assets/screenshots/cart.png)
+![Product Page](./assets/images/cart.png)
 
 ### Print Shack
-![Print Shack](./assets/screenshots/print-shack.png)
+![Product Page](./assets/images/printshack.png)
 
 *Note: Screenshots to be added*
 
