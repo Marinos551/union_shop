@@ -72,7 +72,7 @@ A fully functional e-commerce Flutter application built for the University of Po
 ### Print Shack
 ![Product Page](./assets/images/printshack.png)
 
-*Note: Screenshots to be added*
+
 
 ---
 
@@ -392,7 +392,7 @@ This project is part of academic coursework for the University of Portsmouth.
 
 ---
 
-**Last Updated:** December 5, 2025 (2:01 AM)
+
 
 **Version:** 1.0.0
 
