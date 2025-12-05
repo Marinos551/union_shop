@@ -55,7 +55,7 @@ A fully functional e-commerce Flutter application built for the University of Po
 ### Product Page
 ![Product Page](./assets/images/product.png)
 ![Product Page](./assets/images/Notebook.png)
-![Product Page](./assets/images/Water.png)
+
 
 # Authentication 
 ![Product Page](./assets/images/auth.png)
